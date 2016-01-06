@@ -12,10 +12,13 @@ Author: Mr Bill
     @include("header")
 </div>
 <div class="banner">
-    @include("widget.banner")
+    @yield("banner")
+
 </div>
 <div class="content">
+    <div class="container">
    @yield("content")
+        </div>
 </div>
 <div class="footer">
     @include("footer")

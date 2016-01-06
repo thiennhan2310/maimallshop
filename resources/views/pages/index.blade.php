@@ -1,9 +1,9 @@
 @extends("index")
 @section("title","Trang Chủ")
+@section("banner")
+    @include("widget.banner")
+    @endsection
 @section("content")
-
-
-    <div class="container">
         <div class="content-top">
             <div class="title_corner"><h3 class="words2">GIẢM GIÁ</h3></div>
             <div class="product1">
@@ -229,7 +229,7 @@
 
         <!----->
 
-    </div>
+
 
 
 

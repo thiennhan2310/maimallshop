@@ -11,8 +11,8 @@
 |
 */
 Route::get("/","PageController@index");
-Route::get("/trang-chu","PageController@index");
-
+Route::get("trang-chu","PageController@index");
+Route::get("san-pham/{cate}/","PageController@listProducts");
 
 
 Route::controllers([

@@ -20,7 +20,7 @@ class Cate extends Model
         return $this->belongsToMany('App\Discount', 'discounts', 'discount_id');
     }
 
-    /*tim loai con 2 cap*/
+    /*tim mang loai con 2 cap*/
     public static function getSecChildId($id)
     {
         $fisrtChild = Cate::select(["id"])->where("parent_id", $id)->get()->toArray();
@@ -36,13 +36,42 @@ class Cate extends Model
         return $secChild;
 
     }
-    /*tim loai con 1 cap*/
-    public static function getFirstChildId($id){
+
+    /*tim mang loai con 1 cap*/
+    public static function getFirstChildId($id)
+    {
         $fisrtChild = Cate::select(["id"])->where("parent_id", $id)->get()->toArray();
-        $temp=[];
-        foreach($fisrtChild as $item){
-            $temp[]=$item["id"];
+        $temp = [];
+        foreach ($fisrtChild as $item) {
+            $temp[] = $item["id"];
         }
         return $fisrtChild;
+    }
+
+    public static function getIdByAlias($alias)
+    {
+        $id=Cate::select(["id"])->where("alias","=",$alias)->first();
+        return $id->id;
+    }
+
+    public static function getParentId($id,$chuoi="")
+    {
+        if($id==1||$id==2||$id==3){
+            return $chuoi;
+        }
+        else{
+           $parent_id= Cate::select(["parent_id"])->where("id",$id)->first();
+           $chuoi.=$parent_id->parent_id."-" ;
+            $chuoi=Cate::getParentId($parent_id->parent_id,$chuoi);
+        }
+        $chuoi=trim($chuoi,"-");
+        return $chuoi; //10-4-1
+    }
+
+    public static function getNameById($id)
+    {
+        $array_id=explode("-",$id);
+        $array_name=Cate::select(["name"])->whereIn("id",$array_id)->get()->toArray();
+        return $array_name;
     }
 }
