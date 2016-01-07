@@ -1285,6 +1285,7 @@ p.price{
     margin-left: 600px;
     margin-top: 20px;
     padding-bottom: 320px;
+    height: 345px;
 
 }
 /*--//product--*/
@@ -2004,10 +2005,12 @@ del{
 p.path
 {
     padding: 23px 16px;
+
 }
 p.path a
 {
 color: black;
+
 }
 a.cpns{
 	background:#105726 ;

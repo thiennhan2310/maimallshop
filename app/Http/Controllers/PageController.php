@@ -13,7 +13,7 @@ use App\Products;
 
 class PageController extends Controller
 {
-    public function index()
+    public function index() //trang chu
     {
         $limit = 10;
         $giam_gia = Products::getSaleProducts($limit);
@@ -25,7 +25,7 @@ class PageController extends Controller
         return view("pages.index", compact("giam_gia", "sp_moi", "sp_banchay", "child", "my_pham", "thoi_trang", "suc_khoe"));
     }
 
-    public function listProducts($cate)
+    public function listProducts($cate) //trang danh sach san pham
     {
         /* Co alias->tim id->tim chuoi parentId->tim ten loai hien tai->tim ten loai cha     */
         $limit = 25;
@@ -36,6 +36,19 @@ class PageController extends Controller
         $arrayCurrentCateName = Cate::getNameById($cateId);
         $arrayParentName = Cate::getNameById($parentId);// duong dan
         return view("pages.list_products", compact("products", "arrayParentName", "arrayCurrentCateName"));
+    }
+
+    public function detailProduct($alias) //trang chi tiet
+    {  /*tim san pham*/
+        $product=Products::getProductByAlias($alias); //tim san pham
+        /*lay thong tin loai san pham*/
+        $cateId = Cate::getIdByAlias($product->cate_alias);//$cate=alias
+        $parentId = Cate::getParentId($cateId);
+        $arrayCurrentCateName = Cate::getNameById($cateId);
+        $arrayParentName = Cate::getNameById($parentId);// duong dan
+        /*San pham cung loai*/
+        $productSameCate=Products::getProductsSameCate($cateId,$product->id);
+        return view("pages.detail_products",compact("product","arrayParentName", "arrayCurrentCateName","productSameCate"));
     }
 
 

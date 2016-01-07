@@ -1,18 +1,20 @@
-@extends("index")
-@section("title","Trang Chủ")
+@extends("layout")
+@section('title')
+    {{ $arrayCurrentCateName[0]["name"] }}
+@endsection
 @section("content")
     <p class="path">
         @foreach($arrayParentName as $name)
         <a href="{{url("/san-pham")}}/{{str_slug($name["name"],"-")}}">{{$name["name"]}}</a>&nbsp;&gt;
             @endforeach
-        <a href="#">{{ $arrayCurrentCateName[0]["name"]}}</a>
+       {{ $arrayCurrentCateName[0]["name"] }}
     </p>
         <div class=" product1">
             <div class=" bottom-product">
                 @for ($i=0;$i<count($products);$i++)
                     <div class="bottom-cd simpleCart_shelfItem">
                         <div class="product-at">
-                            <a href="http://localhost/Shopping/chi-tiet/{{$products[$i]->cate_alias}}/{{$products[$i]->alias}}">
+                            <a href="{{url("/")}}/chi-tiet/{{$products[$i]->alias}}">
                                 <img class="pro-img" src="{{url("/public/products")}}/{{$products[$i]->img1}}"
                                      alt="{{$products[$i]->name}}">
                                 <!--  <div class="pro-grid">

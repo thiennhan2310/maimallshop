@@ -1,4 +1,4 @@
-@extends("index")
+@extends("layout")
 @section("title","Trang Chủ")
 @section("banner")
     @include("widget.banner")
@@ -11,7 +11,7 @@
                     @for ($i=0;$i<count($giam_gia);$i++)
                         <div class="bottom-cd simpleCart_shelfItem">
                             <div class="product-at">
-                                <a href="http://localhost/Shopping/chi-tiet/{{$giam_gia[$i]->cate_alias}}/{{$giam_gia[$i]->alias}}">
+                                <a href="{{url("/chi-tiet/")}}/{{$giam_gia[$i]->alias}}">
                                     <img class="pro-img" src="{{url("/public/products")}}/{{$giam_gia[$i]->img1}}"
                                          alt="{{$giam_gia[$i]->name}}">
                                     <!--  <div class="pro-grid">
@@ -46,7 +46,7 @@
                     @for ($i=0;$i<count($sp_moi);$i++)
                         <div class="bottom-cd simpleCart_shelfItem">
                             <div class="product-at">
-                                <a href="http://localhost/Shopping/chi-tiet/{{$sp_moi[$i]->cate_alias}}/{{$sp_moi[$i]->alias}}">
+                                <a href="{{url("/chi-tiet/")}}/{{$sp_moi[$i]->alias}}">
                                     <img class="pro-img" src="{{url("/public/products")}}/{{$sp_moi[$i]->img1}}"
                                          alt="{{$sp_moi[$i]->name}}">
                                     <!--  <div class="pro-grid">
@@ -83,7 +83,7 @@
                     @for ($i=0;$i<count($sp_banchay);$i++)
                         <div class="bottom-cd simpleCart_shelfItem">
                             <div class="product-at">
-                                <a href="http://localhost/Shopping/chi-tiet/{{$sp_banchay[$i]->cate_alias}}/{{$sp_banchay[$i]->alias}}">
+                                <a href="{{url("/chi-tiet/")}}/{{$sp_banchay[$i]->alias}}">
                                     <img class="pro-img" src="{{url("/public/products")}}/{{$sp_banchay[$i]->img1}}"
                                          alt="{{$sp_banchay[$i]->name}}">
                                     <!--  <div class="pro-grid">
@@ -121,7 +121,7 @@
                     @for ($i=0;$i<count($my_pham);$i++)
                         <div class="bottom-cd simpleCart_shelfItem">
                             <div class="product-at">
-                                <a href="http://localhost/Shopping/chi-tiet/{{$my_pham[$i]->cate_alias}}/{{$my_pham[$i]->alias}}">
+                                <a href="http://localhost/Shopping/chi-tiet/{{$my_pham[$i]->alias}}">
                                     <img class="pro-img" src="{{url("/public/products")}}/{{$my_pham[$i]->img1}}"
                                          alt="{{$my_pham[$i]->name}}">
                                     <!--  <div class="pro-grid">
@@ -156,7 +156,7 @@
                     @for ($i=0;$i<count($thoi_trang);$i++)
                         <div class="bottom-cd simpleCart_shelfItem">
                             <div class="product-at">
-                                <a href="http://localhost/Shopping/chi-tiet/{{$thoi_trang[$i]->cate_alias}}/{{$thoi_trang[$i]->alias}}">
+                                <a href="{{url("/chi-tiet/")}}/{{$thoi_trang[$i]->alias}}">
                                     <img class="pro-img" src="{{url("/public/products")}}/{{$thoi_trang[$i]->img1}}"
                                          alt="{{$thoi_trang[$i]->name}}">
                                     <!--  <div class="pro-grid">
@@ -193,7 +193,7 @@
                     @for ($i=0;$i<count($suc_khoe);$i++)
                         <div class="bottom-cd simpleCart_shelfItem">
                             <div class="product-at">
-                                <a href="http://localhost/Shopping/chi-tiet/{{$suc_khoe[$i]->cate_alias}}/{{$suc_khoe[$i]->alias}}">
+                                <a href="{{url("/chi-tiet/")}}/{{$suc_khoe[$i]->alias}}">
                                     <img class="pro-img" src="{{url("/public/products")}}/{{$suc_khoe[$i]->img1}}"
                                          alt="{{$suc_khoe[$i]->name}}">
                                     <!--  <div class="pro-grid">
