@@ -87,5 +87,21 @@ class Products extends Model
             ->where("products.cate_id", $cateId)->where("products.id","!=",$productId)->take(5)->get();
         return $products;
     }
+    /*lay san pham theo id*/
+    public static function getProductById($id,$type="")
+    {
+        $products=[];
+        if(!isset($type)) {
+            $products = Products::Join("cates", "products.cate_id", "=", "cates.id")->join("discounts", "discounts.id", "=", "cates.discount_id")
+                ->select(["products.*", "cates.name as cate", "cates.alias as cate_alias", "discounts.percent as percent"])
+                ->where("products.id", $id)->first();
+        }
+        else if($type="array"){
+            $products = Products::Join("cates", "products.cate_id", "=", "cates.id")->join("discounts", "discounts.id", "=", "cates.discount_id")
+                ->select(["products.*", "cates.name as cate", "cates.alias as cate_alias", "discounts.percent as percent"])
+                ->whereIn("products.id", $id)->get();
+        }
+        return $products;
+    }
 
 }

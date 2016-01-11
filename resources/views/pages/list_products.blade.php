@@ -1,12 +1,14 @@
 @extends("layout")
 @section('title')
-    {{ $arrayCurrentCateName[0]["name"] }}
+     {{ $arrayCurrentCateName[0]["name"] }}
 @endsection
 @section("content")
     <p class="path">
-        @foreach($arrayParentName as $name)
+        @if(isset($arrayParentName))
+            @foreach($arrayParentName as $name)
         <a href="{{url("/san-pham")}}/{{str_slug($name["name"],"-")}}">{{$name["name"]}}</a>&nbsp;&gt;
             @endforeach
+        @endif
        {{ $arrayCurrentCateName[0]["name"] }}
     </p>
         <div class=" product1">

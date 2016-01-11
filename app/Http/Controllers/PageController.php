@@ -29,27 +29,45 @@ class PageController extends Controller
     {
         /* Co alias->tim id->tim chuoi parentId->tim ten loai hien tai->tim ten loai cha     */
         $limit = 25;
-        $cateId = Cate::getIdByAlias($cate);//$cate=alias
-        $products = Products::getProductsOnCate($cateId, $limit);
+        if ($cate == "moi") {
+            $products = Products::getNewestProducts($limit);
+            $arrayCurrentCateName=[["name"=> "Sản phẩm mới"]];
+        } elseif ($cate == "ban-chay") {
+            $products = Products::getBestSellProducts($limit);
+            $arrayCurrentCateName=[["name"=> "Sản phẩm bán chạy"]];
+        } elseif ($cate == "giam-gia") {
+            $products = Products::getSaleProducts($limit);
+            $arrayCurrentCateName=[["name"=> "Sản phẩm giảm giá"]];
+        } else {
+            $cateId = Cate::getIdByAlias($cate);//$cate=alias
+            $products = Products::getProductsOnCate($cateId, $limit);
+            $parentId = Cate::getParentId($cateId);
+            $arrayCurrentCateName = Cate::getNameById($cateId);
+            $arrayParentName = Cate::getNameById($parentId);// duong dan
+        }
         $products->setPath($cate);
-        $parentId = Cate::getParentId($cateId);
-        $arrayCurrentCateName = Cate::getNameById($cateId);
-        $arrayParentName = Cate::getNameById($parentId);// duong dan
         return view("pages.list_products", compact("products", "arrayParentName", "arrayCurrentCateName"));
     }
 
     public function detailProduct($alias) //trang chi tiet
     {  /*tim san pham*/
-        $product=Products::getProductByAlias($alias); //tim san pham
+        $product = Products::getProductByAlias($alias); //tim san pham
         /*lay thong tin loai san pham*/
         $cateId = Cate::getIdByAlias($product->cate_alias);//$cate=alias
         $parentId = Cate::getParentId($cateId);
         $arrayCurrentCateName = Cate::getNameById($cateId);
         $arrayParentName = Cate::getNameById($parentId);// duong dan
         /*San pham cung loai*/
-        $productSameCate=Products::getProductsSameCate($cateId,$product->id);
-        return view("pages.detail_products",compact("product","arrayParentName", "arrayCurrentCateName","productSameCate"));
+        $productSameCate = Products::getProductsSameCate($cateId, $product->id);
+        return view("pages.detail_products", compact("product", "arrayParentName", "arrayCurrentCateName", "productSameCate"));
     }
 
+    public function shoppingCart()
+    {
+        $cart = new CartController();
+        $products = $cart->getProduct();
+        $total = $cart->totalPrice($products);
+        return view("pages.shopping_cart", compact("products", "total"));
+    }
 
 }

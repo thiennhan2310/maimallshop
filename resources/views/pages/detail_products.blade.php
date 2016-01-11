@@ -46,11 +46,11 @@
                         pauseOnHover: "true"
                     });
                     $('button#themGiohang').click(function() {
-                        var sl=$('input#soLuong').val();
+                        var sl=$('input#soLuong').val().toString();
+                        var url = "{{url("/gio-hang/them/$product->id")}}/"+sl;
                         $.ajax({
-                            url : "http://www.maimallshop.com/gio-hang/SRM-FS-02.html",
-                            type : "POST",
-                            data: { so_luong : sl },
+                            url : url,
+                            type : "GET",
                             success: function(data)
                             {
                                 var data=jQuery.parseJSON(data);
@@ -113,7 +113,10 @@
                             <tr>
                                 <td>Giá</td>
                                 <td style="font-size: 18px"> {{number_format($product->price*(1-$product->percent/100))}} &nbsp;
-                                    <span class="discount"> (<i class="fa fa-arrow-down"></i>{{$product->percent}}%) </span>                             </td>
+                                    @if($product->discount_percent>0)
+                                        <span class="discount"> (<i class="fa fa-arrow-down"></i>{{$product->percent}}%) </span>
+                                    @endif
+                                </td>
                             </tr>
                             <tr>
                                 <td>Mã sản phẩm</td>

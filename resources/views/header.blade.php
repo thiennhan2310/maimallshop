@@ -1,7 +1,7 @@
 <div class="header-top">
     <div class="container">
         <div class="logo">
-            <a href="{{url('/trang-chu')}}"><img src="http://localhost/Shopping/images/logo.jpg" alt="Mai Mall Shop logo"></a>
+            <a href="{{url('/trang-chu')}}"><img src="{{url("/public/images/logo.jpg")}}" alt="Mai Mall Shop logo"></a>
         </div>
         <div class="header-left">
             <ul>
@@ -28,7 +28,7 @@
                 </script>
                 <li >
                     <a href="{{url('/gio-hang')}}" id="bag" alt="giỏ hàng"  >
-                            <span id="tongsoluong">  0  </span>
+                            <span id="tongsoluong"> {{countProducts()}}  </span>
                     </a>
                 </li>
                 <li  id="search_box">

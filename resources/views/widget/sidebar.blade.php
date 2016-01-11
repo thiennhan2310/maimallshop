@@ -2,7 +2,7 @@
 <div class="aside">
 
     <div id="so_dien_thoai"  data-toggle="tooltip"  data-placement="left" title="0913134138">
-        <img src="http://localhost/Shopping/images/phone1.png" alt="so dien thoai mai mall shop"/><br>Hot Line
+        <img src="{{asset("public/images/phone1.png")}}" alt="so dien thoai mai mall shop"/><br>Hot Line
         <script type="text/javascript">  $('#so_dien_thoai').tooltip("show");  $('#so_dien_thoai').next().removeClass("in");</script>
     </div>
 
@@ -21,12 +21,12 @@
                 "assetMarginMinimum": 5
             });
         </script>
-        <script type="text/javascript">$("#skype_icon").attr("src","http://localhost/Shopping/images/sk1.png");</script>
+        <script type="text/javascript">$("#skype_icon").attr("src","{{asset("public/images/sk1.png")}}");</script>
         Skype
     </div>
 
     <div id="zalo_maimall"  data-toggle="tooltip"  data-placement="left" title=" 0909349429" >
-        <img src="http://localhost/Shopping/images/zl1.png" alt="zalo mai mall"/><br>Zalo
+        <img src="{{asset("public/images/zl1.png")}}" alt="zalo mai mall"/><br>Zalo
         <script type="text/javascript">$('#zalo_maimall').tooltip("show");$('#zalo_maimall').next().removeClass("in");</script>
     </div>
 

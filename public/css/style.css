@@ -382,7 +382,7 @@ ul.callbacks_tabs.callbacks1_tabs {
   text-decoration: none;
 height: 35px;
   width: 35px;
-  background: url("../../images/img-sprite.png") no-repeat -13px -98px ;
+  background: url("../images/img-sprite.png") no-repeat -13px -98px ;
  }
 .callbacks_nav.next {
   left: 90%;
@@ -770,7 +770,7 @@ ul.social li{
 	display: inline-block;
 }
 ul.social li i{
-	background: url(../../images/img-sprite.png)no-repeat -9px -14px ;
+	background: url(../images/img-sprite.png)no-repeat -9px -14px ;
   width: 24px;
   height: 24px;
 	display: inline-block;
@@ -905,7 +905,7 @@ ul.social li i:hover{
 .blog-poast-info ul li  i {
 	width: 20px;
 	height: 20px;
-	background:  url(../../images/img-sprite.png) no-repeat -150px -104px ;
+	background:  url(../images/img-sprite.png) no-repeat -150px -104px ;
 	display: inline-block;
 	vertical-align: sub;
 	margin: 0 3px 0 0;
@@ -1211,7 +1211,7 @@ a.item_add p.number:hover{
   -ms-transition: 0.5s all;
 }
 a.item_add p.number i{
-	 background: url(../../images/img-sprite.png)no-repeat -291px -104px ;
+	 background: url(../images/img-sprite.png)no-repeat -291px -104px ;
   width: 18px;
   height: 18px;
   display: inline-block;
@@ -1285,7 +1285,6 @@ p.price{
     margin-left: 600px;
     margin-top: 20px;
     padding-bottom: 320px;
-    height: 345px;
 
 }
 /*--//product--*/
@@ -1298,7 +1297,7 @@ p.price{
  ul.star-footer li i{
 	height: 16px;
 	width: 16px;
-	background: url("../../images/img-sprite.png") no-repeat -261px -106px  ;
+	background: url("../images/img-sprite.png") no-repeat -261px -106px  ;
 	display: inline-block;
 }
 .single-para h4 {
@@ -1601,7 +1600,7 @@ a.add-re:hover{
 }
 .checkbox input + i:after {
 	content: '';
-	background: url("../../images/tick1.png") no-repeat 1px 2px;
+	background: url("../images/tick1.png") no-repeat 1px 2px;
 	top: -1px;
 	left: -1px;
 	width: 15px;
@@ -1885,7 +1884,7 @@ a.create {
 }
 
 .close1,.close2{
-  background: url('../../images/close.png') no-repeat 0px 0px;
+  background: url('../images/close.png') no-repeat 0px 0px;
   cursor: pointer;
   width: 14px;
   height: 14px;
@@ -2004,8 +2003,8 @@ del{
 }
 p.path
 {
-    padding: 23px 16px;
-
+    padding: 23px 5px;
+    font-size: 14px;
 }
 p.path a
 {
@@ -2369,6 +2368,10 @@ hr.border-top{
     width: 125px;
     float: left;
 }
+.payment_info {
+    width: 996px;
+    margin: auto;
+}
 .payment_info h4.title{
     text-align: center;
     padding-bottom: 25px;
@@ -2379,6 +2382,11 @@ hr.border-top{
 .payment_info div.detail-info{
 
     padding-top: 16px;
+    FLOAT: LEFT;
+    width: 500px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .payment_info h4.panel-title{
     float:left;
@@ -2406,9 +2414,15 @@ hr.border-top{
     width: 170px;
     height: 71px;
     float: left;
+    margin-right: 17px;
 }
-.payment_info form#diachigiaohang>div:nth-child(2) input,.payment_info form#diachigiaohang>div:nth-child(3) input {
-    width: 330px;
+.payment_info form#diachigiaohang>div:nth-child(1) input {
+    padding:8px;
+}
+.payment_info form#diachigiaohang>div:nth-child(2) input,.payment_info form#diachigiaohang>div:nth-child(3) input,
+.payment_info form#diachigiaohang>div select {
+    width: 355px;
+    padding:8px;
 }
 .payment_info img#COD{
     padding-left: 165px;
@@ -2419,6 +2433,7 @@ hr.border-top{
 }
 .payment_info .cart-items>.cart-info > div:first-child{
     width:77%;
+    padding-left: 61px;
 }
 
 .payment_info .my-tab{
@@ -2426,7 +2441,7 @@ hr.border-top{
     height: 52px;
 }
 .payment_info .active{
-    background-color: #000000;
+    background-color: #BDBDBD !important;
     color: #ffffff;
 
 }
@@ -2442,5 +2457,109 @@ hr.border-top{
      padding: 12px;
 
 }
+.payment_info div#thong-tin-chinh-thuc{
+    width: 311px;
+    border: 1px solid black;
+    height: 266px;
+    margin: auto;
+    position: relative;
+}
+.payment_info div#thong-tin-chinh-thuc>img#chinh-sua{
+position: absolute;
+right: 50px;
+top: 35px;
+}
+.payment_info div#thong-tin-chinh-thuc>img#xoa{
+    position: absolute;
+    right: 30px;
+    top: 35px;
+}
+.payment_info div#thong-tin-chinh-thuc>.name{
+    position: absolute;
+    top: 70px;
+    left: 25px;
+    font-weight: bold;
+}
+.payment_info div#thong-tin-chinh-thuc>.address{
+    position: absolute;
+    top: 120px;
+    left: 25px;
+}
+.payment_info div#thong-tin-chinh-thuc>.phone{
+    position: absolute;
+    top: 178px;
+    left: 25px;
+}
+.payment_info div#thong-tin-chinh-thuc>.address>img,.payment_info div#thong-tin-chinh-thuc>.phone>img{
+    margin-right: 7px;
+}
+.payment_info div.control{
+    padding-top: 35px;
+    padding-bottom: 40px;
+}
+.payment_info div.control>a{
+    cursor: pointer;
+    width: 311px;
+    margin: auto;
+}
+.payment_info .panel-heading{
+  background-color: #ffffff;
+}
+.payment_info .border-left{
+    width: 55px;
+    background-color: #6E6E6E;
+    position: absolute;
 
+}
+.payment_info .border-left{
+    top: 0px;
+    bottom: 0px;
+}
+.payment_info .panel-body{
+    padding: 0px;
+    position: relative;
+}
+.payment_info h4.configure-tab{
+    padding-top: 17px;
+    text-align: right;
+    padding-right: 7px;
+}
+.payment_info h4.configure-tab>a{
+    color: black;
+    font-size: 14px;
+    font-weight: lighter;
+    text-decoration: underline;
+}
+.payment_info .add{
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 15px;
+}
+.payment_info .cart-info{
+    background-color: #F2F2F2;
+}
+.payment_info .cart-sec{
+    padding-left: 56px;
+}
+.payment_info .cart-item-info{
+    padding-top: 0px;
+}
+.payment_info .cart-item-info div.don_gia{
+    padding-top: 0px;
+    padding-left: 345px;
+}
+.payment_info .price-details{
+    padding: 0px 15px 10px 10px;
+}
+.payment_info .price-details>div:first-child{
+    padding-top: 0px ;
+}
+.payment_info .price-details div div:first-child{
+    width: 145px;
+}
+.payment_info a.continue{
+    color: #F2F2F2;
+}
+#scroll::-webkit-scrollbar {
+    display: none;}
 
