@@ -32,8 +32,8 @@
                     </a>
                 </li>
                 <li  id="search_box">
-                    <form action="{{url('/tim-kiem')}}"
-                          name="tim_kiem_san_pham_theo_ten" method="post">
+                    <form action="{{url('/tim-kiem')}}" name="tim_kiem_san_pham_theo_ten" method="post">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <input type="text" value="" id="tim_kiem_ten_san_pham" name="ten_san_pham" placeholder="Tên Sản Phẩm">
 
                         <a href="#" onclick="if($('#tim_kiem_ten_san_pham').val()==''){

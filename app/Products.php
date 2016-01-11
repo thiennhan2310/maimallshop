@@ -104,4 +104,12 @@ class Products extends Model
         return $products;
     }
 
+    public static function getProductByName($name,$limit)
+    {
+        $products = Products::Join("cates", "products.cate_id", "=", "cates.id")->join("discounts", "discounts.id", "=", "cates.discount_id")
+            ->select(["products.*", "cates.name as cate", "cates.alias as cate_alias", "discounts.percent as percent"])
+            ->where("products.name","like" ,"%".$name."%")->paginate($limit);
+        return $products;
+    }
+
 }

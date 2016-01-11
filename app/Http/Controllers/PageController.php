@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 use App\Cate;
+use App\Http\Requests\FormRequest;
 use App\Products;
 
 class PageController extends Controller
@@ -68,6 +69,13 @@ class PageController extends Controller
         $products = $cart->getProduct();
         $total = $cart->totalPrice($products);
         return view("pages.shopping_cart", compact("products", "total"));
+    }
+    public function searchPage(FormRequest $request){
+        $products=Products::getProductByName($request->get("ten_san_pham"),25);
+        $products->setPath("tim-kiem");
+        $count=count($products);
+        $arrayCurrentCateName=[["name"=> "Có $count sản phẩm tìm thấy"]];
+        return view("pages.list_products", compact("products", "arrayParentName", "arrayCurrentCateName"));
     }
 
 }

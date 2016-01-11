@@ -22,6 +22,7 @@ Route::group(['prefix' => 'gio-hang'], function () {
 	Route::get("/xoa-het",["as"=>"gio-hang.xoahet","uses"=>"CartController@delCart"]);
 
 });
+Route::post("tim-kiem","PageController@searchPage");
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
