@@ -1,0 +1,20 @@
+.img-close:hover,.caption:hover{
+   opacity: 0.5;
+
+}
+.img-close:hover~.caption, .caption:hover{
+    display: block;
+    cursor: pointer;
+}
+
+.caption{
+    display: none;
+    position: absolute;
+    top: 60px;
+    left: 100px;
+    font-size: 35px;
+    color: red;
+}
+.img-product{
+    position: relative;
+}

@@ -7,7 +7,7 @@ class Products extends Model
     //
     protected $table = "products";
     protected $fillable = ['id', 'cate_id', 'name', "alias", 'price', 'img1', 'img2', 'img3', 'img4', 'description', 'brand', 'size', 'status'];
-    public $timestamps = false;
+    public $timestamps = true;
 
     public function cate()
     {
@@ -88,10 +88,10 @@ class Products extends Model
         return $products;
     }
     /*lay san pham theo id*/
-    public static function getProductById($id,$type="")
+    public static function getProductById($id,$type="single")
     {
         $products=[];
-        if(!isset($type)) {
+        if($type="single") {
             $products = Products::Join("cates", "products.cate_id", "=", "cates.id")->join("discounts", "discounts.id", "=", "cates.discount_id")
                 ->select(["products.*", "cates.name as cate", "cates.alias as cate_alias", "discounts.percent as percent"])
                 ->where("products.id", $id)->first();

@@ -63,14 +63,14 @@ class PageController extends Controller
         return view("pages.detail_products", compact("product", "arrayParentName", "arrayCurrentCateName", "productSameCate"));
     }
 
-    public function shoppingCart()
+    public function shoppingCart() //trang gio hang
     {
         $cart = new CartController();
         $products = $cart->getProduct();
         $total = $cart->totalPrice($products);
         return view("pages.shopping_cart", compact("products", "total"));
     }
-    public function searchPage(FormRequest $request){
+    public function searchPage(FormRequest $request){ //trang tim kiem
         $products=Products::getProductByName($request->get("ten_san_pham"),25);
         $products->setPath("tim-kiem");
         $count=count($products);
