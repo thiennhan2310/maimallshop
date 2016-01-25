@@ -21,6 +21,17 @@
                             </div>
                             <p class="percent"> {{$giam_gia[$i]->percent}} %</p>
 
+                            <p class="love">
+                                <img src="{{url("/")}}/public/images/love.png" style="display: block" id="addLove"
+                                     alt="love" title="Thêm vào yêu thích"
+                                     onclick="@if(Auth::check())themYeuThich(this,'{{$giam_gia[$i]->id}}') @else window.location.replace('{{URL::route("login")}}') @endif">
+                                <img src="{{url("/")}}/public/images/love-red.png" style="display: none" id="delLove"
+                                     alt="love" title="Bỏ yêu thích"
+                                     onclick="@if(Auth::check())boYeuThich(this,'{{$giam_gia[$i]->id}}') @else window.location.replace('{{URL::route("login")}}') @endif">
+                            </p>
+
+                            <p class="cart" title="Thêm vào giỏ hàng"><img
+                                        src="{{url("/")}}/public/images/bag_white.png" alt="cart"></p>
                             <p class="brand"> Hãng sp </p>
 
                             <p class="cate">{{$sp_moi[$i]->cate}}</p>
@@ -54,7 +65,20 @@
                                       </div>-->
                                 </a>
                             </div>
-                            @if($sp_moi[$i]->percent>0)  <p class="percent"> {{$sp_moi[$i]->percent}} %</p> @endif
+                            <p class="percent"> {{$sp_moi[$i]->percent}} %</p>
+
+                            <p class="love">
+                                <img src="{{url("/")}}/public/images/love.png" style="display: block" id="addLove"
+                                     alt="love" title="Thêm vào yêu thích"
+                                     onclick="@if(Auth::check())themYeuThich(this,'{{$sp_moi[$i]->id}}') @else window.location.replace('{{URL::route("login")}}') @endif">
+                                <img src="{{url("/")}}/public/images/love-red.png" style="display: none" id="delLove"
+                                     alt="love" title="Bỏ yêu thích"
+                                     onclick="@if(Auth::check())boYeuThich(this,'{{$sp_moi[$i]->id}}') @else window.location.replace('{{URL::route("login")}}') @endif">
+                            </p>
+
+                            <p class="cart" title="Thêm vào giỏ hàng"><img
+                                        src="{{url("/")}}/public/images/bag_white.png" alt="cart"></p>
+
                             <p class="brand"> Hãng sp </p>
 
                             <p class="cate">{{$sp_moi[$i]->cate}}</p>
@@ -91,7 +115,20 @@
                                       </div>-->
                                 </a>
                             </div>
-                            @if($sp_banchay[$i]->percent>0)  <p class="percent"> {{$sp_banchay[$i]->percent}} %</p> @endif
+                            <p class="percent"> {{$sp_banchay[$i]->percent}} %</p>
+
+                            <p class="love">
+                                <img src="{{url("/")}}/public/images/love.png" style="display: block" id="addLove"
+                                     alt="love" title="Thêm vào yêu thích"
+                                     onclick="@if(Auth::check())themYeuThich(this,'{{$sp_banchay[$i]->id}}') @else window.location.replace('{{URL::route("login")}}') @endif">
+                                <img src="{{url("/")}}/public/images/love-red.png" style="display: none" id="delLove"
+                                     alt="love" title="Bỏ yêu thích"
+                                     onclick="@if(Auth::check())boYeuThich(this,'{{$sp_banchay[$i]->id}}') @else window.location.replace('{{URL::route("login")}}') @endif">
+                            </p>
+
+                            <p class="cart" title="Thêm vào giỏ hàng"><img
+                                        src="{{url("/")}}/public/images/bag_white.png" alt="cart"></p>
+
                             <p class="brand"> Hãng sp </p>
 
                             <p class="cate">{{$sp_banchay[$i]->cate}}</p>
@@ -113,7 +150,6 @@
 
 
                 </div>
-            </div>
             <div class="clearfix"></div>
             <div class="title_corner"><h3 class="words2">MỸ PHẨM</h3></div>
             <div class="product1">
@@ -129,7 +165,24 @@
                                       </div>-->
                                 </a>
                             </div>
-                            @if($my_pham[$i]->percent>0)  <p class="percent"> {{$my_pham[$i]->percent}} %</p> @endif
+                            <p class="percent"> {{$my_pham[$i]->percent}} %</p>
+
+                            <p class="love">
+                                <img src="{{url("/")}}/public/images/love.png"
+                                     @if(!in_array($my_pham[$i]->id,$lovedProductsId))style="display: block"
+                                     @else style="display: none" @endif id="addLove" alt="love"
+                                     title="Thêm vào yêu thích"
+                                     onclick="@if(Auth::check())themYeuThich(this,'{{$my_pham[$i]->id}}') @else window.location.replace('{{URL::route("login")}}') @endif">
+                                <img src="{{url("/")}}/public/images/love-red.png"
+                                     @if( in_array($my_pham[$i]->id,$lovedProductsId))style="display: block"
+                                     @else style="display: none" @endif id="delLove" alt="love" title="Bỏ yêu thích"
+                                     onclick="@if(Auth::check())boYeuThich(this,'{{$my_pham[$i]->id}}') @else window.location.replace('{{URL::route("login")}}') @endif">
+
+                            </p>
+
+                            <p class="cart" title="Thêm vào giỏ hàng"><img
+                                        src="{{url("/")}}/public/images/bag_white.png" alt="cart"></p>
+
                             <p class="brand"> Hãng sp </p>
 
                             <p class="cate">{{$my_pham[$i]->cate}}</p>
@@ -164,7 +217,20 @@
                                       </div>-->
                                 </a>
                             </div>
-                            @if($thoi_trang[$i]->percent>0)  <p class="percent"> {{$thoi_trang[$i]->percent}} %</p> @endif
+                            <p class="percent"> {{$thoi_trang[$i]->percent}} %</p>
+
+                            <p class="love">
+                                <img src="{{url("/")}}/public/images/love.png" style="display: block" id="addLove"
+                                     alt="love" title="Thêm vào yêu thích"
+                                     onclick="@if(Auth::check())themYeuThich(this,'{{$thoi_trang[$i]->id}}') @else window.location.replace('{{URL::route("login")}}') @endif">
+                                <img src="{{url("/")}}/public/images/love-red.png" style="display: none" id="delLove"
+                                     alt="love" title="Bỏ yêu thích"
+                                     onclick="@if(Auth::check())boYeuThich(this,'{{$thoi_trang[$i]->id}}') @else window.location.replace('{{URL::route("login")}}') @endif">
+                            </p>
+
+                            <p class="cart" title="Thêm vào giỏ hàng"><img
+                                        src="{{url("/")}}/public/images/bag_white.png" alt="cart"></p>
+
                             <p class="brand"> Hãng sp </p>
 
                             <p class="cate">{{$thoi_trang[$i]->cate}}</p>
@@ -201,7 +267,20 @@
                                       </div>-->
                                 </a>
                             </div>
-                            @if($suc_khoe[$i]->percent>0)  <p class="percent"> {{$suc_khoe[$i]->percent}} %</p> @endif
+                            <p class="percent"> {{$suc_khoe[$i]->percent}} %</p>
+
+                            <p class="love">
+                                <img src="{{url("/")}}/public/images/love.png" style="display: block" id="addLove"
+                                     alt="love" title="Thêm vào yêu thích"
+                                     onclick="@if(Auth::check())themYeuThich(this,'{{$suc_khoe[$i]->id}}') @else window.location.replace('{{URL::route("login")}}') @endif">
+                                <img src="{{url("/")}}/public/images/love-red.png" style="display: none" id="delLove"
+                                     alt="love" title="Bỏ yêu thích"
+                                     onclick="@if(Auth::check())boYeuThich(this,'{{$suc_khoe[$i]->id}}') @else window.location.replace('{{URL::route("login")}}') @endif">
+                            </p>
+
+                            <p class="cart" title="Thêm vào giỏ hàng"><img
+                                        src="{{url("/")}}/public/images/bag_white.png" alt="cart"></p>
+
                             <p class="brand"> Hãng sp </p>
 
                             <p class="cate">{{$suc_khoe[$i]->cate}}</p>

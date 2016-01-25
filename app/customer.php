@@ -1,15 +1,60 @@
 <?php namespace App;
 
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
-class customer extends Model {
+class customer extends Model implements AuthenticatableContract
+{
 
-	//
-    protected $table="customers";
-    protected $fillable = ['id', 'email', 'first_name',"last_name",'address','phone'];
+    //
+    use Authenticatable;
     public $timestamps = false;
-    public function bill(){
+    protected $table = "customers";
+    protected $fillable = ['id', 'email', 'first_name', "last_name", 'address', 'phone'];
+
+    public static function LovedProduct($get = "all") //lay san pham yeu thich
+    {
+        $arrayListId = [];
+        $arrayProductId = [];
+        $detailProducts = [];
+        /*get user id*/
+        $customer_id = Auth::user()->id;
+        /*get list id*/
+        $loveListId = LoveList::select(["id"])->where("customer_id", $customer_id)->get();
+        foreach ($loveListId as $id) {
+            $arrayListId[] = $id->id;
+        }
+        /*get product id of list*/
+        if (isset($arrayListId)) {
+            $lovedProducts = LoveListDetail::select(["product_id"])->whereIn("list_id", $arrayListId)->get();
+            foreach ($lovedProducts as $id) {
+                $arrayProductId[] = $id->product_id;
+            }
+        }
+        /*get product detail*/
+        if ($get == "all") {
+            if (isset($arrayProductId)) {
+                $detailProducts = Products::getProductById($arrayProductId, "array");
+            }
+            return $detailProducts;
+        } /*Chi lay id*/
+        else if ($get == "id") {
+            return $arrayProductId;
+        }
+
+    }
+
+    public function bill()
+    {
         return $this->hasMany('App\Bill');
     }
+
+    public function LoveList()
+    {
+        return $this->hasMany('App\LoveList');
+    }
+
 
 }

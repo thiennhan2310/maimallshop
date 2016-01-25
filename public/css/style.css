@@ -452,6 +452,10 @@ height: 35px;
     width: 20%;
     height: 420px;
 }
+
+.bottom-cd p:first-of-type {
+    margin-left: 55px;
+}
 * {
 -webkit-box-sizing: border-box;
 -moz-box-sizing: border-box;
@@ -1904,6 +1908,7 @@ a.create {
     padding-top: 20px;
     border-bottom: 1px solid #9C9C9C;
 }
+
 .discount-code{
     background-color: #D8D8D8;
     padding-top: 15px;
@@ -1981,21 +1986,43 @@ input#tim_kiem_ten_san_pham:hover
     border: 1px solid #FFFFFF;
 }
 p.brand{
+    clear: both;
     text-transform: uppercase;
     color: #999;
     font-size: 12px;
     text-align: center;
+    padding-top: 5px;
 }
 p.cate{
     text-align: center;
 }
-p.percent{
+
+p.love {
+    float: left;
+    border-top: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
+    padding: 3px 6px;
+    height: 28px;
+}
+
+p.love > img {
+    cursor: pointer;
+}
+
+p.cart {
+    cursor: pointer;
+    float: left;
     border: 1px solid #dddddd;
-    width: 20%;
+    padding: 0 6px 5px 6px;
+    height: 28px;
+}
+p.percent{
+    float: left;
+    border: 1px solid #dddddd;
     font-size: 11px;
-    text-align: center;
-    margin-left: 40%;
-    padding-bottom: 4px;
+    padding: 5px 7px 5px 7px;
+    height: 28px;
+
 
 }
 del{
@@ -2094,7 +2121,7 @@ a.item_add1:hover{
 
 .borderless tbody tr td, .borderless tbody tr th, .borderless thead tr th {
     border: none;
-    padding-bottom: 15px;
+    padding-bottom: 10px;
     padding-left: 0px;
 }
 .product-size{
@@ -2127,7 +2154,13 @@ input#soLuong{
     background-color: #ffffff;
     border: 1px solid #ABADB3;
     color:#105726;
-    width: 246px;
+    width: 120px;
+}
+
+.btn-white:hover {
+    background-color: #ABADB3;
+    border: 1px solid #ABADB3;
+    color: #ffffff;
 }
 .btn-green{
     background-color: #105726;
@@ -2378,6 +2411,7 @@ hr.border-top{
 }
 .payment_info .border-radius-none{
      border-radius: 0px;
+    border-bottom: none;
  }
 .payment_info div.detail-info{
 
@@ -2390,7 +2424,7 @@ hr.border-top{
 }
 .payment_info h4.panel-title{
     float:left;
-    width: 300px;
+    width: 285px;
     padding-top: 17px;
     padding-left: 10px;
 }
@@ -2428,11 +2462,20 @@ hr.border-top{
     padding-left: 165px;
 }
 .payment_info .cart-items{
-   width:75%;
+    width: 70%;
     float:left;
 }
+
+.payment_info .cart-total {
+    width: 30%;
+    float: left;
+}
+
+.payment_info .cart-sec {
+    margin-bottom: 1em;
+}
 .payment_info .cart-items>.cart-info > div:first-child{
-    width:77%;
+    width: 72%;
     padding-left: 61px;
 }
 
@@ -2440,10 +2483,17 @@ hr.border-top{
     padding: 0px;
     height: 52px;
 }
-.payment_info .active{
+
+.payment_info .panel-heading.active {
     background-color: #BDBDBD !important;
     color: #ffffff;
 
+}
+
+.payment_info span.left, .payment_info span.right {
+    color: black;
+    font-size: 25px;
+    font-weight: lighter;
 }
 .payment_info .my-tab>.image>img{
     width: 30px;
@@ -2471,7 +2521,7 @@ top: 35px;
 }
 .payment_info div#thong-tin-chinh-thuc>img#xoa{
     position: absolute;
-    right: 30px;
+    right: 13px;
     top: 35px;
 }
 .payment_info div#thong-tin-chinh-thuc>.name{
@@ -2512,8 +2562,12 @@ top: 35px;
 
 }
 .payment_info .border-left{
-    top: 0px;
+    top: -1px;
     bottom: 0px;
+}
+
+.payment_info .account-bot {
+    width: 300px;
 }
 .payment_info .panel-body{
     padding: 0px;
@@ -2522,13 +2576,15 @@ top: 35px;
 .payment_info h4.configure-tab{
     padding-top: 17px;
     text-align: right;
-    padding-right: 7px;
 }
 .payment_info h4.configure-tab>a{
     color: black;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: lighter;
     text-decoration: underline;
+    padding: 22px 20px 16px 21px;
+    background-color: #ffffff;
+    font-family: "Arial";
 }
 .payment_info .add{
     text-align: center;
@@ -2538,15 +2594,19 @@ top: 35px;
 .payment_info .cart-info{
     background-color: #F2F2F2;
 }
-.payment_info .cart-sec{
-    padding-left: 56px;
+
+.payment_info .cart-header {
+    margin-left: 55px;
 }
 .payment_info .cart-item-info{
     padding-top: 0px;
 }
 .payment_info .cart-item-info div.don_gia{
-    padding-top: 0px;
-    padding-left: 345px;
+    padding: 0px 0px 0px 370px;
+}
+
+.payment_info .cart-item-info div {
+    padding: 3px 5px 0px 0px;
 }
 .payment_info .price-details{
     padding: 0px 15px 10px 10px;
@@ -2555,11 +2615,243 @@ top: 35px;
     padding-top: 0px ;
 }
 .payment_info .price-details div div:first-child{
-    width: 145px;
+    width: 118px;
 }
 .payment_info a.continue{
     color: #F2F2F2;
 }
-#scroll::-webkit-scrollbar {
-    display: none;}
 
+.header-payment {
+    padding-left: 20%;
+    padding-top: 2%;
+    font-size: 12px;
+}
+
+.header-payment > div:first-child {
+    float: left;
+    padding-right: 75px;
+}
+
+.payment_info .carousel-control.left, .carousel-control.right {
+    background: none !important;
+    filter: progid:none !important;
+}
+
+.payment_info .carousel {
+    width: 500px;
+    margin: auto;
+}
+
+.payment_info .carousel-inner {
+    width: 311px;
+    margin: auto;
+}
+
+.payment_info div.name {
+    float: left;
+    width: 104px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-right: 20px;
+}
+
+.payment_info div.address {
+    width: 243px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    float: left;
+    margin-right: 50px;
+}
+
+.payment_info div.phone {
+    width: 82px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.carousel-control .glyphicon-menu-left, .carousel-control .glyphicon-menu-right {
+    position: absolute;
+    top: 50%;
+    z-index: 5;
+    left: 25%;
+    display: inline-block;
+}
+
+.personal-info .title {
+    text-align: center;
+    padding-bottom: 45px;
+}
+
+.personal-info .tab {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.personal-info .tab.active {
+    background-color: #585858;
+    color: white;
+}
+
+.personal-info .col-md-2, .personal-info .col-md-10 {
+    padding: 0;
+}
+
+.personal-info .col-md-10 h4 {
+    background-color: #D8D8D8;
+    padding: 10px 10px 13px 25px;
+    font-size: 16px;
+}
+
+.personal-info .col-md-10 h4 + div, .personal-info .col-md-10 div.address {
+    padding: 25px;
+}
+
+.personal-info .col-md-10 div.address {
+    border-bottom: 1px solid black;
+}
+
+.personal-info .col-md-10 div.address div, .personal-info .col-md-10 div.address h5 {
+    padding: 5px 0px 5px 0px;
+}
+
+.personal-info .table {
+    width: 85%;
+}
+
+.personal-info .btn-change {
+    float: right;
+    color: black;
+    padding: 5px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 0px;
+}
+
+.personal-info .btn-add {
+    color: black;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 0px;
+    margin-top: 35px;
+    margin-bottom: 50px;
+}
+
+.personal-info a {
+    text-decoration: none;
+    color: black;
+}
+
+.personal-info a:hover {
+    text-decoration: none;
+    color: #BDBDBD;
+}
+
+.personal-info .list-title {
+    float: left;
+}
+
+.personal-info .buy {
+    float: right;
+    width: 665px;
+}
+
+.personal-info .buy > .border-top {
+    float: left;
+    width: 311px;
+    border-top: solid 1px black;
+    margin-left: 99px;
+    font-weight: bold;
+}
+
+.personal-info .buy > .btn-buy {
+    text-align: right;
+    background-color: #848484;
+    color: white;
+    padding: 5px;
+    width: 255px;
+    float: right;
+}
+
+.personal-info .col-md-10 div.list-header {
+    padding: 25px 0px 0px 25px;
+}
+
+.personal-info .list-body {
+    border-top: 1px solid black;
+    margin-top: 15px;
+    padding-top: 5px;
+}
+
+.personal-info .date {
+    float: left;
+    margin-left: 50px;
+}
+
+.personal-info .count {
+    width: 190px;
+    text-align: center;
+    float: left;
+}
+
+.personal-info .list-product-info > img {
+    width: 115px;
+    float: left;
+    margin-right: 9px;
+}
+
+.personal-info .borderless tbody tr td, .personal-info .borderless tbody tr th, .personal-info .borderless thead tr th {
+    padding-bottom: 1px;
+
+}
+
+.personal-info .borderless tbody tr td:first-child {
+    width: 80px;
+}
+
+.personal-info .detail {
+    float: left;
+    width: 280px;
+}
+
+.personal-info .date-detail {
+    float: left;
+    width: 80px;
+}
+
+.personal-info .count-detail {
+    float: left;
+    width: 111px;
+    text-align: center;
+}
+
+.personal-info .price-detail {
+    float: left;
+    width: 150px;
+}
+
+.personal-info .list-product-info {
+    border-bottom: 1px solid #A4A4A4;
+    height: 190px;
+}
+
+.personal-info .list-product-info:last-child {
+    border-bottom: none;
+}
+
+.personal-info .list-product-info .btn-change {
+    padding: 2px;
+}
+
+.personal-info .custom {
+    width: 143px;
+    float: right;
+}
+
+.personal-info .custom div {
+    text-align: right;
+}
+
+.personal-info .cart-item-info {
+    padding-top: 0px;
+}

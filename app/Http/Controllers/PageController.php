@@ -9,8 +9,10 @@
 namespace App\Http\Controllers;
 
 use App\Cate;
+use App\customer;
 use App\Http\Requests\FormRequest;
 use App\Products;
+use Illuminate\Support\Facades\Auth;
 
 class PageController extends Controller
 {
@@ -23,7 +25,12 @@ class PageController extends Controller
         $my_pham = Products::getProductsOnCate(1, $limit);
         $thoi_trang = Products::getProductsOnCate(2, $limit);
         $suc_khoe = Products::getProductsOnCate(3, $limit);
-        return view("pages.index", compact("giam_gia", "sp_moi", "sp_banchay", "child", "my_pham", "thoi_trang", "suc_khoe"));
+        /*Lay san pham da thich*/
+        $lovedProductsId = ["0"];
+        if (Auth::check()) {
+            $lovedProductsId = customer::LovedProduct("id");
+        }
+        return view("pages.index", compact("giam_gia", "sp_moi", "sp_banchay", "child", "my_pham", "thoi_trang", "suc_khoe", "lovedProductsId"));
     }
 
     public function listProducts($cate) //trang danh sach san pham
@@ -70,7 +77,9 @@ class PageController extends Controller
         $total = $cart->totalPrice($products);
         return view("pages.shopping_cart", compact("products", "total"));
     }
-    public function searchPage(FormRequest $request){ //trang tim kiem
+
+    public function searchPage(FormRequest $request)//trang tim kiem
+    {
         $products=Products::getProductByName($request->get("ten_san_pham"),25);
         $products->setPath("tim-kiem");
         $count=count($products);
@@ -78,4 +87,37 @@ class PageController extends Controller
         return view("pages.list_products", compact("products", "arrayParentName", "arrayCurrentCateName"));
     }
 
+    public function Login() //trang dang nhap
+    {
+        if (Auth::check())
+            return redirect()->route("home");
+        else
+            return view("pages.login");
+    }
+
+    public function Logout() //trang dang xuat
+    {
+        Auth::logout();
+        return redirect()->route("home");
+    }
+
+    public function CustomerInfoTemplate()
+    {
+        return view("pages.customer_info");
+    }
+
+    public function CustomerInfo()
+    {
+        return view("pages.customerInfo.info");
+    }
+
+    public function CartInfo()
+    {
+        return view("pages.customerInfo.cart");
+    }
+
+    public function LoveProduct()
+    {
+        return view("pages.customerInfo.love");
+    }
 }

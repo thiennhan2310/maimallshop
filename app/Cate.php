@@ -6,21 +6,10 @@ class Cate extends Model
 {
 
     //
+    public $timestamps = false;
     protected $table = "cates";
     protected $fillable = ['id', 'discount_id', 'name', "alias", 'parent_id'];
-    public $timestamps = false;
 
-    public function product()
-    {
-        return $this->hasMany('App\Products');
-    }
-
-    public function discount()
-    {
-        return $this->belongsToMany('App\Discount', 'discounts', 'discount_id');
-    }
-
-    /*tim mang loai con 2 cap*/
     public static function getSecChildId($id)
     {
         $fisrtChild = Cate::select(["id"])->where("parent_id", $id)->get()->toArray();
@@ -37,7 +26,6 @@ class Cate extends Model
 
     }
 
-    /*tim mang loai con 1 cap*/
     public static function getFirstChildId($id)
     {
         $fisrtChild = Cate::select(["id"])->where("parent_id", $id)->get()->toArray();
@@ -48,11 +36,15 @@ class Cate extends Model
         return $fisrtChild;
     }
 
+    /*tim mang loai con 2 cap*/
+
     public static function getIdByAlias($alias)
     {
         $id=Cate::select(["id"])->where("alias","=",$alias)->first();
         return $id->id;
     }
+
+    /*tim mang loai con 1 cap*/
 
     public static function getParentId($id,$chuoi="")
     {
@@ -73,5 +65,21 @@ class Cate extends Model
         $array_id=explode("-",$id);
         $array_name=Cate::select(["name"])->whereIn("id",$array_id)->get()->toArray();
         return $array_name;
+    }
+
+    public static function getCateOnDiscount($discount_id)
+    {
+        $cate = Cate::select(["id", "discount_id", "name"])->where("discount_id", $discount_id)->get();
+        return $cate;
+    }
+
+    public function product()
+    {
+        return $this->hasMany('App\Products');
+    }
+
+    public function discount()
+    {
+        return $this->belongsToMany('App\Discount', 'discounts', 'discount_id');
     }
 }

@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginRequest;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\Registrar;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
@@ -34,5 +35,30 @@ class AuthController extends Controller {
 
 		$this->middleware('guest', ['except' => 'getLogout']);
 	}
+
+	public function Login(LoginRequest $request)
+	{
+		$value = ["email" => $request->get("email"), "password" => $request->get("password")];
+		if ($request->remember_me == "1") $remember = true;
+		else $remember = false;
+		if ($this->auth->attempt($value, $remember)) {
+			if ($request->get("email") == "admin@maimallshop.com")
+				return redirect()->route("admin.home");
+			else {
+				return redirect("/");
+			}
+		} else {
+			return redirect("dang-nhap")->with("result", "Email hoặc mật khẩu không đúng!");
+		}
+	}
+
+	public function Logout()
+	{
+		$this->auth->logout();
+		echo "logout";
+		exit;
+		return redirect("/");
+	}
+
 
 }

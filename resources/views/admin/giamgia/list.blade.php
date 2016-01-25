@@ -14,24 +14,31 @@
     <a href="{{URL::route("admin.product.getAdd")}}"><button class="btn btn-primary">Thêm sản phẩm</button></a>
     <table class="table table-striped table-bordered" >
         <tr>
-            <th>Mã sản phẩm</th>
-            <th>Tên sản phẩm</th>
-            <th>Giá</th>
+            <th>STT</th>
+            <th>Tên</th>
+            <th>Phần Trăm</th>
+            <th>Ngày bắt đầu</th>
+            <th>Ngày kết thúc</th>
             <th></th>
             <th></th>
         </tr>
-       @foreach($products as $item)
+        <?php $i = 0; ?>
+        @foreach($discount as $item)
            <tr>
-               <td>{{$item->id}}</td>
+               <td>{{++$i}}</td>
                <td>{{$item->name}}</td>
-               <td>{{number_format($item->price)}}</td>
-               <td><img src="{{url("/public/images/c2.jpg")}}" alt=""><a href="{{URL::route("admin.product.getEdit",$item->id)}}">Edit</a></td>
-               <td><img src="{{url("/public/images/c3.jpg")}}" alt=""><a href="{{URL::route("admin.product.getDelete",$item->id)}}"> Delete</a></td>
+               <td>{{$item->percent}}</td>
+               <td>{{date("d-m-Y",strtotime($item->start))}}</td>
+               <td>{{date("d-m-Y",strtotime($item->end))}}</td>
+               <td><img src="{{url("/public/images/c2.jpg")}}" alt=""><a
+                           href="{{URL::route("admin.discount.getEdit",$item->id)}}">Edit</a></td>
+               <td><img src="{{url("/public/images/c3.jpg")}}" alt=""><a
+                           href="{{URL::route("admin.discount.getDelete",$item->id)}}"> Delete</a></td>
            </tr>
            @endforeach
     </table>
     <div style="text-align: center">
-    {!! $products->render() !!}
+        {!! $discount->render() !!}
     </div>
 </div>
     @endsection

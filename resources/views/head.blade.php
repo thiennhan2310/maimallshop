@@ -9,7 +9,6 @@ Bán hàng chính hãng - uy tín - chất lượng đảm bảo - giao hàng to
     <!--SEO-->
     <meta http-equiv="content-language" content="vi">
     <link rel="alternate" href="maimallshop.com" hreflang="vi" />
-
     <link href="{{asset("public/css/bootstrap.css")}}" rel="stylesheet" type="text/css" media="all"/>
     {{--<link href="http://localhost/Shopping/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">--}}
 
@@ -38,8 +37,29 @@ Bán hàng chính hãng - uy tín - chất lượng đảm bảo - giao hàng to
 
     <!--File Upload -->
     <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
-
+    <!-- message alert -->
+    <script type="text/javascript" src="{{asset("public/js/notify.min.js")}}"></script>
     <!--- Fav icon-->
     <link rel="icon" href="http://localhost/Shopping/favicon2.ico"/>
     <meta property="fb:app_id" content="591679227637990">
+
+    <script>
+        function themYeuThich(e, product_id) {
+            $.get("{{URL::route("yeuthich.sanpham.them")}}" + "/" + product_id).done(function () {
+                $(e).css("display", "none");
+                $(e).next().css("display", "block");
+                $.notify("Đã thêm vào yêu thích", {globalPosition: "top left", className: "success"}
+                );
+            });
+        }
+        function boYeuThich(e, product_id) {
+            $.get("{{URL::route("yeuthich.sanpham.xoa")}}" + "/" + product_id).done(function () {
+                $(e).css("display", "none");
+                $(e).prev().css("display", "block");
+                $.notify("Đã bỏ yêu thích", {globalPosition: "top left", className: "warn"}
+                );
+            });
+        }
+    </script>
 </head>
+

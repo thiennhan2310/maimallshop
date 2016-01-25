@@ -10,15 +10,24 @@ namespace App\Http\Controllers;
 
 
 use App\Cate;
+use App\Discount;
 use App\Http\Requests\ProductRequest;
 use App\Products;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
 class AdminController extends Controller
 {
     public function Home()
     {
-        return view("admin.layout");
+        if (Auth::check()) {
+            if (Auth::user()->email == "admin@maimallshop.com")
+                return view("admin.layout");
+            else
+                return redirect()->route("home");
+        } else {
+            return view("pages.login");
+        }
     }
 
     public function ProductList()
@@ -78,7 +87,7 @@ class AdminController extends Controller
         } else {
             $result = "Chưa thêm được";
         }
-        return redirect()->route("admin.product.getAdd")->with("result",$result);
+        return redirect()->route("admin.product.getAdd")->with("result", $result);
     }
 
     public function ProductGetEdit($id)
@@ -161,25 +170,46 @@ class AdminController extends Controller
         } else {
             $result = "Chưa cập nhật được";
         }
-        return redirect()->route("admin.product.list")->with("result",$result);
+        return redirect()->route("admin.product.list")->with("result", $result);
     }
 
-    public function ProductGetDelete($id)
+    private function deleteImage($imgDel)
     {
-        $product=Products::find($id);
-        $img=[$product->img1,$product->img2,$product->img3,$product->img4];
-        $this->deleteImage($img);
-        $product->delete();
-        return redirect()->route("admin.product.list")->with("result","Xóa thành công");
-    }
-    private function deleteImage($imgDel){
         if (isset($imgDel)) {
             foreach ($imgDel as $img) {
                 $url = "public/products/" . $img;
-                if(File::exists($url)){
+                if (File::exists($url)) {
                     File::delete($url);
                 }
             }
         }
+    }
+
+    public function ProductGetDelete($id)
+    {
+        $product = Products::find($id);
+        $img = [$product->img1, $product->img2, $product->img3, $product->img4];
+        $this->deleteImage($img);
+        $product->delete();
+        return redirect()->route("admin.product.list")->with("result", "Xóa thành công");
+    }
+
+    public function DiscountList()
+    {
+        $discount = Discount::select(["id", "name", "percent", "start", "end"])->paginate(10);
+        return view("admin.giamgia.list", compact("discount"));
+    }
+
+    public function DiscountGetEdit($id)
+    {
+        $detail = Discount::find($id);
+        $dicountedCate = Cate::getCateOnDiscount($id);
+        $cateAll = Cate::select(["id", "discount_id", "name"])->get();
+        return view("admin.giamgia.edit", compact("detail", "dicountedCate", "cateAll"));
+    }
+
+    public function DiscountPostEdit($id)
+    {
+
     }
 }

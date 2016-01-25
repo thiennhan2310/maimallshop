@@ -139,7 +139,10 @@
                                 @endif
                         </table>
                         @if($product->status==1)
-                        <button id="themGiohang" class="btn btn-white" >THÊM VÀO GIỎ</button>
+                            <button id="themYeuThich" type="button" class="btn btn-white"><img
+                                        src="{{url("/")}}/public/images/love.png" alt=""></button>
+                            <button id="themGiohang" type="button" class="btn btn-white"><img
+                                        src="{{url("/")}}/public/images/bag_white.png" alt=""></button>
                         <button type="submit" class="btn btn-green">MUA NGAY</button>
                             @endif
                     </form>
@@ -148,7 +151,7 @@
 
             </div>
         </div>
-        <div class="clearfix" style=" padding-bottom: 320px;"> </div>
+        <div class="clearfix"></div>
 
 
 
@@ -171,6 +174,12 @@
                         </a>
                     </div>
                     @if($productSameCate[$i]->percent>0)  <p class="percent"> {{$productSameCate[$i]->percent}} %</p> @endif
+                    <p class="love" title="Thêm vào yêu thích"><img src="{{url("/")}}/public/images/love.png"
+                                                                    alt="love"></p>
+
+                    <p class="cart" title="Thêm vào giỏ hàng"><img src="{{url("/")}}/public/images/bag_white.png"
+                                                                   alt="cart"></p>
+
                     <p class="brand"> Hãng sp </p>
 
                     <p class="cate">{{$productSameCate[$i]->cate}}</p>

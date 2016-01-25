@@ -11,7 +11,7 @@
 |
 */
 Route::get("/","PageController@index");
-Route::get("trang-chu","PageController@index");
+Route::get("trang-chu", ["as" => "home", "uses" => "PageController@index"]);
 Route::get("san-pham/{cate}/","PageController@listProducts");
 Route::get("chi-tiet/{alias}","PageController@detailProduct");
 Route::group(['prefix' => 'gio-hang'], function () {
@@ -32,13 +32,32 @@ Route::group(["prefix" => "admin"],function(){
 		Route::post("edit/{id}",["as"=>"admin.product.postEdit","uses"=>"AdminController@ProductPostEdit"]);
 		Route::get("delete/{id}",["as"=>"admin.product.getDelete","uses"=>"AdminController@ProductGetDelete"]);
 	});
-	Route::group(["prefix"=>"sale"],function(){
-		Route::get("list",["as"=>"admin.sale.list","uses"=>"AdminController@SaleList"]);
+	Route::group(["prefix" => "discount"], function () {
+		Route::get("list", ["as" => "admin.discount.list", "uses" => "AdminController@DiscountList"]);
+		Route::get("edit/{id}", ["as" => "admin.discount.getEdit", "uses" => "AdminController@DiscountGetEdit"]);
+		Route::post("edit/{id}", ["as" => "admin.discount.postEdit", "uses" => "AdminController@DiscountPostEdit"]);
+		Route::get("delete/{id}", ["as" => "admin.discount.getDelete", "uses" => "AdminController@DiscountGetDelete"]);
 	});
 
 });
 Route::post("tim-kiem","PageController@searchPage");
-Route::controllers([
-	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController',
-]);
+Route::get("dang-nhap", ["as" => "login", "uses" => "PageController@Login"]);
+Route::post("dang-nhap", ["as" => "login.post", "uses" => "Auth\AuthController@Login"]);
+Route::get("dang-xuat", ["as" => "logout", "uses" => "PageController@Logout"]);
+
+Route::group(["prefix" => "thong-tin-tai-khoan"], function () {
+	Route::get("/", "PageController@CustomerInfoTemplate");
+	Route::get("/thong-tin", ["as" => "thongtin", "uses" => "PageController@CustomerInfo"]);
+	Route::get("/gio-hang", ["as" => "giohang", "uses" => "PageController@CartInfo"]);
+	Route::get("/yeu-thich", ["as" => "yeuthich", "uses" => "PageController@LoveProduct"]);
+
+
+});
+Route::group(["prefix" => "/yeu-thich"], function () {
+	Route::get("them/{product_id}/{list_id?}", ["as" => "yeuthich.sanpham.them", "uses" => "LoveListController@AddLoveProduct"]);
+	Route::get("xoa/{product_id}/{list_id?}", ["as" => "yeuthich.sanpham.xoa", "uses" => "LoveListController@DelLoveProduct"]);
+});
+
+//Route::get("hash",function(){
+//	echo Hash::make(12345);
+//});

@@ -39,4 +39,5 @@ jQuery(document).ready(function($){
 			tabs.parent('.cd-tabs').removeClass('is-ended');
 		}
 	}
+
 });
