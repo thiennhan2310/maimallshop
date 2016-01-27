@@ -225,8 +225,7 @@ div.right-bar
 .header-left ul li a{
 	text-decoration: none;
 	color:#FFFFFF;
-	  font-size: 1em;
-	  margin: 0 2em 0 0;
+    margin: 0 10px 0 0;
 }
 
 .logo{
@@ -237,18 +236,20 @@ div.right-bar
 .head-top {
   padding: 0 0 0 0 ;
 }
-#bag{
+
+.bag-header {
     background: url('../images/bagpngt.png') no-repeat;
-    padding-left: 10px;
-    padding-top: 6px;
-    padding-right: 10px;
-    padding-bottom: 6px;
-    font-size: 11px;
-
-
+    padding: 6px 10px;
 }
-a#bag>span{
+
+.love-header {
+    background: url('../images/unnamed.png') no-repeat;
+    padding: 4px 11px;
+}
+
+a.bag-header > span, a.love-header > span {
     color: #000000;
+    font-size: 11px;
 }
 /* start menu */
 li#search_box
@@ -1822,7 +1823,7 @@ a.create {
 }
 .cart-item-info div.don_gia{
     padding-top: 47px;
-    padding-left: 500px;
+    float: right;
     font-size: 15px;
 
 }
@@ -2001,7 +2002,7 @@ p.love {
     float: left;
     border-top: 1px solid #dddddd;
     border-bottom: 1px solid #dddddd;
-    padding: 3px 6px;
+    padding: 1px 6px;
     height: 28px;
 }
 
@@ -2708,6 +2709,7 @@ top: 35px;
 
 .personal-info .col-md-10 div.address {
     border-bottom: 1px solid black;
+    position: relative;
 }
 
 .personal-info .col-md-10 div.address div, .personal-info .col-md-10 div.address h5 {
@@ -2758,9 +2760,9 @@ top: 35px;
 
 .personal-info .buy > .border-top {
     float: left;
-    width: 311px;
+    width: 328px;
     border-top: solid 1px black;
-    margin-left: 99px;
+    margin-left: 82px;
     font-weight: bold;
 }
 
@@ -2775,6 +2777,10 @@ top: 35px;
 
 .personal-info .col-md-10 div.list-header {
     padding: 25px 0px 0px 25px;
+}
+
+.personal-info .col-md-10 div.list-header > .dropdown {
+    float: left;
 }
 
 .personal-info .list-body {
@@ -2811,7 +2817,7 @@ top: 35px;
 
 .personal-info .detail {
     float: left;
-    width: 280px;
+    width: 263px;
 }
 
 .personal-info .date-detail {
@@ -2821,13 +2827,14 @@ top: 35px;
 
 .personal-info .count-detail {
     float: left;
-    width: 111px;
+    width: 91px;
     text-align: center;
 }
 
 .personal-info .price-detail {
     float: left;
     width: 150px;
+    margin-left: 6%;
 }
 
 .personal-info .list-product-info {

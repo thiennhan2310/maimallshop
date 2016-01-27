@@ -27,16 +27,21 @@
                         <p class="percent"> {{$products[$i]->percent}} %</p>
 
                         <p class="love">
-                            <img src="{{url("/")}}/public/images/love.png" style="display: block" id="addLove"
-                                 alt="love" title="Thêm vào yêu thích"
+                            <img src="{{url("/")}}/public/images/love.png"
+                                 @if(!in_array($products[$i]->id,$lovedProductsId))style="display: inline-block"
+                                 @else style="display: none" @endif id="addLove" alt="love"
+                                 title="Thêm vào yêu thích"
                                  onclick="@if(Auth::check())themYeuThich(this,'{{$products[$i]->id}}') @else window.location.replace('{{URL::route("login")}}') @endif">
-                            <img src="{{url("/")}}/public/images/love-red.png" style="display: none" id="delLove"
-                                 alt="love" title="Bỏ yêu thích"
+                            <img src="{{url("/")}}/public/images/love-red.png"
+                                 @if( in_array($products[$i]->id,$lovedProductsId))style="display: inline-block"
+                                 @else style="display: none" @endif id="delLove" alt="love" title="Bỏ yêu thích"
                                  onclick="@if(Auth::check())boYeuThich(this,'{{$products[$i]->id}}') @else window.location.replace('{{URL::route("login")}}') @endif">
+
                         </p>
 
-                        <p class="cart" title="Thêm vào giỏ hàng"><img src="{{url("/")}}/public/images/bag_white.png"
-                                                                       alt="cart"></p>
+                        <p class="cart" title="Thêm vào giỏ hàng"><img
+                                    onclick="themGioHang(this,'{{$products[$i]->id}}')"
+                                    src="{{url("/")}}/public/images/bag_white.png" alt="cart"></p>
                         <p class="brand"> Hãng sp </p>
 
                         <p class="cate">{{$products[$i]->cate}}</p>

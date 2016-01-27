@@ -27,8 +27,16 @@ class LoveListController extends Controller
                     $list_id = $default_list_id->id;
                 }
                 /*them san pham vao danh sach*/
-                LoveListDetail::create(["list_id" => $list_id, "product_id" => $product_id]);
-                return "success";
+                /*Kiem tra san pham da co trong yeu thich*/
+                $array_list_id = LoveList::select(["id"])->where("customer_id", $customer_id)->get()->toArray();
+                $count = LoveListDetail::whereIn("list_id", $array_list_id)->where("product_id", $product_id)->count();
+                if ($count > 0) {
+                    return json_encode(["result" => "Sản phẩm đã trong yêu thích"]);
+                } else {
+                    LoveListDetail::create(["list_id" => $list_id, "product_id" => $product_id]);
+                    return json_encode(["result" => "Thêm yêu thích thành công"]);
+                }
+
             } else {
                 return redirect()->route("login");
             }
@@ -37,17 +45,15 @@ class LoveListController extends Controller
         }
     }
 
-    public function DelLoveProduct($product_id, $list_id = 0)
+    public function DelLoveProduct($product_id)
     {
         if (Auth::check()) {
+            /* get customer id*/
             $customer_id = Auth::user()->id;
-            /*lay id cua danh sach mac dinh*/
-            if ($list_id == 0) {
-                $default_list_id = LoveList::select(["id"])->where("name", "danh sách mặc định")->where("customer_id", $customer_id)->first();
-                $list_id = $default_list_id->id;
-            }
-            /*them san pham vao danh sach*/
-            LoveListDetail::where("list_id", $list_id)->where("product_id", $product_id)->delete();
+            /* get list id of customer*/
+            $array_list_id = LoveList::select(["id"])->where("customer_id", $customer_id)->get()->toArray();
+            /*del san pham */
+            LoveListDetail::whereIn("list_id", $array_list_id)->where("product_id", $product_id)->delete();
             return "success";
         } else {
             return redirect()->route("login");

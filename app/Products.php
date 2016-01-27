@@ -9,47 +9,52 @@ class Products extends Model
     protected $table = "products";
     protected $fillable = ['id', 'cate_id', 'name', "alias", 'price', 'img1', 'img2', 'img3', 'img4', 'description', 'brand', 'size', 'status'];
 
+    /* Lay san pham giam gia */
+
     public static function getSaleProducts($limit) //get san pham giam gia
     {
-        $saleProducts = Products::Join("cates", "products.cate_id", "=", "cates.id")->join("discounts", "discounts.id", "=", "cates.discount_id")
+        $saleProducts = Products::join("cates", "products.cate_id", "=", "cates.id")->join("discounts", "discounts.id", "=", "cates.discount_id")
             ->select(["products.*", "cates.name as cate", "cates.alias as cate_alias", "discounts.percent as percent"])->where("cates.discount_id", "!=", "0")
             ->orderBy("products.updated_at")->paginate($limit);
         return $saleProducts;
     }
 
+    /* Lay san pham moi nhat*/
     public static function getNewestProducts($limit)
     {
-        $newProducts = Products::Join("cates", "products.cate_id", "=", "cates.id")->join("discounts", "discounts.id", "=", "cates.discount_id")
+        $newProducts = Products::join("cates", "products.cate_id", "=", "cates.id")->join("discounts", "discounts.id", "=", "cates.discount_id")
             ->select(["products.*", "cates.name as cate", "cates.alias as cate_alias", "discounts.percent as percent"])
             ->orderBy("products.updated_at")->paginate($limit);
         return $newProducts;
     }
 
+    /* Lay san pham ban chay*/
+
     public static function getBestSellProducts($limit)
     {
-        $bestSell = Products::Join("cates", "products.cate_id", "=", "cates.id")->join("discounts", "discounts.id", "=", "cates.discount_id")
+        $bestSell = Products::join("cates", "products.cate_id", "=", "cates.id")->join("discounts", "discounts.id", "=", "cates.discount_id")
             ->select(["products.*", "cates.name as cate", "cates.alias as cate_alias", "discounts.percent as percent"])
+            ->where("products.count", "!=", 0)
             ->orderBy("products.count", "desc")
             ->orderBy("products.updated_at")->paginate($limit);
         return $bestSell;
     }
-    /* Lay san pham giam gia */
 
+    /*lay san pham theo loai*/
     public static function getProductsOnCate($cate_id, $limit)
     {   /*Tim danh sach con neu co*/
-        $arrayChildCateId = [];
         if ($cate_id == 1) { // loai my pham
             $arrayChildCateId = Cate::getSecChildId($cate_id);
         } else { //loai thoitrang suckhoe
             $arrayChildCateId = Cate::getFirstChildId($cate_id);
         }
         if (count($arrayChildCateId) > 0) { //Co con
-            $products = Products::Join("cates", "products.cate_id", "=", "cates.id")->join("discounts", "discounts.id", "=", "cates.discount_id")
+            $products = Products::join("cates", "products.cate_id", "=", "cates.id")->join("discounts", "discounts.id", "=", "cates.discount_id")
                 ->select(["products.*", "cates.name as cate", "cates.alias as cate_alias", "discounts.percent as percent"])
                 ->whereIn("cate_id", $arrayChildCateId)
                 ->orderBy("products.updated_at")->paginate($limit);
         } else { //Khong co con
-            $products = Products::Join("cates", "products.cate_id", "=", "cates.id")->join("discounts", "discounts.id", "=", "cates.discount_id")
+            $products = Products::join("cates", "products.cate_id", "=", "cates.id")->join("discounts", "discounts.id", "=", "cates.discount_id")
                 ->select(["products.*", "cates.name as cate", "cates.alias as cate_alias", "discounts.percent as percent"])
                 ->where("cate_id", $cate_id)
                 ->orderBy("products.updated_at")->paginate($limit);
@@ -57,59 +62,57 @@ class Products extends Model
         return $products;
     }
 
-    /* Lay san pham moi nhat*/
 
+    /*lay san pham theo alias*/
     public static function getProductByAlias($alias)
     {
-        $products = Products::Join("cates", "products.cate_id", "=", "cates.id")->join("discounts", "discounts.id", "=", "cates.discount_id")
+        $products = Products::join("cates", "products.cate_id", "=", "cates.id")->join("discounts", "discounts.id", "=", "cates.discount_id")
             ->select(["products.*", "cates.name as cate", "cates.alias as cate_alias", "discounts.percent as percent"])
             ->where("products.alias", $alias)->first();
         return $products;
     }
 
-    /* Lay san pham ban chay*/
+    /*lay san pham cung loai tru san pham chinh*/
 
     public static function getProductsSameCate($cateId, $productId)
     {
-        $products = Products::Join("cates", "products.cate_id", "=", "cates.id")->join("discounts", "discounts.id", "=", "cates.discount_id")
+        $products = Products::join("cates", "products.cate_id", "=", "cates.id")->join("discounts", "discounts.id", "=", "cates.discount_id")
             ->select(["products.*", "cates.name as cate", "cates.alias as cate_alias", "discounts.percent as percent"])
             ->where("products.cate_id", $cateId)->where("products.id", "!=", $productId)->take(5)->get();
         return $products;
     }
 
-    /*lay san pham theo loai*/
 
+    /*lay san pham theo id*/
     public static function getProductById($id, $type = "single")
     {
         $products = [];
         if ($type == "single") {
-            $products = Products::Join("cates", "products.cate_id", "=", "cates.id")->join("discounts", "discounts.id", "=", "cates.discount_id")
+            $products = Products::join("cates", "products.cate_id", "=", "cates.id")->join("discounts", "discounts.id", "=", "cates.discount_id")
                 ->select(["products.*", "cates.name as cate", "cates.alias as cate_alias", "discounts.percent as percent"])
                 ->where("products.id", $id)->first();
         } else if ($type == "array") {
-            $products = Products::Join("cates", "products.cate_id", "=", "cates.id")->join("discounts", "discounts.id", "=", "cates.discount_id")
+            $products = Products::join("cates", "products.cate_id", "=", "cates.id")->join("discounts", "discounts.id", "=", "cates.discount_id")
                 ->select(["products.*", "cates.name as cate", "cates.alias as cate_alias", "discounts.percent as percent"])
                 ->whereIn("products.id", $id)->get();
         }
         return $products;
     }
 
-    /*lay san pham theo alias*/
 
     public static function getProductByName($name, $limit)
     {
-        $products = Products::Join("cates", "products.cate_id", "=", "cates.id")->join("discounts", "discounts.id", "=", "cates.discount_id")
+        $products = Products::join("cates", "products.cate_id", "=", "cates.id")->join("discounts", "discounts.id", "=", "cates.discount_id")
             ->select(["products.*", "cates.name as cate", "cates.alias as cate_alias", "discounts.percent as percent"])
             ->where("products.name", "like", "%" . $name . "%")->paginate($limit);
         return $products;
     }
-    /*lay san pham cung loai tru san pham chinh*/
 
     public function cate()
     {
         return $this->belongsTo('App\Cate');
     }
-    /*lay san pham theo id*/
+
 
     public function bill_detail()
     {

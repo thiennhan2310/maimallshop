@@ -13,6 +13,7 @@ use App\customer;
 use App\Http\Requests\FormRequest;
 use App\Products;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class PageController extends Controller
 {
@@ -35,6 +36,7 @@ class PageController extends Controller
 
     public function listProducts($cate) //trang danh sach san pham
     {
+
         /* Co alias->tim id->tim chuoi parentId->tim ten loai hien tai->tim ten loai cha     */
         $limit = 25;
         if ($cate == "moi") {
@@ -54,7 +56,11 @@ class PageController extends Controller
             $arrayParentName = Cate::getNameById($parentId);// duong dan
         }
         $products->setPath($cate);
-        return view("pages.list_products", compact("products", "arrayParentName", "arrayCurrentCateName"));
+        $lovedProductsId = ["0"];
+        if (Auth::check()) {
+            $lovedProductsId = customer::LovedProduct("id");
+        }
+        return view("pages.list_products", compact("products", "arrayParentName", "arrayCurrentCateName", "lovedProductsId"));
     }
 
     public function detailProduct($alias) //trang chi tiet
@@ -67,7 +73,11 @@ class PageController extends Controller
         $arrayParentName = Cate::getNameById($parentId);// duong dan
         /*San pham cung loai*/
         $productSameCate = Products::getProductsSameCate($cateId, $product->id);
-        return view("pages.detail_products", compact("product", "arrayParentName", "arrayCurrentCateName", "productSameCate"));
+        $lovedProductsId = ["0"];
+        if (Auth::check()) {
+            $lovedProductsId = customer::LovedProduct("id");
+        }
+        return view("pages.detail_products", compact("product", "arrayParentName", "arrayCurrentCateName", "productSameCate", "lovedProductsId"));
     }
 
     public function shoppingCart() //trang gio hang
@@ -98,11 +108,14 @@ class PageController extends Controller
     public function Logout() //trang dang xuat
     {
         Auth::logout();
+        if (Session::has("cart")) Session::forget("cart");
+        if (Session::has("love")) Session::forget("love");
         return redirect()->route("home");
     }
 
     public function CustomerInfoTemplate()
     {
+
         return view("pages.customer_info");
     }
 

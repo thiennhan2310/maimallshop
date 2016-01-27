@@ -61,3 +61,4 @@ Route::group(["prefix" => "/yeu-thich"], function () {
 //Route::get("hash",function(){
 //	echo Hash::make(12345);
 //});
+

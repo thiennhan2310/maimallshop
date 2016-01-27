@@ -32,7 +32,7 @@ class CartController extends Controller
                     $cart = Session::pull("cart");
                     $cart += $product;
                     Session::put("cart", $cart);
-                    $result = "Thêm sản phẩm thành công";
+                    $result = "Thêm giỏ hàng thành công";
                     $tsl = countProducts();
                     return json_encode(["result" => $result, "tsl" => $tsl]);
                 }
@@ -40,7 +40,7 @@ class CartController extends Controller
                 $product = [$id => $num];
                 Session::put("cart", $product);
                 $tsl = $num;
-                $result = "Thêm sản phẩm thành công";
+                $result = "Thêm giỏ hàng thành công";
                 return json_encode(["result" => $result, "tsl" => $tsl]);
             }
         } else {

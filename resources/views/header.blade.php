@@ -43,8 +43,14 @@
                     });
                 </script>
                 @endif
+                    <li>
+                        <a href="{{url('/')}}/thong-tin-tai-khoan" class="love-header">
+                            <span id="tongsoyeuthich">@if(Session::has("love")) {{Session::get("love")}} @else
+                                    0 @endif</span>
+                        </a>
+                    </li>
                 <li >
-                    <a href="{{url('/gio-hang')}}" id="bag">
+                    <a href="{{url('/gio-hang')}}" class="bag-header">
                             <span id="tongsoluong"> {{countProducts()}}  </span>
                     </a>
                 </li>

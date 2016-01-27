@@ -1,9 +1,7 @@
 <h4>SẢN PHẨM TRONG GIỎ </h4>
-<div class="panel-body">
-    <div class="border-left"></div>
-    <div class="cart-items">
-        <div class="cart-header">
-            <div class="cart-sec simpleCart_shelfItem">
+<div class="cart-items col-md-8">
+
+<div class="cart-sec simpleCart_shelfItem">
                 <div class="cart-item cyc">
                     <div class="cart-header-info">
 
@@ -32,12 +30,12 @@
                 </div>
                 <div class="clearfix"></div>
 
-            </div>
+
         </div>
 
 
     </div>
-    <div class=" cart-total">
+<div class=" cart-total col-md-4">
 
         <div class="price-details">
             <div>
@@ -72,4 +70,3 @@
     </div>
 
     <div class="clearfix"></div>
-</div>

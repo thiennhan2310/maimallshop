@@ -27,6 +27,7 @@
     <h4>ĐỊA CHỈ GIAO HÀNG</h4>
 
     <div class="address">
+        <div class="close1"></div>
         <button class="btn-change"> THAY ĐỔI</button>
         <h5>Địa chỉ 1</h5>
 
@@ -34,6 +35,7 @@
         <div> 89/29B, Đường 45, KP2, P.Hiệp Bình Chánh, Q.Thủ Đức, TP.Hồ Chí Minh</div>
     </div>
     <div class="address">
+        <div class="close1"></div>
         <button class="btn-change"> THAY ĐỔI</button>
         <h5>Địa chỉ 2</h5>
 

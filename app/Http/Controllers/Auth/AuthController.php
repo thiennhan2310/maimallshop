@@ -5,6 +5,7 @@ use App\Http\Requests\LoginRequest;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\Registrar;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller {
 
@@ -42,22 +43,20 @@ class AuthController extends Controller {
 		if ($request->remember_me == "1") $remember = true;
 		else $remember = false;
 		if ($this->auth->attempt($value, $remember)) {
-			if ($request->get("email") == "admin@maimallshop.com")
+			if ($request->get("email") == "admin@maimallshop.com") //admin
 				return redirect()->route("admin.home");
-			else {
+			else { //customer
+				$customer_id = $this->auth->user()->id;
+				/* get list id of customer*/
+				$array_list_id = \App\LoveList::select(["id"])->where("customer_id", $customer_id)->get()->toArray();
+				/*del san pham */
+				$temp = \App\LoveListDetail::whereIn("list_id", $array_list_id)->count();
+				Session::put("love", $temp); //so luong san pham yeu thich
 				return redirect("/");
 			}
 		} else {
 			return redirect("dang-nhap")->with("result", "Email hoặc mật khẩu không đúng!");
 		}
-	}
-
-	public function Logout()
-	{
-		$this->auth->logout();
-		echo "logout";
-		exit;
-		return redirect("/");
 	}
 
 
