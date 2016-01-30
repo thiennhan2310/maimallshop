@@ -64,4 +64,20 @@ class LoveListController extends Controller
     {
 
     }
+
+    /*Chuyen san pham(id) tu->den*/
+    public function MoveLovedProduct($product, $from, $to)
+    {
+        if (Request::ajax()) {
+            if (Auth::check()) {
+                LoveListDetail::where("list_id", $from)->where("product_id", $product)->update(["list_id" => $to]);
+                return json_encode(["result" => "success"]);
+            } else {
+                return redirect()->route("login");
+            }
+        } else {
+            return redirect()->route("login");
+        }
+
+    }
 }

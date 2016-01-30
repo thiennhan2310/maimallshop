@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 class LoveListDetail extends Model
 {
 
-    public $timestamps = false;
+    public $timestamps = true;
     protected $table = "love_list_detail";
     protected $fillable = ['list_id', 'product_id'];
 

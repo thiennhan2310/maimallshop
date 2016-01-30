@@ -2777,6 +2777,7 @@ top: 35px;
 
 .personal-info .col-md-10 div.list-header {
     padding: 25px 0px 0px 25px;
+    margin-top: 25px;
 }
 
 .personal-info .col-md-10 div.list-header > .dropdown {
@@ -2786,7 +2787,6 @@ top: 35px;
 .personal-info .list-body {
     border-top: 1px solid black;
     margin-top: 15px;
-    padding-top: 5px;
 }
 
 .personal-info .date {
@@ -2812,7 +2812,7 @@ top: 35px;
 }
 
 .personal-info .borderless tbody tr td:first-child {
-    width: 80px;
+    width: 50px;
 }
 
 .personal-info .detail {
@@ -2839,7 +2839,9 @@ top: 35px;
 
 .personal-info .list-product-info {
     border-bottom: 1px solid #A4A4A4;
-    height: 190px;
+    height: 205px;
+    padding-top: 5px;
+
 }
 
 .personal-info .list-product-info:last-child {
@@ -2856,7 +2858,7 @@ top: 35px;
 }
 
 .personal-info .custom div {
-    text-align: right;
+    float: right;
 }
 
 .personal-info .cart-item-info {

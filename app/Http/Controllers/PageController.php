@@ -11,8 +11,11 @@ namespace App\Http\Controllers;
 use App\Cate;
 use App\customer;
 use App\Http\Requests\FormRequest;
+use App\LoveList;
+use App\LoveListDetail;
 use App\Products;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Session;
 
 class PageController extends Controller
@@ -41,13 +44,13 @@ class PageController extends Controller
         $limit = 25;
         if ($cate == "moi") {
             $products = Products::getNewestProducts($limit);
-            $arrayCurrentCateName=[["name"=> "Sản phẩm mới"]];
+            $arrayCurrentCateName = [["name" => "Sản phẩm mới"]];
         } elseif ($cate == "ban-chay") {
             $products = Products::getBestSellProducts($limit);
-            $arrayCurrentCateName=[["name"=> "Sản phẩm bán chạy"]];
+            $arrayCurrentCateName = [["name" => "Sản phẩm bán chạy"]];
         } elseif ($cate == "giam-gia") {
             $products = Products::getSaleProducts($limit);
-            $arrayCurrentCateName=[["name"=> "Sản phẩm giảm giá"]];
+            $arrayCurrentCateName = [["name" => "Sản phẩm giảm giá"]];
         } else {
             $cateId = Cate::getIdByAlias($cate);//$cate=alias
             $products = Products::getProductsOnCate($cateId, $limit);
@@ -90,10 +93,10 @@ class PageController extends Controller
 
     public function searchPage(FormRequest $request)//trang tim kiem
     {
-        $products=Products::getProductByName($request->get("ten_san_pham"),25);
+        $products = Products::getProductByName($request->get("ten_san_pham"), 25);
         $products->setPath("tim-kiem");
-        $count=count($products);
-        $arrayCurrentCateName=[["name"=> "Có $count sản phẩm tìm thấy"]];
+        $count = count($products);
+        $arrayCurrentCateName = [["name" => "Có $count sản phẩm tìm thấy"]];
         return view("pages.list_products", compact("products", "arrayParentName", "arrayCurrentCateName"));
     }
 
@@ -115,22 +118,50 @@ class PageController extends Controller
 
     public function CustomerInfoTemplate()
     {
-
-        return view("pages.customer_info");
+        if (Auth::check()) {
+            return view("pages.customer_info");
+        } else {
+            return redirect()->route("login");
+        }
     }
 
     public function CustomerInfo()
     {
-        return view("pages.customerInfo.info");
+        if (Request::ajax()) {
+            return view("pages.customerInfo.info");
+        } else {
+            return redirect()->route("home");
+        }
     }
 
     public function CartInfo()
     {
-        return view("pages.customerInfo.cart");
+        if (Request::ajax()) {
+            return view("pages.customerInfo.cart");
+        } else {
+            return redirect()->route("home");
+        }
+
     }
 
     public function LoveProduct()
     {
-        return view("pages.customerInfo.love");
+        if (Request::ajax()) {
+            $customer_id = Auth::user()->id;
+            $loveList = LoveList::select(["love_list.id", "love_list.name"])->where("love_list.customer_id", $customer_id)->get();
+            /*Tao mang love list id*/
+            $loveListId = [];
+            foreach ($loveList as $item) {
+                $loveListId[] = $item->id;
+            }
+            $lovedProduct = LoveListDetail::join("products", "products.id", "=", "love_list_detail.product_id")
+                ->join("cates", "products.cate_id", "=", "cates.id")
+                ->join("discounts", "discounts.id", "=", "cates.discount_id")
+                ->select(["products.*", "cates.name as cate", "cates.alias as cate_alias", "discounts.percent as percent", "love_list_detail.list_id", "love_list_detail.updated_at"])
+                ->get();
+            return view("pages.customerInfo.love", compact("loveList", "lovedProduct"));
+        } else {
+            return redirect()->route("home");
+        }
     }
 }

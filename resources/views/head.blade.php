@@ -49,6 +49,7 @@ Bán hàng chính hãng - uy tín - chất lượng đảm bảo - giao hàng to
     <meta property="fb:app_id" content="591679227637990">
 
     <script type="text/javascript">
+        //TODO chuyen 3 function nay di cho khac
         function themYeuThich(e, product_id) {
             $.get("{{URL::route("yeuthich.sanpham.them")}}" + "/" + product_id).done(function (data) {
                 data = jQuery.parseJSON(data);
@@ -87,6 +88,25 @@ Bán hàng chính hãng - uy tín - chất lượng đảm bảo - giao hàng to
                 }
             });
 
+        }
+        function chuyenSanPham(event, product_id, from, to) {
+
+            var url = '{{url("/yeu-thich/chuyen")}}' + "/" + product_id + "/" + from + "/" + to;
+            var img_load = "<img src='{{url("/")}}/public/images/loading_spinner.gif'/>";
+            $("#load").html(img_load);
+            $.ajax({
+                url: url,
+                type: "GET",
+                success: function (data) {
+                    var data = jQuery.parseJSON(data);
+                    if (data['result'] === "success") {
+                        $("#load").load("{{URL::route("yeuthich")}}");
+                    } else {
+                        $.notify(data['result'], {globalPosition: "top left", className: "success"});
+                    }
+                }
+            });
+            return false;
         }
     </script>
 </head>
