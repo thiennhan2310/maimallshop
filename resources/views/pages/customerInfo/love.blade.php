@@ -1,5 +1,6 @@
-<h4>DANH SÁCH YÊU THÍCH CỦA TÔI <span id="create-list" style="float:right;cursor: pointer" data-toggle="modal"
-                                      data-target="#taoDanhsach">+TẠO DANH SÁCH</span></h4>
+<h4>DANH SÁCH YÊU THÍCH CỦA TÔI
+    <span id="create-list" style="float:right;cursor: pointer" data-toggle="modal" data-target="#taoDanhsach">+TẠO DANH SÁCH</span>
+</h4>
 @foreach($loveList as $item)
 <div class="list-header">
     <div class="dropdown">
@@ -10,7 +11,9 @@
         </a>
 
         <ul class="dropdown-menu" aria-labelledby="dLabel">
-            <li><a href="">Đổi tên</a></li>
+            <li>
+                <a href="" data-toggle="modal" data-target="#doiTenDanhSach">Đổi tên</a>
+            </li>
             <li><a href="">Đặt làm mặc định</a></li>
             <li><a href="">Xoá danh sách</a></li>
         </ul>
@@ -85,12 +88,14 @@
                     @foreach($loveList as $list)
                         @if($list->id!=$item->id)
                             <li><a href="#"
-                                   onclick="chuyenSanPham(this,'{{$product->id}}','{{$item->id}}','{{$list->id}}')"
+                                   onclick="chuyenSanPhamYeuThich(this,'{{$product->id}}','{{$item->id}}','{{$list->id}}')"
                                    style="text-transform: capitalize">{{$list->name}}</a></li>
                         @endif
                     @endforeach
                     <li role="separator" class="divider"></li>
-                    <li><a href="">Xoá sản phẩm</a></li>
+                    <li><a href="#"
+                           onclick="xoaSanPhamYeuThich(this,'{{$product->id}}','{{$item->id}}')">
+                            Xoá sản phẩm</a></li>
                 </ul>
 
             </div>
@@ -104,8 +109,7 @@
 
 
 <!-- Modal tao danh sach -->
-<!-- Modal -->
-<div class="modal fade" id="taoDanhsach" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal " id="taoDanhsach" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
@@ -114,11 +118,24 @@
                     <input type="text" autofocus class="form-control" id="nameList" placeholder="Tên danh sách">
                 </div>
                 <div class="form-group">
-                    <label for="moTa">Mô tả</label>
-                    <textarea class="form-control" id="moTa" rows="3"></textarea>
-                </div>
-                <div class="form-group">
                     *Mục bắt buột
+                </div>
+                <button type="button" onclick="$('#taoDanhsach').modal('hide');taoDanhSach($('#nameList').val())"
+                        class="btn btn-gray">Lưu
+                </button>
+                <button type="reset" data-dismiss="modal" class="btn btn-white" style="width: 52px">Huỷ</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal doi ten -->
+<div class="modal fade" id="doiTenDanhSach" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="nameList">Tên mới * </label>
+                    <input type="text" autofocus class="form-control" id="nameList" placeholder="Tên danh sách">
                 </div>
                 <button type="submit" class="btn btn-gray">Lưu</button>
                 <button type="button" data-dismiss="modal" class="btn btn-white" style="width: 52px">Huỷ</button>

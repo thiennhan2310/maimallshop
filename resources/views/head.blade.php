@@ -89,7 +89,7 @@ Bán hàng chính hãng - uy tín - chất lượng đảm bảo - giao hàng to
             });
 
         }
-        function chuyenSanPham(event, product_id, from, to) {
+        function chuyenSanPhamYeuThich(event, product_id, from, to) {
 
             var url = '{{url("/yeu-thich/chuyen")}}' + "/" + product_id + "/" + from + "/" + to;
             var img_load = "<img src='{{url("/")}}/public/images/loading_spinner.gif'/>";
@@ -104,6 +104,40 @@ Bán hàng chính hãng - uy tín - chất lượng đảm bảo - giao hàng to
                     } else {
                         $.notify(data['result'], {globalPosition: "top left", className: "success"});
                     }
+                }
+            });
+            return false;
+        }
+        function xoaSanPhamYeuThich(event, product_id, from) {
+            //ToDo them confirm stage
+            var url = '{{url("/yeu-thich/xoa")}}' + "/" + product_id + "/" + from;
+            var img_load = "<img src='{{url("/")}}/public/images/loading_spinner.gif'/>";
+            $("#load").html(img_load);
+            $.ajax({
+                url: url,
+                type: "GET",
+                success: function (data) {
+                    var data = jQuery.parseJSON(data);
+                    if (data['result'] === "success") {
+                        $("#load").load("{{URL::route("yeuthich")}}");
+                    } else {
+                        $.notify(data['result'], {globalPosition: "top left", className: "warn"});
+                    }
+                }
+            });
+            return false;
+        }
+        function taoDanhSach(name) {
+            var url = '{{url("/yeu-thich/tao-danh-sach")}}' + "/" + name;
+            var img_load = "<img src='{{url("/")}}/public/images/loading_spinner.gif'/>";
+            $("#load").html(img_load);
+            $.ajax({
+                url: url,
+                type: "GET",
+                success: function (data) {
+                    var data = jQuery.parseJSON(data);
+                    $("#load").load("{{URL::route("yeuthich")}}");
+
                 }
             });
             return false;
