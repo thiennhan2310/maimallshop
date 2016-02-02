@@ -45,6 +45,7 @@ class LoveListController extends Controller
         }
     }
 
+    /* xoa san pham yeu thich*/
     public function DelLovedProduct($product_id , $list_id)
     {
         if ( Request::ajax() ) {
@@ -60,7 +61,18 @@ class LoveListController extends Controller
         }
     }
 
-
+    /*xoa danh sach yeu thich*/
+    public function DelLoveList($list_id)
+    {
+        if ( Request::ajax() ) {
+            if ( Auth::check() ) {
+                LoveList::where("id" , $list_id)->delete();
+                return json_encode(["result" => "Đã xoá danh sách"]);
+            }
+        } else {
+            return redirect()->route("home");
+        }
+    }
 
     /*Chuyen san pham(id) tu->den*/
     public function MoveLovedProduct($product , $from , $to)

@@ -60,9 +60,10 @@ Route::group(["prefix" => "thong-tin-tai-khoan"], function () {
 });
 Route::group(["prefix" => "/yeu-thich"], function () {
 	Route::get("them/{product_id}/{list_id?}" , ["as" => "yeuthich.sanpham.them" , "uses" => "LoveListController@AddLovedProduct"]);
-	Route::get("xoa/{product_id}/{list_id?}" , ["as" => "yeuthich.sanpham.xoa" , "uses" => "LoveListController@DelLovedProduct"]);
+	Route::get("xoa/{product_id}/{list_id}" , ["as" => "yeuthich.sanpham.xoa" , "uses" => "LoveListController@DelLovedProduct"]);
 	Route::get("chuyen/{product_id}/{list_id_from}/{list_id_to}", ["as" => "yeuthich.sanpham.chuyen", "uses" => "LoveListController@MoveLovedProduct"]);
 	Route::get("tao-danh-sach/{list_name}" , ["as" => "yeuthich.danhsach.tao" , "uses" => "LoveListController@CreateLoveList"]);
+	Route::get("xoa-danh-sach/{list_id}" , ["as" => "yeuthich.danhsach.xoa" , "uses" => "LoveListController@DelLoveList"]);
 });
 
 //Route::get("hash",function(){

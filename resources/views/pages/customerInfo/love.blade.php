@@ -15,7 +15,7 @@
                 <a href="" data-toggle="modal" data-target="#doiTenDanhSach">Đổi tên</a>
             </li>
             <li><a href="">Đặt làm mặc định</a></li>
-            <li><a href="">Xoá danh sách</a></li>
+            <li><a href="#" onclick="xoaDanhSach(this,{{$item->id}});">Xoá danh sách</a></li>
         </ul>
     </div>
     <div class="buy">
@@ -120,7 +120,7 @@
                 <div class="form-group">
                     *Mục bắt buột
                 </div>
-                <button type="button" onclick="$('#taoDanhsach').modal('hide');taoDanhSach($('#nameList').val())"
+                <button type="button" onclick="$('#taoDanhsach').modal('hide');taoDanhSach(this,$('#nameList').val())"
                         class="btn btn-gray">Lưu
                 </button>
                 <button type="reset" data-dismiss="modal" class="btn btn-white" style="width: 52px">Huỷ</button>
