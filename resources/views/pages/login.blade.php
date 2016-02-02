@@ -1,6 +1,17 @@
 @extends("layout")
 @section("title","Trang Chủ")
 @section("content")
+    @if(count($errors)>0)
+        <div class="col-md-12">
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach( $errors->all() as $error)
+                        <li>{!! $error !!}</li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+    @endif
     <div class="account">
         <hr class="border-top">
         <h4>ĐĂNG NHẬP</h4>
@@ -31,7 +42,7 @@
             </div>
             <div class="clearfix"></div>
             <div class="account-bot">
-                <a href="{$root}/dang-ki.html" id="dang_ki">Đăng Kí &nbsp;&nbsp;|&nbsp;&nbsp;</a>
+                <a href="{{route("signup")}}" id="dang_ki">Đăng Kí &nbsp;&nbsp;|&nbsp;&nbsp;</a>
                 <a id="getpw" href="{$root}/quen-mat-khau.html">Quên Mật Khẩu?</a>
                 <span></span>
             </div>

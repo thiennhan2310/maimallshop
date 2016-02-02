@@ -41,9 +41,14 @@ Route::group(["prefix" => "admin"],function(){
 
 });
 Route::post("tim-kiem","PageController@searchPage");
-Route::get("dang-nhap", ["as" => "login", "uses" => "PageController@Login"]);
-Route::post("dang-nhap", ["as" => "login.post", "uses" => "Auth\AuthController@Login"]);
-Route::get("dang-xuat", ["as" => "logout", "uses" => "PageController@Logout"]);
+Route::group(["prefix" => "khach-hang"] , function () {
+	Route::get("dang-nhap" , ["as" => "login" , "uses" => "PageController@Login"]);
+	Route::post("dang-nhap" , ["as" => "login.post" , "uses" => "Auth\AuthController@Login"]);
+	Route::get("dang-xuat" , ["as" => "logout" , "uses" => "PageController@Logout"]);
+	Route::get("dang-ki" , ["as" => "signup" , "uses" => "PageController@SignUp"]);
+	Route::post("dang-ki" , ["as" => "signup.post" , "uses" => "Auth\AuthController@Signup"]);
+});
+
 
 Route::group(["prefix" => "thong-tin-tai-khoan"], function () {
 	Route::get("/", "PageController@CustomerInfoTemplate");

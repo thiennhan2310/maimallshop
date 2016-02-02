@@ -21,8 +21,8 @@
                         </div>
                     </li>
                 @else
-                <li ><a href="{{url('/dang-nhap')}}" id="login">ĐĂNG NHẬP</a></li>
-                <li><a  href="{{url('/dang-ki')}}" id="signup"> ĐĂNG KÍ</a></li>
+                    <li><a href="{{URL::route("login")}}" id="login">ĐĂNG NHẬP</a></li>
+                    <li><a href="{{URL::route("signup")}}" id="signup"> ĐĂNG KÍ</a></li>
                 <script>
                     $('#login').click(function(event){
                         event.preventDefault();

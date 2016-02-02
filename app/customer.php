@@ -10,9 +10,9 @@ class customer extends Model implements AuthenticatableContract
 
     //
     use Authenticatable;
-    public $timestamps = false;
+    public $timestamps = true;
     protected $table = "customers";
-    protected $fillable = ['id', 'email', 'first_name', "last_name", 'address', 'phone'];
+    protected $fillable = ['id' , 'email' , 'gender' , 'birthday' , "password" , "remember_token" , 'default_list_id'];
 
     public static function LovedProduct($get = "all") //lay san pham yeu thich
     {
@@ -49,6 +49,11 @@ class customer extends Model implements AuthenticatableContract
     public function bill()
     {
         return $this->hasMany('App\Bill');
+    }
+
+    public function CustomerInfo()
+    {
+        return $this->hasMany('App\CustomerInfo');
     }
 
     public function LoveList()

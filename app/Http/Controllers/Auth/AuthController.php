@@ -1,10 +1,15 @@
 <?php namespace App\Http\Controllers\Auth;
 
+use App\customer;
+use App\CustomerInfo;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\SignupRequest;
+use App\LoveList;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\Registrar;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller {
@@ -57,6 +62,31 @@ class AuthController extends Controller {
 		} else {
 			return redirect("dang-nhap")->with("result", "Email hoặc mật khẩu không đúng!");
 		}
+	}
+
+	public function Signup(SignupRequest $request)
+	{
+		/*them thanh vien*/
+		$firstname = $request->get("firstname");
+		$lastname = $request->get("lastname");
+		$pass = Hash::make($request->get("password"));
+		$email = $request->get("email");
+		$gender = $request->get("gender");
+		$birthday = $request->get("birthday");
+		$default_list_id = 0;
+		customer::create(["email" => $email , "password" => $pass , "default_list_id" => $default_list_id , "gender" => $gender , "birthday" => $birthday]);
+		$customer_id = customer::select(["id"])->where("email" , $email)->first();
+		CustomerInfo::create(["customer_id" => $customer_id->id , "first_name" => $firstname , "last_name" => $lastname]);
+
+		/*tao danh sach mac dinh*/
+		LoveList::create(["customer_id" => $customer_id->id , "name" => "danh sách mặc định"]);
+		$default_list_id = LoveList::select(["id"])->where("customer_id" , $customer_id->id)->first();
+
+		/*cap nhat id danh sach mac dinh cho customer*/
+		customer::where("id" , $customer_id->id)->update(["default_list_id" => $default_list_id->id]);
+
+		return redirect()->route("login")->with("result" , "Đăng kí thành công");
+
 	}
 
 

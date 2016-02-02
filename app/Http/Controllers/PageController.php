@@ -164,4 +164,9 @@ class PageController extends Controller
             return redirect()->route("home");
         }
     }
+
+    public function Signup()
+    {
+        return view("pages.signup");
+    }
 }
