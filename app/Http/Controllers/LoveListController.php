@@ -74,6 +74,32 @@ class LoveListController extends Controller
         }
     }
 
+    /*Doi ten danh sach*/
+    public function ChangeNameLoveList($list_id , $new_name)
+    {
+        if ( Request::ajax() ) {
+            if ( Auth::check() ) {
+                /*kiem tra trung name*/
+                $customer_id = Auth::user()->id;
+                if ( LoveList::where("name" , $new_name)->where("customer_id" , $customer_id)->count() > 0 )
+                    $exist = true;
+                else
+                    $exist = false;
+
+                if ( $exist === true )
+                    return json_encode(["result" => "Tên danh sách đã tồn tại"]);
+                else {
+                    LoveList::where("id" , $list_id)->update(["name" => $new_name]);
+                    return json_encode(["result" => "Đã đổi tên danh sách"]);
+                }
+            } else {
+                return redirect()->route("login");
+            }
+        } else {
+            return redirect()->route("home");
+        }
+    }
+
     /*Chuyen san pham(id) tu->den*/
     public function MoveLovedProduct($product , $from , $to)
     {
@@ -93,6 +119,8 @@ class LoveListController extends Controller
     /*Tao danh sach moi*/
     public function CreateLoveList($name)
     {
+        if ( Request::ajax() ) {
+
         if ( Auth::check() ) {
             $customer_id = Auth::user()->id;
             /*kiem tra trung name*/
@@ -110,5 +138,10 @@ class LoveListController extends Controller
         } else {
             return redirect()->route("login");
         }
+        } else {
+            return redirect()->route("home");
+        }
+
     }
+
 }

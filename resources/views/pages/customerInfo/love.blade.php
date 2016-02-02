@@ -12,7 +12,7 @@
 
         <ul class="dropdown-menu" aria-labelledby="dLabel">
             <li>
-                <a href="" data-toggle="modal" data-target="#doiTenDanhSach">Đổi tên</a>
+                <a href="" data-toggle="modal" data-listid="{{$item->id}}" data-target="#doiTenDanhSach">Đổi tên</a>
             </li>
             <li><a href="">Đặt làm mặc định</a></li>
             <li><a href="#" onclick="xoaDanhSach(this,{{$item->id}});">Xoá danh sách</a></li>
@@ -129,17 +129,29 @@
     </div>
 </div>
 <!-- Modal doi ten -->
-<div class="modal fade" id="doiTenDanhSach" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+<div class="modal " id="doiTenDanhSach" tabindex="-2" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="nameList">Tên mới * </label>
-                    <input type="text" autofocus class="form-control" id="nameList" placeholder="Tên danh sách">
+                    <label for="newName">Tên mới * </label>
+                    <input type="text" autofocus class="form-control" id="newName" placeholder="Tên danh sách">
                 </div>
-                <button type="submit" class="btn btn-gray">Lưu</button>
-                <button type="button" data-dismiss="modal" class="btn btn-white" style="width: 52px">Huỷ</button>
+                <button type="button"
+                        onclick="$('#doiTenDanhSach').modal('hide');doiTenDanhSach(this,$('#listId').val(),$('#newName').val())"
+                        class="btn btn-gray">Lưu
+                </button>
+                <button type="reset" data-dismiss="modal" class="btn btn-white" style="width: 52px">Huỷ</button>
             </div>
         </div>
     </div>
 </div>
+<script>
+    $('#doiTenDanhSach').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);// Button that triggered the modal
+        var list_id = button.data('listid');// Extract info from data-* attributes
+        var modal = $(this);
+        modal.find('.modal-body').append('<input type="hidden" value=" ' + list_id + '" id="listId" >');
+    })
+</script>

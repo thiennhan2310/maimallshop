@@ -157,7 +157,24 @@ Bán hàng chính hãng - uy tín - chất lượng đảm bảo - giao hàng to
             });
             return false;
         }
-
+        function doiTenDanhSach(e, id, new_name) {
+            var url = '{{url("/yeu-thich/doi-ten-danh-sach")}}' + "/" + id + "/" + new_name;
+            var img_load = "<img src='{{url("/")}}/public/images/loading_spinner.gif'/>";
+            $("#load").html(img_load);
+            $.ajax({
+                url: url,
+                type: "GET",
+                success: function (data) {
+                    var data = jQuery.parseJSON(data);
+                    $("#load").load("{{URL::route("yeuthich")}}");
+                    if (data['result'] == "Tên danh sách đã tồn tại")
+                        $.notify(data['result'], {globalPosition: "top left", className: "warn"});
+                    else
+                        $.notify(data['result'], {globalPosition: "top left", className: "success"});
+                }
+            });
+            return false;
+        }
 
     </script>
 </head>
