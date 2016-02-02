@@ -148,6 +148,7 @@ class PageController extends Controller
     {
         if (Request::ajax()) {
             $customer_id = Auth::user()->id;
+            $default_list_id = Auth::user()->default_list_id;
             $loveList = LoveList::select(["love_list.id", "love_list.name"])->where("love_list.customer_id", $customer_id)->get();
             /*Tao mang love list id*/
             $loveListId = [];
@@ -159,6 +160,21 @@ class PageController extends Controller
                 ->join("discounts", "discounts.id", "=", "cates.discount_id")
                 ->select(["products.*", "cates.name as cate", "cates.alias as cate_alias", "discounts.percent as percent", "love_list_detail.list_id", "love_list_detail.updated_at"])
                 ->get();
+            /*dua danh sach mac dinh len top*/
+            $default_list_id = Auth::user()->default_list_id;
+            for ( $i = 0 ; $i < count($loveList) ; $i++ ) {
+                for ( $j = $i ; $j < count($loveList) ; $j++ ) {
+                    if ( $loveList[ $j ]->id == $default_list_id ) {
+                        $temp = $loveList[ $j ];
+                        $loveList[ $j ] = $loveList[ $i ];
+                        $loveList[ $i ] = $temp;
+                        break;
+                    } else {
+                        continue;
+                    }
+                }
+            }
+
             return view("pages.customerInfo.love", compact("loveList", "lovedProduct"));
         } else {
             return redirect()->route("home");

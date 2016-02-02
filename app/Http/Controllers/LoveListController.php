@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 
+use App\customer;
 use App\LoveList;
 use App\LoveListDetail;
 use Illuminate\Support\Facades\Auth;
@@ -66,8 +67,13 @@ class LoveListController extends Controller
     {
         if ( Request::ajax() ) {
             if ( Auth::check() ) {
+                if ( Auth::user()->default_list_id == $list_id ) {
+                    return json_encode(["result" => "Không thể xoá danh sách mặc định"]);
+                } else {
                 LoveList::where("id" , $list_id)->delete();
                 return json_encode(["result" => "Đã xoá danh sách"]);
+
+                }
             }
         } else {
             return redirect()->route("home");
@@ -130,10 +136,10 @@ class LoveListController extends Controller
                 $exist = false;
             /*tao danh sach*/
             if ( $exist ) {
-                return json_encode(["resutl" => "Tên danh sách đã tồn tại"]);
+                return json_encode(["result" => "Tên danh sách đã tồn tại"]);
             } else { //them vao
                 LoveList::create(["customer_id" => $customer_id , "name" => $name]);
-                return json_encode(["resutl" => "Tạo danh sách thành công"]);
+                return json_encode(["result" => "Tạo danh sách thành công"]);
             }
         } else {
             return redirect()->route("login");
@@ -141,7 +147,17 @@ class LoveListController extends Controller
         } else {
             return redirect()->route("home");
         }
+    }
 
+    /*set default list*/
+    public function SetDefaultList($list_id)
+    {
+        if ( Request::ajax() ) {
+            if ( Auth::check() ) {
+                $customer_id = Auth::user()->id;
+                customer::where("id" , $customer_id)->update(["default_list_id" => $list_id]);
+            }
+        }
     }
 
 }

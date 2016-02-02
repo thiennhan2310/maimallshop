@@ -4,9 +4,9 @@
 @foreach($loveList as $item)
 <div class="list-header">
     <div class="dropdown">
-        <a id="dLabel" data-target="#" href="http://example.com" data-toggle="dropdown" role="button"
+        <a id="dLabel" data-target="#" href="" data-toggle="dropdown" role="button"
            aria-haspopup="true" aria-expanded="false" style="text-transform: capitalize">
-            {{$item->name}}
+            {{$item->name}} @if(Auth::user()->default_list_id==$item->id) (mặc định) @endif
             <span class="caret"></span>
         </a>
 
@@ -14,7 +14,9 @@
             <li>
                 <a href="" data-toggle="modal" data-listid="{{$item->id}}" data-target="#doiTenDanhSach">Đổi tên</a>
             </li>
-            <li><a href="">Đặt làm mặc định</a></li>
+            @if(Auth::user()->default_list_id!=$item->id)
+                <li><a href="#" onclick="datMacDinh(this,{{$item->id}});">Đặt làm mặc định</a></li>
+            @endif
             <li><a href="#" onclick="xoaDanhSach(this,{{$item->id}});">Xoá danh sách</a></li>
         </ul>
     </div>
