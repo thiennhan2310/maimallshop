@@ -16,8 +16,10 @@ class SignupRequest extends Request
      *
      * @return bool
      */
+    protected $redirectRoute = 'signup';
     public function authorize()
     {
+
         return true;
     }
 

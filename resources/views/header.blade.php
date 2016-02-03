@@ -10,7 +10,7 @@
                         <div role="presentation" class="dropdown">
                             <a id="drop5" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                aria-haspopup="true" aria-expanded="false">
-                                Xin chào {{Auth::user()->name}}<span class="caret"></span></a>
+                                Xin chào {{Auth::user()->email}}<span class="caret"></span></a>
 
                             <ul id="menu2" class="dropdown-menu" aria-labelledby="drop5">
                                 <li><a style="color:#000;font-size: 11px" href="{{url("/thong-tin-tai-khoan")}}">
