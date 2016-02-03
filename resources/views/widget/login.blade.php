@@ -1,3 +1,4 @@
+@if(!Auth::check())
 <div class="modal fade" id="login_form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -94,3 +95,4 @@
         </div>
     </div>
 </div>
+@endif

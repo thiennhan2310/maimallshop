@@ -2813,9 +2813,12 @@ top: 35px;
 }
 
 .personal-info .borderless tbody tr td:first-child {
-    width: 50px;
+    width: 80px;
 }
 
+.personal-info .detail .borderless tbody tr td:first-child {
+    width: 50px;
+}
 .personal-info .detail {
     float: left;
     width: 263px;

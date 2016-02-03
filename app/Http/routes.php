@@ -51,7 +51,7 @@ Route::group(["prefix" => "khach-hang"] , function () {
 
 
 Route::group(["prefix" => "thong-tin-tai-khoan"], function () {
-	Route::get("/", "PageController@CustomerInfoTemplate");
+	Route::get("/" , ["as" => "thongtin.template" , "uses" => "PageController@CustomerInfoTemplate"]);
 	Route::get("/thong-tin", ["as" => "thongtin", "uses" => "PageController@CustomerInfo"]);
 	Route::get("/gio-hang", ["as" => "giohang", "uses" => "PageController@CartInfo"]);
 	Route::get("/yeu-thich", ["as" => "yeuthich", "uses" => "PageController@LoveProduct"]);
@@ -65,7 +65,10 @@ Route::group(["prefix" => "/yeu-thich"], function () {
 	Route::get("doi-ten-danh-sach/{list_id}/{new_name}" , ["as" => "yeuthich.danhsach.suaten" , "uses" => "LoveListController@ChangeNameLoveList"]);
 	Route::get("danh-sach-mac-dinh/{list_id}" , ["as" => "yeuthich.danhsach.macdinh" , "uses" => "LoveListController@SetDefaultList"]);
 });
-
+Route::group(["prefix" => "/thong-tin"] , function () {
+	Route::get("thay-doi/{gender}/{birthday}" , ["as" => "thongtin.canhan.doi" , "uses" => "CustomerController@ChangeCustomerInfo"]);
+	Route::post("doi-mat-khau/{password_old}/{password}/{password_confirmation}" , ["as" => "thongtin.matkhau.doi" , "uses" => "CustomerController@ChangePassword"]);
+});
 //Route::get("hash",function(){
 //	echo Hash::make(12345);
 //});
