@@ -1798,6 +1798,7 @@ a.create {
 --*/
 .cart-sec{
 	margin-bottom:3em;
+    border-bottom: 1px black dashed;
 }
 .cart-item{
 	width:20%;
@@ -2107,7 +2108,7 @@ a.item_add1 {
 
 
   padding: 10px 15px;
-  background: url(0) #f54d56;
+    background: #f54d56;
 }
 a.item_add1:hover{
 	background:rgb(3, 193, 167);

@@ -2,7 +2,7 @@
 <div class="cart-items col-md-8">
 
     @for($i=0;$i<count($products); $i++)
-        <div class="cart-sec simpleCart_shelfItem">
+        <div class="cart-sec ">
             <div class="cart-item ">
                 <img src="{{asset("/public/products/")}}/{{$products[$i]->img1}}" class="img-responsive" alt="">
             </div>
