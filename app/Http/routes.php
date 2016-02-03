@@ -55,8 +55,6 @@ Route::group(["prefix" => "thong-tin-tai-khoan"], function () {
 	Route::get("/thong-tin", ["as" => "thongtin", "uses" => "PageController@CustomerInfo"]);
 	Route::get("/gio-hang", ["as" => "giohang", "uses" => "PageController@CartInfo"]);
 	Route::get("/yeu-thich", ["as" => "yeuthich", "uses" => "PageController@LoveProduct"]);
-
-
 });
 Route::group(["prefix" => "/yeu-thich"], function () {
 	Route::get("them/{product_id}/{list_id?}" , ["as" => "yeuthich.sanpham.them" , "uses" => "LoveListController@AddLovedProduct"]);

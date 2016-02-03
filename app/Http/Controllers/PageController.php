@@ -134,10 +134,14 @@ class PageController extends Controller
         }
     }
 
+    /*thong tin gio hang trong thong tin khach hang*/
     public function CartInfo()
     {
         if (Request::ajax()) {
-            return view("pages.customerInfo.cart");
+            $cart = new CartController();
+            $products = $cart->getProduct();
+            $total = $cart->totalPrice($products);
+            return view("pages.customerInfo.cart" , compact("products" , "total"));
         } else {
             return redirect()->route("home");
         }
