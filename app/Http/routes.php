@@ -68,7 +68,13 @@ Route::group(["prefix" => "/yeu-thich"], function () {
 Route::group(["prefix" => "/thong-tin"] , function () {
 	Route::get("thay-doi/{gender}/{birthday}" , ["as" => "thongtin.canhan.doi" , "uses" => "CustomerController@ChangeCustomerInfo"]);
 	Route::post("doi-mat-khau/{password_old}/{password}/{password_confirmation}" , ["as" => "thongtin.matkhau.doi" , "uses" => "CustomerController@ChangePassword"]);
+	Route::post("them-dia-chi" , ["as" => "thongtin.diachi.them" , "uses" => "CustomerController@AddAddress"]);
 });
+
+/*thong tin phuong xa*/
+Route::get("thanh-pho" , ["as" => "province" , "uses" => "CityController@GetProvince"]);
+Route::get("quan/{provinceid}" , ["as" => "district" , "uses" => "CityController@GetDistrict"]);
+Route::get("phuong/{districtid}" , ["as" => "district" , "uses" => "CityController@GetWard"]);
 //Route::get("hash",function(){
 //	echo Hash::make(12345);
 //});

@@ -2346,7 +2346,7 @@ hr.border-top{
 }
 .modal-content{
     margin-top: 115px;
-    width: 500px;
+    width: 535px;
 }
 .mytabs{
     height: 29px;
@@ -2430,33 +2430,40 @@ hr.border-top{
     padding-top: 17px;
     padding-left: 10px;
 }
-.payment_info form#diachigiaohang{
+
+form#diachigiaohang {
     padding-top: 12px;
     border: 1px solid black;
     width: 500px;
     margin: auto;
     padding-left: 75px;
 }
-.payment_info form#diachigiaohang label{
+
+form#diachigiaohang label {
     padding-right: 20px;
 }
-.payment_info form#diachigiaohang div{
+
+form#diachigiaohang div {
     padding-bottom: 25px;
 }
-.payment_info form#diachigiaohang div{
+
+form#diachigiaohang div {
     padding-bottom: 25px;
 }
-.payment_info form#diachigiaohang div:first-child div:first-child{
+
+form#diachigiaohang div:first-child div:first-child {
     width: 170px;
     height: 71px;
     float: left;
     margin-right: 17px;
 }
-.payment_info form#diachigiaohang>div:nth-child(1) input {
+
+form#diachigiaohang > div:nth-child(1) input {
     padding:8px;
 }
-.payment_info form#diachigiaohang>div:nth-child(2) input,.payment_info form#diachigiaohang>div:nth-child(3) input,
-.payment_info form#diachigiaohang>div select {
+
+form#diachigiaohang > div:nth-child(2) input, form#diachigiaohang > div:nth-child(3) input,
+form#diachigiaohang > div select {
     width: 355px;
     padding:8px;
 }

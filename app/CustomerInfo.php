@@ -15,4 +15,18 @@ class CustomerInfo extends Model
         return $this->belongsTo('App\customer');
     }
 
+    public function Province()
+    {
+        return $this->hasOne('App\Province');
+    }
+
+    public function District()
+    {
+        return $this->hasOne('App\District');
+    }
+
+    public function Ward()
+    {
+        return $this->hasOne('App\Ward(');
+    }
 }

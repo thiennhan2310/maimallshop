@@ -42,7 +42,7 @@
         <div>Tô Diễm trương, 090000000</div>
         <div> 89/29B, Đường 45, KP2, P.Hiệp Bình Chánh, Q.Thủ Đức, TP.Hồ Chí Minh</div>
     </div>
-    <button class="btn-add">+ THÊM ĐỊA CHỈ MỚI</button>
+    <button class="btn-add" data-toggle="modal" data-target="#themDiaChi">+ THÊM ĐỊA CHỈ MỚI</button>
 </div>
 <!-- Modal doi thong tin -->
 <div class="modal " id="doiThongTin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -109,6 +109,75 @@
                     </button>
                     <button type="reset" data-dismiss="modal" class="btn btn-white" style="width: 52px">Huỷ</button>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal them dia chi moi -->
+<div class="modal " id="themDiaChi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div id="thongtinthanhtoan">
+                    <form action="{{route("thongtin.diachi.them")}}" name="diaChiGiaoHang" method="POST"
+                          id="diachigiaohang">
+
+                        <div>
+                            <div>
+                                <label for="ho">Họ*</label><br>
+                                <input type="text" autofocus name="firstname" required
+                                       placeholder="Nhập họ" id="ho">
+                            </div>
+                            <div>
+                                <label for="ten">Tên*</label><br>
+                                <input type="text" name="lastname" required
+                                       placeholder="Nhập tên" id="ten">
+                            </div>
+                        </div>
+                        <div style="    padding-bottom: 30px;">
+                            <label for="sdt">Điện Thoại*</label><br>
+                            <input type="number" name="phone" required
+                                   value="" id="sdt">
+                        </div>
+                        <div>
+                            <label for="address">Địa chỉ*</label><br>
+                            <input type="text" name="address" required id="address"
+                                   placeholder="Ví dụ : 218 Lý Tự Trọng">
+                        </div>
+                        <div>
+                            <label for="province">Thành Phố*</label> <br>
+                            <select name="provinceID" id="province" onchange="getDistrict(this,this.value)">
+                                @foreach($province as $p)
+                                    <option value="{{$p->provinceid}}">{{$p->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div>
+                            <label for="district">Tỉnh/Thành*</label><br>
+                            <select name="districtID" id="district" onchange="getWard(this,this.value)">
+                                @foreach($district as $d)
+                                    <option value="{{$d->districtid}}">{{$d->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div>
+                            <label for="ward">Phường/Xã*</label><br>
+                            <select name="wardID" id="ward">
+                                @foreach($ward as $w)
+                                    <option value="{{$w->wardid}}">{{$w->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    </form>
+                </div>
+                <div class="form-group">
+                    *Mục bắt buột
+                </div>
+                <button type="button" onclick=" document.getElementById('diachigiaohang').submit();"
+                        class="btn btn-gray">Lưu
+                </button>
+                <button type="reset" data-dismiss="modal" class="btn btn-white" style="width: 52px">Huỷ</button>
             </div>
         </div>
     </div>

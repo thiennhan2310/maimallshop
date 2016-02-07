@@ -10,10 +10,13 @@ namespace App\Http\Controllers;
 
 use App\Cate;
 use App\customer;
+use App\District;
 use App\Http\Requests\FormRequest;
 use App\LoveList;
 use App\LoveListDetail;
 use App\Products;
+use App\Province;
+use App\Ward;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Session;
@@ -128,7 +131,10 @@ class PageController extends Controller
     public function CustomerInfo()
     {
         if (Request::ajax()) {
-            return view("pages.customerInfo.info");
+            $province = Province::select(["provinceid" , "name"])->orderBy("name")->get();
+            $district = District::select(["districtid" , "name"])->where("provinceid" , $province[ 0 ]->provinceid)->orderBy("name")->get();
+            $ward = Ward::select(["wardid" , "name"])->where("districtid" , $district[ 0 ]->districtid)->orderBy("name")->get();
+            return view("pages.customerInfo.info" , compact("province" , "district" , "ward"));
         } else {
             return redirect()->route("home");
         }

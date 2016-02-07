@@ -209,6 +209,30 @@
             });
             return false;
         }
+        function getDistrict(e, provinceid) {
+            var url = '{{url("/quan")}}' + "/" + provinceid;
+            $.ajax({
+                url: url,
+                type: "GET",
+                success: function (data) {
+                    var data = jQuery.parseJSON(data);
+                    $("#district").html(data["district"]);
+                }
+            });
+            return false;
+        }
+        function getWard(e, districtid) {
+            var url = '{{url("/phuong")}}' + "/" + districtid;
+            $.ajax({
+                url: url,
+                type: "GET",
+                success: function (data) {
+                    var data = jQuery.parseJSON(data);
+                    $("#ward").html(data["ward"]);
+                }
+            });
+            return false;
+        }
 
     </script>
 @endsection
