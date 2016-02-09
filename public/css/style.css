@@ -2431,7 +2431,7 @@ hr.border-top{
     padding-left: 10px;
 }
 
-form#diachigiaohang {
+form.diachigiaohang {
     padding-top: 12px;
     border: 1px solid black;
     width: 500px;
@@ -2439,31 +2439,31 @@ form#diachigiaohang {
     padding-left: 75px;
 }
 
-form#diachigiaohang label {
+form.diachigiaohang label {
     padding-right: 20px;
 }
 
-form#diachigiaohang div {
+form.diachigiaohang div {
     padding-bottom: 25px;
 }
 
-form#diachigiaohang div {
+form.diachigiaohang div {
     padding-bottom: 25px;
 }
 
-form#diachigiaohang div:first-child div:first-child {
+form.diachigiaohang div:first-child div:first-child {
     width: 170px;
     height: 71px;
     float: left;
     margin-right: 17px;
 }
 
-form#diachigiaohang > div:nth-child(1) input {
+form.diachigiaohang > div:nth-child(1) input {
     padding:8px;
 }
 
-form#diachigiaohang > div:nth-child(2) input, form#diachigiaohang > div:nth-child(3) input,
-form#diachigiaohang > div select {
+form.diachigiaohang > div:nth-child(2) input, form.diachigiaohang > div:nth-child(3) input,
+form.diachigiaohang > div select {
     width: 355px;
     padding:8px;
 }

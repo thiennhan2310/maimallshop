@@ -69,6 +69,8 @@ Route::group(["prefix" => "/thong-tin"] , function () {
 	Route::get("thay-doi/{first_name}/{last_name}/{gender}/{birthday}" , ["as" => "thongtin.canhan.doi" , "uses" => "CustomerController@ChangeCustomerInfo"]);
 	Route::post("doi-mat-khau/{password_old}/{password}/{password_confirmation}" , ["as" => "thongtin.matkhau.doi" , "uses" => "CustomerController@ChangePassword"]);
 	Route::post("them-dia-chi" , ["as" => "thongtin.diachi.them" , "uses" => "CustomerController@AddAddress"]);
+	Route::post("doi-dia-chi" , ["as" => "thongtin.diachi.doi" , "uses" => "CustomerController@ChangeAddress"]);
+	Route::get("xoa-dia-chi/{customerInfoID}" , ["as" => "thongtin.diachi.xoa" , "uses" => "CustomerController@DelAddress"]);
 });
 
 /*thong tin phuong xa*/

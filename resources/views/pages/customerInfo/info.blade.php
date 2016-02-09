@@ -31,15 +31,17 @@
     <h4>ĐỊA CHỈ GIAO HÀNG</h4>
     <?php  $i = 1;?>
     @foreach($address as $adr)
-    <div class="address">
-        <div class="close1"></div>
-        <button class="btn-change"> THAY ĐỔI</button>
+        <div class="address" id="address{{$i}}">
+            <div class="close1" id="close{{$i}}" onclick="xoaDiaChi('#address{{$i}}','{{$adr->id}}')"></div>
+            <button class="btn-change" data-toggle="modal" data-target="#doiDiaChi" data-customerinfoid="{{$adr->id}}">
+                THAY ĐỔI
+            </button>
         <h5>Địa chỉ {{$i}}</h5>
-
         <div style="text-transform: capitalize">{{$adr->first_name ." ".$adr->last_name}}, {{$adr->phone}}</div>
-        <div style=""> {{$adr->address}} P.{{$adr->ward_name}}, Q.{{$adr->district_name}},
+            <div> {{$adr->address}} P.{{$adr->ward_name}}, Q.{{$adr->district_name}},
             TP.{{$adr->province_name}}</div>
     </div>
+
         <?php $i++; ?>
     @endforeach
     <button class="btn-add" data-toggle="modal" data-target="#themDiaChi">+ THÊM ĐỊA CHỈ MỚI</button>
@@ -87,7 +89,6 @@
         </div>
     </div>
 </div>
-
 <!-- Modal doi password -->
 <div class="modal " id="doiMatKhau" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -129,7 +130,7 @@
             <div class="modal-body">
                 <div id="thongtinthanhtoan">
                     <form action="{{route("thongtin.diachi.them")}}" name="diaChiGiaoHang" method="POST"
-                          id="diachigiaohang">
+                          class="diachigiaohang" id="themDiaChiGiaoHang">
                         <div>
                             <div>
                                 <label for="ho">Họ*</label><br>
@@ -182,7 +183,7 @@
                 <div class="form-group">
                     *Mục bắt buột
                 </div>
-                <button type="button" onclick=" document.getElementById('diachigiaohang').submit();"
+                <button type="button" onclick=" document.getElementById('themDiaChiGiaoHang').submit();"
                         class="btn btn-gray">Lưu
                 </button>
                 <button type="reset" data-dismiss="modal" class="btn btn-white" style="width: 52px">Huỷ</button>
@@ -190,3 +191,79 @@
         </div>
     </div>
 </div>
+<!-- Modal doi thong tin dia chi  -->
+<div class="modal " id="doiDiaChi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div id="thongtinthanhtoan">
+                    <form action="{{route("thongtin.diachi.doi")}}" name="diaChiGiaoHang" method="POST"
+                          class="diachigiaohang" id="doiThongTinDiaChi">
+                        <div>
+                            <div>
+                                <label for="ho">Họ*</label><br>
+                                <input type="text" autofocus name="firstname" required
+                                       placeholder="Nhập họ" id="ho">
+                            </div>
+                            <div>
+                                <label for="ten">Tên*</label><br>
+                                <input type="text" name="lastname" required
+                                       placeholder="Nhập tên" id="ten">
+                            </div>
+                        </div>
+                        <div style="    padding-bottom: 30px;">
+                            <label for="sdt">Điện Thoại*</label><br>
+                            <input type="number" name="phone" required
+                                   value="" id="sdt">
+                        </div>
+                        <div>
+                            <label for="address">Địa chỉ*</label><br>
+                            <input type="text" name="address" required id="address"
+                                   placeholder="Ví dụ : 218 Lý Tự Trọng">
+                        </div>
+                        <div>
+                            <label for="province">Thành Phố*</label> <br>
+                            <select name="provinceID" id="province" onchange="getDistrict(this,this.value)">
+                                @foreach($province as $p)
+                                    <option value="{{$p->provinceid}}">{{$p->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div>
+                            <label for="district">Tỉnh/Thành*</label><br>
+                            <select name="districtID" id="district" onchange="getWard(this,this.value)">
+                                @foreach($district as $d)
+                                    <option value="{{$d->districtid}}">{{$d->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div>
+                            <label for="ward">Phường/Xã*</label><br>
+                            <select name="wardID" id="ward">
+                                @foreach($ward as $w)
+                                    <option value="{{$w->wardid}}">{{$w->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    </form>
+                </div>
+                <div class="form-group">
+                    *Mục bắt buột
+                </div>
+                <button type="button" onclick=" document.getElementById('doiDiaChiGiaoHang').submit();"
+                        class="btn btn-gray">Lưu
+                </button>
+                <button type="reset" data-dismiss="modal" class="btn btn-white" style="width: 52px">Huỷ</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#doiDiaChi').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);// Button that triggered the modal
+        var customerInfoID = button.data('customerinfoid');// Extract info from data-* attributes
+        var modal = $(this);
+        modal.find('form#doiThongTinDiaChi').append('<input type="hidden" value=" ' + customerInfoID + '" name="customerInfoID" >');
+    })
+</script>

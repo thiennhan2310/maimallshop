@@ -233,6 +233,21 @@
             });
             return false;
         }
+        function xoaDiaChi(id, customerInfoID) {
+            $(id).fadeOut('slow', function () {
+                var url = '{{url("/thong-tin/xoa-dia-chi")}}' + "/" + customerInfoID;
+                $.ajax({
+                    url: url,
+                    type: "GET",
+                    success: function (data) {
+                        var data = jQuery.parseJSON(data);
+                        $.notify(data['result'], {globalPosition: "top left", className: data["type"]});
+                    }
+                });
+                $(this).remove();
+                return false;
+            });
 
+        }
     </script>
 @endsection

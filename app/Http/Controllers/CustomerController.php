@@ -28,6 +28,7 @@ class CustomerController extends Controller
 
     }
 
+
     public function ChangePassword(ChangePassRequest $request)
     {
         if ( Auth::check() ) {
@@ -64,6 +65,41 @@ class CustomerController extends Controller
             return redirect()->route("thongtin.template");
         } else {
             return redirect()->route("login");
+        }
+    }
+
+    public function ChangeAdress(CustomerAddrRequest $request)
+    {
+        $firstname = $request->get("firstname");
+        $lastname = $request->get("lastname");
+        $phone = $request->get("phone");
+        $address = $request->get("address");
+        $provinceID = $request->get("provinceID");
+        $districtID = $request->get("districtID");
+        $wardID = $request->get("wardID");
+        if ( Auth::check() ) {
+            $customerID = Auth::user()->id;
+            CustomerInfo::create(["customer_id" => $customerID , "first_name" => $firstname
+                , "last_name" => $lastname , "address" => $address , "phone" => $phone , "district_id" => $districtID
+                , "province_id" => $provinceID , "ward_id" => $wardID
+            ]);
+            return redirect()->route("thongtin.template");
+        } else {
+            return redirect()->route("login");
+        }
+    }
+
+    public function DelAddress($customerInfoID)
+    {
+        if ( Request::ajax() ) {
+            if ( Auth::check() ) {
+                $info = CustomerInfo::find($customerInfoID);
+                $info->delete();
+                return json_encode(["result" => "Xoá thành công" , "type" => "success"]);
+                return redirect()->route("thongtin.template");
+            } else {
+                return redirect()->route("login");
+            }
         }
     }
 }
