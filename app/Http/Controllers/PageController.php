@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 
 use App\Cate;
 use App\customer;
+use App\CustomerInfo;
 use App\District;
 use App\Http\Requests\FormRequest;
 use App\LoveList;
@@ -128,13 +129,17 @@ class PageController extends Controller
         }
     }
 
-    public function CustomerInfo()
+    public function CustomerInfo() //trang thong tin khach hang
     {
         if (Request::ajax()) {
+            if ( Auth::check() ) {
+                $customerId = Auth::user()->id;
             $province = Province::select(["provinceid" , "name"])->orderBy("name")->get();
             $district = District::select(["districtid" , "name"])->where("provinceid" , $province[ 0 ]->provinceid)->orderBy("name")->get();
             $ward = Ward::select(["wardid" , "name"])->where("districtid" , $district[ 0 ]->districtid)->orderBy("name")->get();
-            return view("pages.customerInfo.info" , compact("province" , "district" , "ward"));
+                $address = CustomerInfo::getAddressInfo($customerId);
+                return view("pages.customerInfo.info" , compact("province" , "district" , "ward" , "address"));
+            }
         } else {
             return redirect()->route("home");
         }

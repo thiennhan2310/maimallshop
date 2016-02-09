@@ -66,7 +66,7 @@ Route::group(["prefix" => "/yeu-thich"], function () {
 	Route::get("danh-sach-mac-dinh/{list_id}" , ["as" => "yeuthich.danhsach.macdinh" , "uses" => "LoveListController@SetDefaultList"]);
 });
 Route::group(["prefix" => "/thong-tin"] , function () {
-	Route::get("thay-doi/{gender}/{birthday}" , ["as" => "thongtin.canhan.doi" , "uses" => "CustomerController@ChangeCustomerInfo"]);
+	Route::get("thay-doi/{first_name}/{last_name}/{gender}/{birthday}" , ["as" => "thongtin.canhan.doi" , "uses" => "CustomerController@ChangeCustomerInfo"]);
 	Route::post("doi-mat-khau/{password_old}/{password}/{password_confirmation}" , ["as" => "thongtin.matkhau.doi" , "uses" => "CustomerController@ChangePassword"]);
 	Route::post("them-dia-chi" , ["as" => "thongtin.diachi.them" , "uses" => "CustomerController@AddAddress"]);
 });

@@ -194,8 +194,8 @@
             });
             return false;
         }
-        function doiThongTinCaNhan(e, gender, birthday) {
-            var url = '{{url("/thong-tin/thay-doi")}}' + "/" + gender + "/" + birthday;
+        function doiThongTinCaNhan(e, first_name, last_name, gender, birthday) {
+            var url = '{{url("/thong-tin/thay-doi")}}' + "/" + first_name + "/" + last_name + "/" + gender + "/" + birthday;
             var img_load = "<img src='{{url("/")}}/public/images/loading_spinner.gif'/>";
             $("#load").html(img_load);
             $.ajax({

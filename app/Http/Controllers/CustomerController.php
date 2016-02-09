@@ -11,12 +11,14 @@ use Illuminate\Support\Facades\Request;
 class CustomerController extends Controller
 {
 
-    public function ChangeCustomerInfo($gender , $birthday)
+    public function ChangeCustomerInfo($first_name , $last_name , $gender , $birthday)
     {
         if ( Request::ajax() ) {
             if ( Auth::check() ) {
                 $customer_id = Auth::user()->id;
                 $customer = customer::find($customer_id);
+                $customer->first_name = $first_name;
+                $customer->last_name = $last_name;
                 $customer->gender = $gender;
                 $customer->birthday = $birthday;
                 $customer->save();
@@ -46,8 +48,8 @@ class CustomerController extends Controller
 
     public function AddAddress(CustomerAddrRequest $request)
     {
-        $firstname = $request->get("firstname");
-        $lastname = $request->get("lastname");
+        $firstname = ucfirst($request->get("firstname"));
+        $lastname = ucfirst($request->get("lastname"));
         $phone = $request->get("phone");
         $address = $request->get("address");
         $provinceID = $request->get("provinceID");

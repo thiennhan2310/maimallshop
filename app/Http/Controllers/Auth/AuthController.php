@@ -1,7 +1,6 @@
 <?php namespace App\Http\Controllers\Auth;
 
 use App\customer;
-use App\CustomerInfo;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\SignupRequest;
@@ -74,9 +73,7 @@ class AuthController extends Controller {
 		$gender = $request->get("gender");
 		$birthday = $request->get("birthday");
 		$default_list_id = 0;
-		customer::create(["email" => $email , "password" => $pass , "default_list_id" => $default_list_id , "gender" => $gender , "birthday" => $birthday]);
-		$customer_id = customer::select(["id"])->where("email" , $email)->first();
-		CustomerInfo::create(["customer_id" => $customer_id->id , "first_name" => $firstname , "last_name" => $lastname]);
+		customer::create(["email" => $email , "password" => $pass , "first_name" => $firstname , "last_name" => $lastname , "default_list_id" => $default_list_id , "gender" => $gender , "birthday" => $birthday]);
 
 		/*tao danh sach mac dinh*/
 		LoveList::create(["customer_id" => $customer_id->id , "name" => "danh sách mặc định"]);

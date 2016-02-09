@@ -5,6 +5,10 @@
         <button class="btn-change" data-toggle="modal" data-target="#doiThongTin"> THAY ĐỔI</button>
         <table class="table borderless">
             <tr>
+                <td>Họ và Tên</td>
+                <td>{{Auth::user()->first_name. " " .Auth::user()->last_name}}</td>
+            </tr>
+            <tr>
                 <td>E-mail</td>
                 <td>{{Auth::user()->email}}</td>
             </tr>
@@ -25,23 +29,19 @@
 </div>
 <div class="address-info">
     <h4>ĐỊA CHỈ GIAO HÀNG</h4>
-
+    <?php  $i = 1;?>
+    @foreach($address as $adr)
     <div class="address">
         <div class="close1"></div>
         <button class="btn-change"> THAY ĐỔI</button>
-        <h5>Địa chỉ 1</h5>
+        <h5>Địa chỉ {{$i}}</h5>
 
-        <div>Tô Diễm trương, 090000000</div>
-        <div> 89/29B, Đường 45, KP2, P.Hiệp Bình Chánh, Q.Thủ Đức, TP.Hồ Chí Minh</div>
+        <div style="text-transform: capitalize">{{$adr->first_name ." ".$adr->last_name}}, {{$adr->phone}}</div>
+        <div style=""> {{$adr->address}} P.{{$adr->ward_name}}, Q.{{$adr->district_name}},
+            TP.{{$adr->province_name}}</div>
     </div>
-    <div class="address">
-        <div class="close1"></div>
-        <button class="btn-change"> THAY ĐỔI</button>
-        <h5>Địa chỉ 2</h5>
-
-        <div>Tô Diễm trương, 090000000</div>
-        <div> 89/29B, Đường 45, KP2, P.Hiệp Bình Chánh, Q.Thủ Đức, TP.Hồ Chí Minh</div>
-    </div>
+        <?php $i++; ?>
+    @endforeach
     <button class="btn-add" data-toggle="modal" data-target="#themDiaChi">+ THÊM ĐỊA CHỈ MỚI</button>
 </div>
 <!-- Modal doi thong tin -->
@@ -51,12 +51,21 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label for="email">Email* </label>
-                    <input type="email" readonly class="form-control" id="email" placeholder="Email"
-                           value="{{Auth::user()->email}}">
+                    <input type="email" readonly class="form-control" id="email" value="{{Auth::user()->email}}">
+                </div>
+                <div class="form-group">
+                    <label for="first_name">Họ* </label>
+                    <input type="text" class="form-control" id="first_name"
+                           value="{{ucfirst(Auth::user()->first_name)}}">
+                </div>
+                <div class="form-group">
+                    <label for="last_name">Tên* </label>
+                    <input type="text" class="form-control" id="last_name"
+                           value="{{ucfirst(Auth::user()->last_name) }}">
                 </div>
                 <div class="form-group">
                     <label for="gender">Giới tính* </label>
-                    <select name="gender" id="gender">
+                    <select name="gender" id="gender" class="form-control">
                         <option @if(Auth::user()->gender==0) selected @endif value="0">Nữ</option>
                         <option @if(Auth::user()->gender==1) selected @endif value="1">Nam</option>
                     </select>
@@ -70,7 +79,7 @@
                     *Mục bắt buột
                 </div>
                 <button type="button"
-                        onclick="$('#doiThongTin').modal('hide');doiThongTinCaNhan(this,$('#gender').val(),$('#birthday').val());"
+                        onclick="$('#doiThongTin').modal('hide');doiThongTinCaNhan(this,$('#first_name').val(),$('#last_name').val(),$('#gender').val(),$('#birthday').val());"
                         class="btn btn-gray">Lưu
                 </button>
                 <button type="reset" data-dismiss="modal" class="btn btn-white" style="width: 52px">Huỷ</button>
@@ -121,7 +130,6 @@
                 <div id="thongtinthanhtoan">
                     <form action="{{route("thongtin.diachi.them")}}" name="diaChiGiaoHang" method="POST"
                           id="diachigiaohang">
-
                         <div>
                             <div>
                                 <label for="ho">Họ*</label><br>
