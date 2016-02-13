@@ -33,7 +33,10 @@
     @foreach($address as $adr)
         <div class="address" id="address{{$i}}">
             <div class="close1" id="close{{$i}}" onclick="xoaDiaChi('#address{{$i}}','{{$adr->id}}')"></div>
-            <button class="btn-change" data-toggle="modal" data-target="#doiDiaChi" data-customerinfoid="{{$adr->id}}">
+            <button class="btn-change" data-toggle="modal" data-target="#doiDiaChi" data-customerinfoid="{{$adr->id}}"
+                    data-firstname="{{$adr->first_name}}" data-lastname="{{$adr->last_name}}"
+                    data-phone="{{$adr->phone}}" data-address="{{$adr->address}}" data-ward="{{$adr->ward_id}}"
+                    data-district="{{$adr->district_id}}" data-province="{{$adr->province_id}}">
                 THAY ĐỔI
             </button>
         <h5>Địa chỉ {{$i}}</h5>
@@ -201,20 +204,20 @@
                           class="diachigiaohang" id="doiThongTinDiaChi">
                         <div>
                             <div>
-                                <label for="ho">Họ*</label><br>
+                                <label for="firstname">Họ*</label><br>
                                 <input type="text" autofocus name="firstname" required
-                                       placeholder="Nhập họ" id="ho">
+                                       placeholder="Nhập họ" id="firstname">
                             </div>
                             <div>
-                                <label for="ten">Tên*</label><br>
+                                <label for="lastname">Tên*</label><br>
                                 <input type="text" name="lastname" required
-                                       placeholder="Nhập tên" id="ten">
+                                       placeholder="Nhập tên" id="lastname">
                             </div>
                         </div>
                         <div style="    padding-bottom: 30px;">
-                            <label for="sdt">Điện Thoại*</label><br>
+                            <label for="phone">Điện Thoại*</label><br>
                             <input type="number" name="phone" required
-                                   value="" id="sdt">
+                                   value="" id="phone">
                         </div>
                         <div>
                             <label for="address">Địa chỉ*</label><br>
@@ -246,12 +249,13 @@
                             </select>
                         </div>
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <input type="hidden" value="" name="customerInfoID" id="customerInfoID">
                     </form>
                 </div>
                 <div class="form-group">
                     *Mục bắt buột
                 </div>
-                <button type="button" onclick=" document.getElementById('doiDiaChiGiaoHang').submit();"
+                <button type="button" onclick=" document.getElementById('doiThongTinDiaChi').submit();"
                         class="btn btn-gray">Lưu
                 </button>
                 <button type="reset" data-dismiss="modal" class="btn btn-white" style="width: 52px">Huỷ</button>
@@ -263,7 +267,29 @@
     $('#doiDiaChi').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);// Button that triggered the modal
         var customerInfoID = button.data('customerinfoid');// Extract info from data-* attributes
+        var firstname = button.data('firstname');
+        var lastname = button.data('lastname');
+        var phone = button.data('phone');
+        var address = button.data('address');
+        var wardid = button.data('ward');
+
+        var districtid = button.data('district');
+
+        var provinceid = button.data('province');
+
         var modal = $(this);
-        modal.find('form#doiThongTinDiaChi').append('<input type="hidden" value=" ' + customerInfoID + '" name="customerInfoID" >');
-    })
+        modal.find('form#doiThongTinDiaChi  input#customerInfoID').attr('value', customerInfoID);
+        modal.find('form#doiThongTinDiaChi  input#firstname').attr('value', firstname);
+        modal.find('form#doiThongTinDiaChi input#lastname').attr("value", lastname);
+        modal.find('form#doiThongTinDiaChi input#address').attr("value", address);
+        modal.find('form#doiThongTinDiaChi input#phone').attr("value", phone);
+        modal.find('form#doiThongTinDiaChi select#province').val(provinceid).change();
+        setTimeout(function () {
+            modal.find('form#doiThongTinDiaChi select#district').val(districtid).change();
+        }, 1500);
+        setTimeout(function () {
+            modal.find('form#doiThongTinDiaChi select#ward').val(wardid).change();
+        }, 3000);
+
+    });
 </script>

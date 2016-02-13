@@ -216,7 +216,9 @@
                 type: "GET",
                 success: function (data) {
                     var data = jQuery.parseJSON(data);
-                    $("#district").html(data["district"]);
+                    $("select#district").each(function () {
+                        $(this).html(data["district"]);
+                    });
                 }
             });
             return false;
@@ -228,7 +230,9 @@
                 type: "GET",
                 success: function (data) {
                     var data = jQuery.parseJSON(data);
-                    $("#ward").html(data["ward"]);
+                    $("select#ward").each(function () {
+                        $(this).html(data["ward"]);
+                    });
                 }
             });
             return false;

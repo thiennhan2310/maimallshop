@@ -68,21 +68,19 @@ class CustomerController extends Controller
         }
     }
 
-    public function ChangeAdress(CustomerAddrRequest $request)
+    public function ChangeAddress(CustomerAddrRequest $request)
     {
-        $firstname = $request->get("firstname");
-        $lastname = $request->get("lastname");
-        $phone = $request->get("phone");
-        $address = $request->get("address");
-        $provinceID = $request->get("provinceID");
-        $districtID = $request->get("districtID");
-        $wardID = $request->get("wardID");
+        $customerinfoID = $request->get("customerInfoID");
         if ( Auth::check() ) {
-            $customerID = Auth::user()->id;
-            CustomerInfo::create(["customer_id" => $customerID , "first_name" => $firstname
-                , "last_name" => $lastname , "address" => $address , "phone" => $phone , "district_id" => $districtID
-                , "province_id" => $provinceID , "ward_id" => $wardID
-            ]);
+            $info = CustomerInfo::find($customerinfoID);
+            $info->first_name = $request->get("firstname");
+            $info->last_name = $request->get("lastname");
+            $info->phone = $request->get("phone");
+            $info->address = $request->get("address");
+            $info->province_id = $request->get("provinceID");
+            $info->district_id = $request->get("districtID");
+            $info->ward_id = $request->get("wardID");
+            $info->save();
             return redirect()->route("thongtin.template");
         } else {
             return redirect()->route("login");
