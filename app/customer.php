@@ -12,7 +12,7 @@ class customer extends Model implements AuthenticatableContract
     use Authenticatable;
     public $timestamps = true;
     protected $table = "customers";
-    protected $fillable = ['id' , 'email' , 'gender' , 'birthday' , "password" , "remember_token" , 'default_list_id'];
+    protected $fillable = ['id' , 'email' , 'gender' , 'birthday' , 'default_info_id' , "password" , "remember_token" , 'default_list_id'];
 
     public static function LovedProduct($get = "all") //lay san pham yeu thich
     {

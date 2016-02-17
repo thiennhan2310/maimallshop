@@ -58,10 +58,13 @@ class CustomerController extends Controller
         $wardID = $request->get("wardID");
         if ( Auth::check() ) {
             $customerID = Auth::user()->id;
-            CustomerInfo::create(["customer_id" => $customerID , "first_name" => $firstname
+            $info_id = CustomerInfo::create(["customer_id" => $customerID , "first_name" => $firstname
                 , "last_name" => $lastname , "address" => $address , "phone" => $phone , "district_id" => $districtID
-                , "province_id" => $provinceID , "ward_id" => $wardID
-            ]);
+                , "province_id" => $provinceID , "ward_id" => $wardID]);
+            $customer_default_info_id = customer::select(["default_info_id"])->where("id" , Auth::user()->id)->first();
+            if ( is_null($customer_default_info_id->default_info_id) ) {
+                customer::where("id" , Auth::user()->id)->update(["default_info_id" => $info_id->id]);
+            }
             return redirect()->route("thongtin.template");
         } else {
             return redirect()->route("login");
@@ -81,7 +84,7 @@ class CustomerController extends Controller
             $info->district_id = $request->get("districtID");
             $info->ward_id = $request->get("wardID");
             $info->save();
-            return redirect()->route("thongtin.template");
+            return redirect()->back();
         } else {
             return redirect()->route("login");
         }
@@ -93,11 +96,26 @@ class CustomerController extends Controller
             if ( Auth::check() ) {
                 $info = CustomerInfo::find($customerInfoID);
                 $info->delete();
+                /*TH xoá info id mac dinh*/
+                $default_info_id = customer::where("default_info_id" , $customerInfoID)->count();
+                if ( $default_info_id == 1 ) {
+                    //bi xoa
+                    $id = CustomerInfo::select(["id"])->where("customer_id" , Auth::user()->id)->first();
+                    $customer = customer::find(Auth::user()->id);
+                    if ( count($id) == 1 ) {
+                        //con dia chi khac duong cung cap
+                        $customer->default_info_id = $id->id;
+                    } else {
+                        $customer->default_info_id = NULL;
+                    }
+                    $customer->save();
+                }
                 return json_encode(["result" => "Xoá thành công" , "type" => "success"]);
+            }
                 return redirect()->route("thongtin.template");
             } else {
                 return redirect()->route("login");
             }
         }
     }
-}
+

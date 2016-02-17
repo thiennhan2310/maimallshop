@@ -55,45 +55,7 @@
     </script>
     <script type="text/javascript">
         //TODO chuyen 3 function nay di cho khac
-        function themYeuThich(e, product_id) {
-            $.get("{{URL::route("yeuthich.sanpham.them")}}" + "/" + product_id).done(function (data) {
-                data = jQuery.parseJSON(data);
-                $(e).css("display", "none");
-                $(e).next().css("display", "inline-block");
-                if (data["result"] === "Thêm yêu thích thành công") {
-                    $.notify(data["result"], {globalPosition: "top left", className: "success"});
-                } else {
-                    $.notify(data["result"], {globalPosition: "top left", className: "error"});
-                }
-            });
-        }
-        function boYeuThich(e, product_id) {
-            $.get("{{URL::route("yeuthich.sanpham.xoa")}}" + "/" + product_id).done(function () {
-                $(e).css("display", "none");
-                $(e).prev().css("display", "inline-block");
-                $.notify("Đã bỏ yêu thích", {globalPosition: "top left", className: "warn"}
-                );
-            });
-        }
-        function themGioHang(e, product_id, count) {
-            count = (count === undefined ? 1 : count );
-            var url = "{{url("/gio-hang/them/")}}" + "/" + product_id + "/" + count;
-            $.ajax({
-                url: url,
-                type: "GET",
-                success: function (data) {
-                    var data = jQuery.parseJSON(data);
-                    if (data['result'] === "Sản phẩm đã có trong giỏ hàng") {
-                        $.notify(data['result'], {globalPosition: "top left", className: "warn"});
-                    } else {
-                        $.notify(data['result'], {globalPosition: "top left", className: "success"});
-                        $('span#tongsoluong').html(data['tsl']);
-                    }
 
-                }
-            });
-
-        }
         function chuyenSanPhamYeuThich(event, product_id, from, to) {
 
             var url = '{{url("/yeu-thich/chuyen")}}' + "/" + product_id + "/" + from + "/" + to;

@@ -72,7 +72,15 @@ Route::group(["prefix" => "/thong-tin"] , function () {
 	Route::post("doi-dia-chi" , ["as" => "thongtin.diachi.doi" , "uses" => "CustomerController@ChangeAddress"]);
 	Route::get("xoa-dia-chi/{customerInfoID}" , ["as" => "thongtin.diachi.xoa" , "uses" => "CustomerController@DelAddress"]);
 });
+Route::group(["prefix" => "/thanh-toan"] , function () {
+	Route::get("thong-tin" , ["as" => "thanhtoan.thongtin" , "uses" => "PageController@PaymentInfo"]);
+	Route::get("dang-nhap" , ["as" => "thanhtoan.thongtin.dangnhap" , "uses" => "PaymentController@Login"]);
+	Route::get("dia-chi" , ["as" => "thanhtoan.thongtin.diachi" , "uses" => "PaymentController@Address"]);
+	Route::post("dia-chi" , ["as" => "post.thanhtoan.thongtin.diachi" , "uses" => "PaymentController@postAddress"]);
+	Route::get("phuong-thuc" , ["as" => "thanhtoan.thongtin.phuongthuc" , "uses" => "PaymentController@Method"]);
+	Route::get("gio-hang" , ["as" => "thanhtoan.thongtin.giohang" , "uses" => "PaymentController@Cart"]);
 
+});
 /*thong tin phuong xa*/
 Route::get("thanh-pho" , ["as" => "province" , "uses" => "CityController@GetProvince"]);
 Route::get("quan/{provinceid}" , ["as" => "district" , "uses" => "CityController@GetDistrict"]);

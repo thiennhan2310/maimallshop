@@ -1,5 +1,5 @@
 @extends("layout")
-@section("title","Trang Chủ")
+@section("title","Đăng Nhập")
 @section("content")
     @if(count($errors)>0)
         <div class="col-md-12">

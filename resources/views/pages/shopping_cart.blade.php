@@ -122,7 +122,7 @@
             <div class="clearfix"></div>
         </div>
         <div class="clearfix"></div>
-        <a class="order" onclick="return kiemtragiohang();"  href="http://www.maimallshop.com/don-hang/thong-tin-thanh-toan.html" >THANH TOÁN</a>
+        <a class="order" onclick="return kiemtragiohang();" href="{{route("thanhtoan.thongtin")}}">THANH TOÁN</a>
         <a class="continue" onclick="goBack()" style="cursor:pointer">CHỌN THÊM SẢN PHẨM</a>
     </div>
 

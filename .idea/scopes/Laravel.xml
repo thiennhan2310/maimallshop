@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Laravel" pattern="(file[maimallshop]:app/Http//*||file[maimallshop]:public//*||file[maimallshop]:resources/views//*||file[maimallshop]:app/*||file[maimallshop]:app//*)&amp;&amp;!file[maimallshop]:app/Commands//*&amp;&amp;!file[maimallshop]:app/Console//*&amp;&amp;!file[maimallshop]:app/Exceptions//*&amp;&amp;!file[maimallshop]:app/Events//*&amp;&amp;!file[maimallshop]:app/Handlers//*&amp;&amp;!file[maimallshop]:app/Providers//*&amp;&amp;!file[maimallshop]:app/Services//*" />
+</component>

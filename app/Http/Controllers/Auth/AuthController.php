@@ -56,10 +56,10 @@ class AuthController extends Controller {
 				/*del san pham */
 				$temp = \App\LoveListDetail::whereIn("list_id", $array_list_id)->count();
 				Session::put("love", $temp); //so luong san pham yeu thich
-				return redirect("/");
+				return redirect()->back();
 			}
 		} else {
-			return redirect("dang-nhap")->with("result", "Email hoặc mật khẩu không đúng!");
+			return redirect()->route("login")->with("result" , "Email hoặc mật khẩu không đúng!");
 		}
 	}
 

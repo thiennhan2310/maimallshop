@@ -55,7 +55,7 @@
             <div class="clearfix"></div>
         </div>
         <div class="clearfix"></div>
-        <a class="order" href="#">TIẾN HÀNH THANH TOÁN</a>
+    <a class="order" href="{{route("thanhtoan.thongtin")}}">TIẾN HÀNH THANH TOÁN</a>
     <a class="continue" href="{{asset("/gio-hang")}}" style="cursor:pointer">QUAY LẠI GIỎ
             HÀNG</a>
 

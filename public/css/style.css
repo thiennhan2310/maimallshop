@@ -1908,7 +1908,7 @@ a.create {
 .cart-header {
   position: relative;
     padding-top: 20px;
-    border-bottom: 1px solid #9C9C9C;
+
 }
 
 .discount-code{
@@ -2595,6 +2595,10 @@ top: 35px;
     background-color: #ffffff;
     font-family: "Arial";
 }
+
+.payment_info .active h4.configure-tab > a {
+    display: none;
+}
 .payment_info .add{
     text-align: center;
     padding-top: 50px;
@@ -2658,7 +2662,7 @@ top: 35px;
 
 .payment_info div.name {
     float: left;
-    width: 104px;
+    width: 105px;
     text-overflow: ellipsis;
     overflow: hidden;
     margin-right: 20px;
@@ -2673,9 +2677,13 @@ top: 35px;
 }
 
 .payment_info div.phone {
-    width: 82px;
+    width: 110px;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.payment_info .detail-info div.phone {
+    width: 82px;
 }
 
 .carousel-control .glyphicon-menu-left, .carousel-control .glyphicon-menu-right {

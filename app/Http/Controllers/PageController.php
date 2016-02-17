@@ -137,7 +137,7 @@ class PageController extends Controller
             $province = Province::select(["provinceid" , "name"])->orderBy("name")->get();
             $district = District::select(["districtid" , "name"])->where("provinceid" , $province[ 0 ]->provinceid)->orderBy("name")->get();
             $ward = Ward::select(["wardid" , "name"])->where("districtid" , $district[ 0 ]->districtid)->orderBy("name")->get();
-                $address = CustomerInfo::getAddressInfo($customerId);
+                $address = CustomerInfo::getAllAddressInfo($customerId); //danh sach dia chi
                 return view("pages.customerInfo.info" , compact("province" , "district" , "ward" , "address"));
             }
         } else {
@@ -199,5 +199,19 @@ class PageController extends Controller
     public function Signup()
     {
         return view("pages.signup");
+    }
+
+    public function PaymentInfo()
+    {
+        if ( Auth::check() ) {
+            if ( Auth::user()->default_info_id == NULL ) {
+                $address = "";
+            } else {
+                $address = CustomerInfo::getAddressInfo(Auth::user()->default_info_id);
+            }
+        }
+        return view("pages.payment_info" , compact("address"));
+
+
     }
 }

@@ -9,6 +9,7 @@ class LoginRequest extends Request
      *
      * @return bool
      */
+    protected $redirectRoute = 'login';
     public function authorize()
     {
         return true;
