@@ -11,7 +11,9 @@
             </ul>
         </div>
     @endif
-    <a href="{{URL::route("admin.product.getAdd")}}"><button class="btn btn-primary">Thêm sản phẩm</button></a>
+        <a href="{{URL::route("admin.discount.getAdd")}}">
+            <button class="btn btn-primary">Thêm đợt giảm giá</button>
+        </a>
     <table class="table table-striped table-bordered" >
         <tr>
             <th>STT</th>

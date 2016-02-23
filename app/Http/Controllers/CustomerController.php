@@ -65,7 +65,7 @@ class CustomerController extends Controller
             if ( is_null($customer_default_info_id->default_info_id) ) {
                 customer::where("id" , Auth::user()->id)->update(["default_info_id" => $info_id->id]);
             }
-            return redirect()->route("thongtin.template");
+            return redirect()->back();
         } else {
             return redirect()->route("login");
         }

@@ -62,7 +62,7 @@
             <div class="clearfix"></div>
         @endif
         <div class="control">
-            <div class="add">
+            <div class="add" data-toggle="modal" data-target="#themDiaChi">
                 <span class="glyphicon glyphicon-plus"></span> Thêm địa chỉ mới
             </div>
             <a class="continue" id="toMethod">TIẾP TỤC</a>
@@ -304,3 +304,4 @@
 
     }
 </script>
+

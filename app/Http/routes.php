@@ -10,6 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+
 Route::get("/","PageController@index");
 Route::get("trang-chu", ["as" => "home", "uses" => "PageController@index"]);
 Route::get("san-pham/{cate}/","PageController@listProducts");
@@ -36,7 +37,19 @@ Route::group(["prefix" => "admin"],function(){
 		Route::get("list", ["as" => "admin.discount.list", "uses" => "AdminController@DiscountList"]);
 		Route::get("edit/{id}", ["as" => "admin.discount.getEdit", "uses" => "AdminController@DiscountGetEdit"]);
 		Route::post("edit/{id}", ["as" => "admin.discount.postEdit", "uses" => "AdminController@DiscountPostEdit"]);
+		Route::get("add" , ["as" => "admin.discount.getAdd" , "uses" => "AdminController@DiscountGetAdd"]);
+		Route::post("add" , ["as" => "admin.discount.postAdd" , "uses" => "AdminController@DiscountPostAdd"]);
+
 		Route::get("delete/{id}", ["as" => "admin.discount.getDelete", "uses" => "AdminController@DiscountGetDelete"]);
+	});
+	Route::group(["prefix" => "bill"] , function () {
+		Route::get("/" , ["as" => "admin.bill"]);
+		Route::get("list-new" , ["as" => "admin.billnew.list" , "uses" => "AdminController@ListNewBill"]);
+		Route::get("list-delivery" , ["as" => "admin.billdelivery.list" , "uses" => "AdminController@ListDeliveryBill"]);
+		Route::get("list-success" , ["as" => "admin.billsuccess.list" , "uses" => "AdminController@ListSuccessBill"]);
+		Route::get("detail-bill/{id}" , ["as" => "admin.bill.detail" , "uses" => "AdminController@DetailBill"]);
+		Route::get("confirm-bill/{id}" , ["as" => "admin.bill.confirm" , "uses" => "AdminController@ConfirmBill"]);
+		Route::get("delete-bill/{id}" , ["as" => "admin.bill.delete" , "uses" => "AdminController@DelBill"]);
 	});
 
 });
@@ -78,7 +91,10 @@ Route::group(["prefix" => "/thanh-toan"] , function () {
 	Route::get("dia-chi" , ["as" => "thanhtoan.thongtin.diachi" , "uses" => "PaymentController@Address"]);
 	Route::post("dia-chi" , ["as" => "post.thanhtoan.thongtin.diachi" , "uses" => "PaymentController@postAddress"]);
 	Route::get("phuong-thuc" , ["as" => "thanhtoan.thongtin.phuongthuc" , "uses" => "PaymentController@Method"]);
+	Route::get("phuong-thuc/{id}" , ["as" => "thanhtoan.thongtin.phuongthuc.chon" , "uses" => "PaymentController@PostMethod"]);
 	Route::get("gio-hang" , ["as" => "thanhtoan.thongtin.giohang" , "uses" => "PaymentController@Cart"]);
+	Route::post("hoan-tat" , ["as" => "thanhtoan.thongtin.hoantat" , "uses" => "PaymentController@Finish"]);
+	Route::get("hoa-don/{id}" , ["as" => "thanhtoan.thongtin.hoadon" , "uses" => "PaymentController@BillDetail"]);
 
 });
 /*thong tin phuong xa*/

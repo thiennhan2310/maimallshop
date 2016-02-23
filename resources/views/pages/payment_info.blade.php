@@ -123,6 +123,7 @@
                         <!------------>
                     </div>
 
+
                 </div>
                 <div class="clearfix"></div>
 
@@ -147,6 +148,10 @@
                     <div id="cart" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingPayment">
 
                     </div>
+                    <form action="{{route("thanhtoan.thongtin.hoantat")}}" name="thanhtoan" method="POST">
+                        <input type="hidden" name="_token" value="{{csrf_token()}}">
+                        <input type="hidden" name="method" value="2">
+                    </form>
                 </div>
             </div>
         </div>

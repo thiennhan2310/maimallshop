@@ -52,14 +52,7 @@
             <!-- Sidebar user panel -->
 
             <!-- search form -->
-            <form action="#" method="get" class="sidebar-form">
-                <div class="input-group">
-                    <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
-              </span>
-                </div>
-            </form>
+
             <!-- /.search form -->
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu">
@@ -77,12 +70,17 @@
                     <a href="#">
                         <i class="fa fa-files-o"></i>
                         <span>Đơn Hàng</span>
-                        <span class="label label-primary pull-right">4</span>
+                        @if($newBillCount>0)  <span class="label label-primary pull-right">{{$newBillCount}}</span>
+                        @else
+                            <i class="fa fa-angle-left pull-right"></i>
+                        @endif
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Mới</a></li>
-                        <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Chưa Thanh Toán</a></li>
-                        <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Đã Thanh Toán</a></li>
+                        <li><a href="{{route("admin.billnew.list")}}"><i class="fa fa-circle-o"></i> Mới</a></li>
+                        <li><a href="{{route("admin.billdelivery.list")}}"><i class="fa fa-circle-o"></i> Chờ giao hàng</a>
+                        </li>
+                        <li><a href="{{route("admin.billsuccess.list")}}"><i class="fa fa-circle-o"></i> Đã Thanh
+                                Toán</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -97,15 +95,15 @@
                         <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Thêm</a></li>
                     </ul>
                 </li>
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-dashboard"></i> <span>Trang Chủ</span> <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li ><a href="index.html"><i class="fa fa-circle-o"></i> Danh Sách</a></li>
-                        <li><a href="index2.html"><i class="fa fa-circle-o"></i> Thêm</a></li>
-                    </ul>
-                </li>
+                {{--<li class="treeview">--}}
+                {{--<a href="#">--}}
+                {{--<i class="fa fa-dashboard"></i> <span>Trang Chủ</span> <i class="fa fa-angle-left pull-right"></i>--}}
+                {{--</a>--}}
+                {{--<ul class="treeview-menu">--}}
+                {{--<li ><a href="index.html"><i class="fa fa-circle-o"></i> Danh Sách</a></li>--}}
+                {{--<li><a href="index2.html"><i class="fa fa-circle-o"></i> Thêm</a></li>--}}
+                {{--</ul>--}}
+                {{--</li>--}}
 
                      </ul>
         </section>

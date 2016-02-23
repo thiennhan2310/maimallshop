@@ -8,13 +8,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Bill;
+use App\billDetail;
 use App\customer;
 use App\CustomerInfo;
 use App\District;
+use App\Products;
 use App\Province;
 use App\Ward;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 
 class PaymentController extends Controller
@@ -50,9 +54,13 @@ class PaymentController extends Controller
 
     }
 
+
     public function Cart()
     {
-        return view("pages.paymentInfo.cart");
+        $cart = new CartController();
+        $products = $cart->getProduct();
+        $total = $cart->totalPrice($products);
+        return view("pages.paymentInfo.cart" , compact("products" , "total"));
     }
 
     public function postAddress(Request $request)
@@ -66,7 +74,72 @@ class PaymentController extends Controller
             $address = $customerInfo->address . " P." . $customerInfo->ward_name . ", Q." . $customerInfo->district_name . ",TP." . $customerInfo->province_name;
             $phone = $customerInfo->phone;
             return json_encode(["name" => $name , "address" => $address , "phone" => $phone]);
+        }
+    }
 
+    public function Finish(Request $request)
+    {
+        if ( Auth::check() && Session::has("cart") ) {
+            $payment_method = (int) $request->get("method");
+            $cart = new CartController();
+            $products = $cart->getProduct();
+            $total = $cart->totalPrice($products);
+            $customerID = Auth::user()->id;
+            $customerInfoID = Auth::user()->default_info_id;
+            /*
+             * 1: done
+             * 2:chua thanh toan
+             * 3: moi
+             */
+            $bill = Bill::create(["total" => $total , "customer_id" => $customerID , "customer_info_id" => $customerInfoID , "status" => 3 , "payment_method" => $payment_method]);
+            $billID = $bill->id;
+            foreach ( $products as $item ) {
+                $price = $item->price * (100 - $item->percent) / 100;
+                billDetail::create(["bill_id" => $billID , "products_id" => $item->id , "price" => $price , "amount" => $item->so_luong]);
+                $count = Products::select(["count"])->where("id" , $item->id)->first();
+                $count->count += $item->so_luong;
+                Products::where("id" , $item->id)->update(["count" => $count->count]);
+            }
+            Session::forget("cart");
+            /*Send mail*/
+            $this->sendMail($billID);
+            /**********/
+            return redirect()->route("thanhtoan.thongtin.hoadon" , $billID);
+        }
+    }
+
+    private function sendMail($billID)
+    {
+        $bill_id = $billID;
+        $billInfo = Bill::find($bill_id);
+        $customerInfo = CustomerInfo::getAddressInfo($billInfo->customer_info_id);
+        $billDetail = billDetail::getProducts($bill_id);
+        $data = [
+            "billInfo" => $billInfo ,
+            "customerInfo" => $customerInfo ,
+            "billDetail" => $billDetail
+        ];
+        $email = Auth::user()->email;
+        $name = $customerInfo->last_name;
+        \Mail::send('emails.purchased' , $data , function ($message) use ($email , $name) {
+            $message->from('admin@maimallshop.com' , 'Mai Mall. Thông tin hóa đơn');
+            $message->to($email , $name)->subject('Xác nhận mua hàng thành công');
+        });
+    }
+
+    public function BillDetail($bill_id)
+    {
+        if ( Auth::check() ) {
+            $billInfo = Bill::find($bill_id);
+            if ( $billInfo->customer_id == Auth::user()->id ) {
+                $customerInfo = CustomerInfo::getAddressInfo($billInfo->customer_info_id);
+                $billDetail = billDetail::getProducts($bill_id);
+                return view("pages.finish_purchase" , compact("billInfo" , "customerInfo" , "billDetail"));
+            } else {
+                return redirect()->route("home");
+            }
+        } else {
+            return redirect()->route("login");
         }
     }
 }

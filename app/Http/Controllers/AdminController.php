@@ -9,20 +9,25 @@
 namespace App\Http\Controllers;
 
 
+use App\Bill;
+use App\billDetail;
 use App\Cate;
 use App\Discount;
 use App\Http\Requests\ProductRequest;
 use App\Products;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Request;
 
 class AdminController extends Controller
 {
     public function Home()
     {
         if (Auth::check()) {
-            if (Auth::user()->email == "admin@maimallshop.com")
-                return view("admin.layout");
+            if ( Auth::user()->email == "admin@maimallshop.com" ) {
+                $newBillCount = count(Bill::NewBill());
+                return view("admin.layout" , compact("newBillCount"));
+            }
             else
                 return redirect()->route("home");
         } else {
@@ -32,15 +37,17 @@ class AdminController extends Controller
 
     public function ProductList()
     {
+        $newBillCount = count(Bill::NewBill());
         $products = Products::select(["id", "name", "price"])->paginate(10);
         $products->setPath("list");
-        return view("admin.sanpham.list", compact("products"));
+        return view("admin.sanpham.list" , compact("products" , "newBillCount"));
     }
 
     public function ProductGetAdd()
     {
+        $newBillCount = count(Bill::NewBill());
         $cate = Cate::select(["id", "name"])->where("parent_id", "!=", "0")->where("parent_id", "!=", "1")->orderBy("name")->get();
-        return view("admin.sanpham.add", compact("cate"));
+        return view("admin.sanpham.add" , compact("cate" , "newBillCount"));
     }
 
     public function ProductPostAdd(ProductRequest $request)
@@ -92,9 +99,10 @@ class AdminController extends Controller
 
     public function ProductGetEdit($id)
     {
+        $newBillCount = count(Bill::NewBill());
         $product = Products::getProductById($id);
         $cate = Cate::select(["id", "name"])->where("parent_id", "!=", "0")->where("parent_id", "!=", "1")->orderBy("name")->get();
-        return view("admin.sanpham.edit", compact("product", "cate"));
+        return view("admin.sanpham.edit" , compact("product" , "cate" , "newBillCount"));
     }
 
     public function ProductPostEdit(ProductRequest $request, $id)
@@ -196,20 +204,103 @@ class AdminController extends Controller
 
     public function DiscountList()
     {
+        $newBillCount = count(Bill::NewBill());
         $discount = Discount::select(["id", "name", "percent", "start", "end"])->paginate(10);
-        return view("admin.giamgia.list", compact("discount"));
+        return view("admin.giamgia.list" , compact("discount" , "newBillCount"));
     }
 
     public function DiscountGetEdit($id)
     {
+        $newBillCount = count(Bill::NewBill());
         $detail = Discount::find($id);
         $dicountedCate = Cate::getCateOnDiscount($id);
         $cateAll = Cate::select(["id", "discount_id", "name"])->get();
-        return view("admin.giamgia.edit", compact("detail", "dicountedCate", "cateAll"));
+        return view("admin.giamgia.edit" , compact("detail" , "dicountedCate" , "cateAll" , "newBillCount"));
     }
 
     public function DiscountPostEdit($id)
     {
 
+    }
+
+    public function DiscountGetAdd()
+    {
+        $newBillCount = count(Bill::NewBill());
+        $cateAll = Cate::select(["id" , "discount_id" , "name"])->get();
+        return view("admin.giamgia.add" , compact("cateAll" , "newBillCount"));
+    }
+
+    public function DiscountPostAdd()
+    {
+
+    }
+
+    public function ListNewBill()
+    {
+        $bill = Bill::NewBill();
+        $newBillCount = count(Bill::NewBill());
+        $bill->setPath("list");
+        $action = "Mới";
+        return view("admin.hoadon.list" , compact("bill" , "action" , "newBillCount"));
+    }
+
+    public function ListDeliveryBill()
+    {
+
+        $bill = Bill::DeliveryBill();
+        $newBillCount = count(Bill::NewBill());
+        $bill->setPath("list");
+        $action = "Chờ giao hàng";
+        return view("admin.hoadon.list" , compact("bill" , "action" , "newBillCount"));
+    }
+
+    public function ListSuccessBill()
+    {
+        $newBillCount = count(Bill::NewBill());
+        $bill = Bill::SuccessBill();
+        $bill->setPath("list");
+        $action = "Thành Công";
+        return view("admin.hoadon.list" , compact("bill" , "action" , "newBillCount"));
+    }
+
+    public function DetailBill($billId)
+    {
+        if ( Request::ajax() ) {
+            $detail = billDetail::getProducts($billId);
+            $string = "";
+            foreach ( $detail as $item ) {
+                $string = "<td>" . $item->products_id . "</td>";
+                $string .= "<td>" . $item->name . "</td>";
+                $string .= "<td>" . $item->amount . "</td>";
+                $string .= "<td>" . $item->price . "</td>";
+            }
+            return json_encode(["result" => $string]);
+        }
+    }
+
+    public function ConfirmBill($billID)
+    { /*
+        * 3 : new
+         *2 : delivering
+         *1 : complete
+        */
+        if ( Request::ajax() ) {
+            $bill = Bill::find($billID);
+            if ( $bill->status == 3 ) {
+                $bill->status = 2;
+            } elseif ( $bill->status == 2 ) {
+                $bill->status = 1;
+            }
+            $bill->save();
+
+        }
+    }
+
+    public function DelBill($billID)
+    {
+        if ( Request::ajax() ) {
+            $bill = Bill::find($billID);
+            $bill->delete();
+        }
     }
 }
