@@ -101,6 +101,8 @@ Route::group(["prefix" => "/thanh-toan"] , function () {
 Route::get("thanh-pho" , ["as" => "province" , "uses" => "CityController@GetProvince"]);
 Route::get("quan/{provinceid}" , ["as" => "district" , "uses" => "CityController@GetDistrict"]);
 Route::get("phuong/{districtid}" , ["as" => "district" , "uses" => "CityController@GetWard"]);
+Route::get("/{string}" , "PageController@searchPage");
+
 //Route::get("hash",function(){
-//	echo Hash::make(12345);
+//	echo Hash::make("admin!@#$%");
 //});

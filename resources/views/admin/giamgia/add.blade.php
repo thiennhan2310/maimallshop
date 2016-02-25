@@ -22,7 +22,7 @@
                     </ul>
                 </div>
             @endif
-            <form action="{{URL::route("admin.product.postAdd")}}" method="POST">
+            <form action="{{URL::route("admin.discount.postAdd")}}" method="POST">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                 <div class="form-group">
@@ -51,7 +51,7 @@
                 </div>
                 <div class="form-group">
                     <label>Phần Trăm (%)<span>*</span></label>
-                    <input class="form-control" type="text" value="" required="" name="percent">
+                    <input class="form-control" type="number" min="0" max="100" value="" required="" name="percent">
                 </div>
                 <div class="form-group">
                     <label>Miêu tả<span>*</span></label>

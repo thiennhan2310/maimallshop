@@ -37,8 +37,7 @@
             </div>
             <div class="form-group">
                 <label>Hãng sản phẩm<span>*</span></label>
-                <input class="form-control" type="text" value="{{$product->brand}}" required="" name="brand"
-                       placeholder="Nhập hãng sản phẩm">
+                <input class="form-control" type="text" value="{{$product->brand}}" required="" name="brand">
             </div>
             <div class="form-group">
                 <label>Giá<span>*</span></label>
@@ -57,7 +56,7 @@
                     @if($product->$temp!="")
                         <div class="img-product" id="{{$temp}}">
                             <img style="" src="{{url("public/products")}}/{{$product->$temp}}"
-                                 class="img-responsive img-close" alt="{{$product->$temp}}">
+                                 class="img-responsive img-close" width="200px" alt="{{$product->$temp}}">
                             <div class="caption" id="remove{{$i}}">
                                 Remove
                             </div>

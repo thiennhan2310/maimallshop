@@ -34,8 +34,13 @@
                <td>{{date("d-m-Y",strtotime($item->end))}}</td>
                <td><img src="{{url("/public/images/c2.jpg")}}" alt=""><a
                            href="{{URL::route("admin.discount.getEdit",$item->id)}}">Edit</a></td>
-               <td><img src="{{url("/public/images/c3.jpg")}}" alt=""><a
-                           href="{{URL::route("admin.discount.getDelete",$item->id)}}"> Delete</a></td>
+
+               <td>
+                   @if($i!=1)
+                       <img src="{{url("/public/images/c3.jpg")}}" alt=""><a
+                               href="{{URL::route("admin.discount.getDelete",$item->id)}}"> Delete</a>
+                   @endif
+               </td>
            </tr>
            @endforeach
     </table>
@@ -43,4 +48,5 @@
         {!! $discount->render() !!}
     </div>
 </div>
-    @endsection
+
+@endsection

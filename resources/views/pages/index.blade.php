@@ -23,20 +23,21 @@
                                      @if(!in_array($giam_gia[$i]->id,$lovedProductsId))style="display: inline-block"
                                      @else style="display: none" @endif id="addLove" alt="love"
                                      title="Thêm vào yêu thích"
-                                     onclick="@if(Auth::check())themYeuThich(this,'{{$giam_gia[$i]->id}}') @else window.location.replace('{{URL::route("login")}}') @endif">
+                                     onclick="@if(Auth::check())themYeuThich(this,'{{$giam_gia[$i]->id}}'); @else window.location.replace('{{URL::route("login")}}'); @endif">
                                 <img src="{{url("/")}}/public/images/love-red.png"
                                      @if( in_array($giam_gia[$i]->id,$lovedProductsId))style="display: inline-block"
                                      @else style="display: none" @endif id="delLove" alt="love" title="Bỏ yêu thích"
-                                     onclick="@if(Auth::check())boYeuThich(this,'{{$giam_gia[$i]->id}}') @else window.location.replace('{{URL::route("login")}}') @endif">
+                                     onclick="@if(Auth::check())boYeuThich(this,'{{$giam_gia[$i]->id}}'); @else window.location.replace('{{URL::route("login")}}'); @endif">
 
                             </p>
 
                             <p class="cart" title="Thêm vào giỏ hàng"><img
                                         onclick="themGioHang(this,'{{$giam_gia[$i]->id}}')"
                                         src="{{url("/")}}/public/images/bag_white.png" alt="cart"></p>
-                            <p class="brand"> Hãng sp </p>
 
-                            <p class="cate">{{$sp_moi[$i]->cate}}</p>
+                            <p class="brand"> {{$giam_gia[$i]->brand}} </p>
+
+                            <p class="cate">{{$giam_gia[$i]->cate}}</p>
 
                             <p class="code">{{$giam_gia[$i]->id}}</p>
 
@@ -74,11 +75,11 @@
                                      @if(!in_array($sp_moi[$i]->id,$lovedProductsId))style="display: inline-block"
                                      @else style="display: none" @endif id="addLove" alt="love"
                                      title="Thêm vào yêu thích"
-                                     onclick="@if(Auth::check())themYeuThich(this,'{{$sp_moi[$i]->id}}') @else window.location.replace('{{URL::route("login")}}') @endif">
+                                     onclick="@if(Auth::check())themYeuThich(this,'{{$sp_moi[$i]->id}}'); @else window.location.replace('{{URL::route("login")}}'); @endif">
                                 <img src="{{url("/")}}/public/images/love-red.png"
                                      @if( in_array($sp_moi[$i]->id,$lovedProductsId))style="display: inline-block"
                                      @else style="display: none" @endif id="delLove" alt="love" title="Bỏ yêu thích"
-                                     onclick="@if(Auth::check())boYeuThich(this,'{{$sp_moi[$i]->id}}') @else window.location.replace('{{URL::route("login")}}') @endif">
+                                     onclick="@if(Auth::check())boYeuThich(this,'{{$sp_moi[$i]->id}}'); @else window.location.replace('{{URL::route("login")}}'); @endif">
 
                             </p>
 
@@ -86,7 +87,7 @@
                                         onclick="themGioHang(this,'{{$sp_moi[$i]->id}}')"
                                         src="{{url("/")}}/public/images/bag_white.png" alt="cart"></p>
 
-                            <p class="brand"> Hãng sp </p>
+                            <p class="brand"> {{$sp_moi[$i]->brand}} </p>
 
                             <p class="cate">{{$sp_moi[$i]->cate}}</p>
 
@@ -129,11 +130,11 @@
                                      @if(!in_array($sp_banchay[$i]->id,$lovedProductsId))style="display: inline-block"
                                      @else style="display: none" @endif id="addLove" alt="love"
                                      title="Thêm vào yêu thích"
-                                     onclick="@if(Auth::check())themYeuThich(this,'{{$sp_banchay[$i]->id}}') @else window.location.replace('{{URL::route("login")}}') @endif">
+                                     onclick="@if(Auth::check())themYeuThich(this,'{{$sp_banchay[$i]->id}}'); @else window.location.replace('{{URL::route("login")}}'); @endif">
                                 <img src="{{url("/")}}/public/images/love-red.png"
                                      @if( in_array($sp_banchay[$i]->id,$lovedProductsId))style="display: inline-block"
                                      @else style="display: none" @endif id="delLove" alt="love" title="Bỏ yêu thích"
-                                     onclick="@if(Auth::check())boYeuThich(this,'{{$sp_banchay[$i]->id}}') @else window.location.replace('{{URL::route("login")}}') @endif">
+                                     onclick="@if(Auth::check())boYeuThich(this,'{{$sp_banchay[$i]->id}}'); @else window.location.replace('{{URL::route("login")}}'); @endif">
 
                             </p>
 
@@ -141,7 +142,7 @@
                                         onclick="themGioHang(this,'{{$sp_banchay[$i]->id}}')"
                                         src="{{url("/")}}/public/images/bag_white.png" alt="cart"></p>
 
-                            <p class="brand"> Hãng sp </p>
+                            <p class="brand"> {{$sp_banchay[$i]->brand}}</p>
 
                             <p class="cate">{{$sp_banchay[$i]->cate}}</p>
 
@@ -184,11 +185,11 @@
                                      @if(!in_array($my_pham[$i]->id,$lovedProductsId))style="display: inline-block"
                                      @else style="display: none" @endif id="addLove" alt="love"
                                      title="Thêm vào yêu thích"
-                                     onclick="@if(Auth::check())themYeuThich(this,'{{$my_pham[$i]->id}}') @else window.location.replace('{{URL::route("login")}}') @endif">
+                                     onclick="@if(Auth::check())themYeuThich(this,'{{$my_pham[$i]->id}}'); @else window.location.replace('{{URL::route("login")}}'); @endif">
                                 <img src="{{url("/")}}/public/images/love-red.png"
                                      @if( in_array($my_pham[$i]->id,$lovedProductsId))style="display: inline-block"
                                      @else style="display: none" @endif id="delLove" alt="love" title="Bỏ yêu thích"
-                                     onclick="@if(Auth::check())boYeuThich(this,'{{$my_pham[$i]->id}}') @else window.location.replace('{{URL::route("login")}}') @endif">
+                                     onclick="@if(Auth::check())boYeuThich(this,'{{$my_pham[$i]->id}}'); @else window.location.replace('{{URL::route("login")}}'); @endif">
 
                             </p>
 
@@ -196,7 +197,7 @@
                                         onclick="themGioHang(this,'{{$my_pham[$i]->id}}')"
                                         src="{{url("/")}}/public/images/bag_white.png" alt="cart"></p>
 
-                            <p class="brand"> Hãng sp </p>
+                            <p class="brand"> {{$my_pham[$i]->brand}} </p>
 
                             <p class="cate">{{$my_pham[$i]->cate}}</p>
 
@@ -237,11 +238,11 @@
                                      @if(!in_array($thoi_trang[$i]->id,$lovedProductsId))style="display: inline-block"
                                      @else style="display: none" @endif id="addLove" alt="love"
                                      title="Thêm vào yêu thích"
-                                     onclick="@if(Auth::check())themYeuThich(this,'{{$thoi_trang[$i]->id}}') @else window.location.replace('{{URL::route("login")}}') @endif">
+                                     onclick="@if(Auth::check())themYeuThich(this,'{{$thoi_trang[$i]->id}}'); @else window.location.replace('{{URL::route("login")}}'); @endif">
                                 <img src="{{url("/")}}/public/images/love-red.png"
                                      @if( in_array($thoi_trang[$i]->id,$lovedProductsId))style="display: inline-block"
                                      @else style="display: none" @endif id="delLove" alt="love" title="Bỏ yêu thích"
-                                     onclick="@if(Auth::check())boYeuThich(this,'{{$thoi_trang[$i]->id}}') @else window.location.replace('{{URL::route("login")}}') @endif">
+                                     onclick="@if(Auth::check())boYeuThich(this,'{{$thoi_trang[$i]->id}}'); @else window.location.replace('{{URL::route("login")}}'); @endif">
 
                             </p>
 
@@ -249,7 +250,7 @@
                                         onclick="themGioHang(this,'{{$thoi_trang[$i]->id}}')"
                                         src="{{url("/")}}/public/images/bag_white.png" alt="cart"></p>
 
-                            <p class="brand"> Hãng sp </p>
+                            <p class="brand">  {{$thoi_trang[$i]->brand}}  </p>
 
                             <p class="cate">{{$thoi_trang[$i]->cate}}</p>
 
@@ -292,11 +293,11 @@
                                      @if(!in_array($suc_khoe[$i]->id,$lovedProductsId))style="display: inline-block"
                                      @else style="display: none" @endif id="addLove" alt="love"
                                      title="Thêm vào yêu thích"
-                                     onclick="@if(Auth::check())themYeuThich(this,'{{$suc_khoe[$i]->id}}') @else window.location.replace('{{URL::route("login")}}') @endif">
+                                     onclick="@if(Auth::check())themYeuThich(this,'{{$suc_khoe[$i]->id}}'); @else window.location.replace('{{URL::route("login")}}'); @endif">
                                 <img src="{{url("/")}}/public/images/love-red.png"
                                      @if( in_array($suc_khoe[$i]->id,$lovedProductsId))style="display: inline-block"
                                      @else style="display: none" @endif id="delLove" alt="love" title="Bỏ yêu thích"
-                                     onclick="@if(Auth::check())boYeuThich(this,'{{$suc_khoe[$i]->id}}') @else window.location.replace('{{URL::route("login")}}') @endif">
+                                     onclick="@if(Auth::check())boYeuThich(this,'{{$suc_khoe[$i]->id}}'); @else window.location.replace('{{URL::route("login")}}'); @endif">
 
                             </p>
 
@@ -304,7 +305,7 @@
                                         onclick="themGioHang(this,'{{$suc_khoe[$i]->id}}')"
                                         src="{{url("/")}}/public/images/bag_white.png" alt="cart"></p>
 
-                            <p class="brand"> Hãng sp </p>
+                            <p class="brand"> {{$suc_khoe[$i]->brand}} </p>
 
                             <p class="cate">{{$suc_khoe[$i]->cate}}</p>
 

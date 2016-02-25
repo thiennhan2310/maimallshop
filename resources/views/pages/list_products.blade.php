@@ -31,18 +31,19 @@
                                  @if(!in_array($products[$i]->id,$lovedProductsId))style="display: inline-block"
                                  @else style="display: none" @endif id="addLove" alt="love"
                                  title="Thêm vào yêu thích"
-                                 onclick="@if(Auth::check())themYeuThich(this,'{{$products[$i]->id}}') @else window.location.replace('{{URL::route("login")}}') @endif">
+                                 onclick="@if(Auth::check())themYeuThich(this,'{{$products[$i]->id}}'); @else window.location.replace('{{URL::route("login")}}'); @endif">
                             <img src="{{url("/")}}/public/images/love-red.png"
                                  @if( in_array($products[$i]->id,$lovedProductsId))style="display: inline-block"
                                  @else style="display: none" @endif id="delLove" alt="love" title="Bỏ yêu thích"
-                                 onclick="@if(Auth::check())boYeuThich(this,'{{$products[$i]->id}}') @else window.location.replace('{{URL::route("login")}}') @endif">
+                                 onclick="@if(Auth::check())boYeuThich(this,'{{$products[$i]->id}}'); @else window.location.replace('{{URL::route("login")}}'); @endif">
 
                         </p>
 
-                        <p class="cart" title="Thêm vào giỏ hàng"><img
+                        <p class="cart" title="Thêm vào giỏ hàng">  @if($products[$i]->status==1)<img
                                     onclick="themGioHang(this,'{{$products[$i]->id}}')"
-                                    src="{{url("/")}}/public/images/bag_white.png" alt="cart"></p>
-                        <p class="brand"> Hãng sp </p>
+                                    src="{{url("/")}}/public/images/bag_white.png" alt="cart"> @endif</p>
+
+                        <p class="brand"> {{$products[$i]->brand}} </p>
 
                         <p class="cate">{{$products[$i]->cate}}</p>
 

@@ -2,11 +2,7 @@
 @section("controll","Giảm giá")
 @section("action","edit")
 @section("content")
-    <style>
-        .col1 {
-            float: left;
-        }
-    </style>
+
     <div class="col-md-12">
         @if(count($errors)>0)
             <div class="alert alert-danger">
@@ -17,7 +13,7 @@
                 </ul>
             </div>
         @endif
-            <form action="{{URL::route("admin.product.postEdit",$detail->id)}}" method="POST"
+            <form action="{{URL::route("admin.discount.postEdit",$detail->id)}}" method="POST"
                   enctype="multipart/form-data">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
@@ -34,7 +30,7 @@
                 <div>
                     <div class="col-md-6">
                         @for($i=0;$i<17; $i++)
-                            <br> <input @if(array_key_exists($cateAll[$i]->id,$dicountedCate)) checked
+                            <br> <input @if( in_array($cateAll[$i]->id,$discountedCateID)) checked
                                         @endif type="checkbox" name="loai[]" id="{{$cateAll[$i]->id}}"
                                         value="{{$cateAll[$i]->id}}">
                             <label for="{{$cateAll[$i]->id}}">{{$cateAll[$i]->name}}</label>
@@ -42,7 +38,7 @@
                     </div>
                     <div class="col-md-6">
                         @for($i=17;$i<35; $i++)
-                            <br> <input @if(array_key_exists($cateAll[$i]->id,$dicountedCate)) checked
+                            <br> <input @if(  in_array($cateAll[$i]->id,$discountedCateID)) checked
                                         @endif type="checkbox" name="loai[]" id="{{$cateAll[$i]->id}}"
                                         value="{{$cateAll[$i]->id}}">
                             <label for="{{$cateAll[$i]->id}}">{{$cateAll[$i]->name}}</label>

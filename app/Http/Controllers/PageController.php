@@ -95,13 +95,19 @@ class PageController extends Controller
         return view("pages.shopping_cart", compact("products", "total"));
     }
 
-    public function searchPage(FormRequest $request)//trang tim kiem
+    public function searchPage(FormRequest $request , $name = "")//trang tim kiem
     {
-        $products = Products::getProductByName($request->get("ten_san_pham"), 25);
+        if ( $name != "" ) $tensanpham = $name;
+        else $tensanpham = $request->get("ten_san_pham");
+        $products = Products::getProductByName($tensanpham , 25);
         $products->setPath("tim-kiem");
-        $count = count($products);
-        $arrayCurrentCateName = [["name" => "Có $count sản phẩm tìm thấy"]];
-        return view("pages.list_products", compact("products", "arrayParentName", "arrayCurrentCateName"));
+
+        $arrayCurrentCateName = [["name" => "Kết quả tìm kiếm $tensanpham"]];
+        $lovedProductsId = ["0"];
+        if ( Auth::check() ) {
+            $lovedProductsId = customer::LovedProduct("id");
+        }
+        return view("pages.list_products" , compact("products" , "arrayParentName" , "arrayCurrentCateName" , "lovedProductsId"));
     }
 
     public function Login() //trang dang nhap

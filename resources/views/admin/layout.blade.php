@@ -92,7 +92,6 @@
                     <ul class="treeview-menu">
                         <li><a href="{{URL::route("admin.discount.list")}}"><i class="fa fa-circle-o"></i> Danh Sách</a>
                         </li>
-                        <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Thêm</a></li>
                     </ul>
                 </li>
                 {{--<li class="treeview">--}}

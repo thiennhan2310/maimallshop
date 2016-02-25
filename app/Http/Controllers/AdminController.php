@@ -15,9 +15,9 @@ use App\Cate;
 use App\Discount;
 use App\Http\Requests\ProductRequest;
 use App\Products;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Request;
 
 class AdminController extends Controller
 {
@@ -214,13 +214,31 @@ class AdminController extends Controller
         $newBillCount = count(Bill::NewBill());
         $detail = Discount::find($id);
         $dicountedCate = Cate::getCateOnDiscount($id);
+        $discountedCateID = [];
+
+        foreach ( $dicountedCate as $item ) {
+            $discountedCateID[] = $item->id;
+        }
+
         $cateAll = Cate::select(["id", "discount_id", "name"])->get();
-        return view("admin.giamgia.edit" , compact("detail" , "dicountedCate" , "cateAll" , "newBillCount"));
+        return view("admin.giamgia.edit" , compact("detail" , "discountedCateID" , "cateAll" , "newBillCount"));
     }
 
-    public function DiscountPostEdit($id)
+    public function DiscountPostEdit(Request $request , $id)
     {
+        $discount = Discount::find($id);
+        $discount->name = $request->get("name");
+        $discount->percent = $request->get("percent");
+        $discount->description = $request->get("description");
+        $discount->start = $request->get("start");
+        $discount->end = $request->get("end");
+        $discount->save();
 
+        $cateId = $request->get("loai");
+        foreach ( $cateId as $item ) {
+            Cate::where("id" , $item)->update(["discount_id" => $id]);
+        }
+        return redirect()->route("admin.discount.list");
     }
 
     public function DiscountGetAdd()
@@ -230,9 +248,30 @@ class AdminController extends Controller
         return view("admin.giamgia.add" , compact("cateAll" , "newBillCount"));
     }
 
-    public function DiscountPostAdd()
+    public function DiscountPostAdd(Request $request)
     {
+        $name = $request->get("name");
+        $percent = $request->get("percent");
+        $description = $request->get("description");
+        $start = $request->get("start");
+        $end = $request->get("end");
+        $discount = Discount::create(["name" => $name , "percent" => $percent , "description" => $description ,
+            "start" => $start , "end" => $end
+        ]);
+        $discountId = $discount->id;
+        $cateId = $request->input("loai");
+        foreach ( $cateId as $item ) {
+            Cate::where("id" , $item)->update(["discount_id" => $discountId]);
+        }
+        return redirect()->route("admin.discount.list");
+    }
 
+    public function DiscountGetDelete($id)
+    {
+        Cate::where("discount_id" , $id)->update(["discount_id" => 0]);
+        $discount = Discount::find($id);
+        $discount->delete();
+        return redirect()->route("admin.discount.list");
     }
 
     public function ListNewBill()
@@ -263,9 +302,9 @@ class AdminController extends Controller
         return view("admin.hoadon.list" , compact("bill" , "action" , "newBillCount"));
     }
 
-    public function DetailBill($billId)
+    public function DetailBill(Request $request , $billId)
     {
-        if ( Request::ajax() ) {
+        if ( $request->ajax() ) {
             $detail = billDetail::getProducts($billId);
             $string = "";
             foreach ( $detail as $item ) {
@@ -278,13 +317,13 @@ class AdminController extends Controller
         }
     }
 
-    public function ConfirmBill($billID)
+    public function ConfirmBill(Request $request , $billID)
     { /*
         * 3 : new
          *2 : delivering
          *1 : complete
         */
-        if ( Request::ajax() ) {
+        if ( $request->ajax() ) {
             $bill = Bill::find($billID);
             if ( $bill->status == 3 ) {
                 $bill->status = 2;
@@ -296,9 +335,9 @@ class AdminController extends Controller
         }
     }
 
-    public function DelBill($billID)
+    public function DelBill(Request $request , $billID)
     {
-        if ( Request::ajax() ) {
+        if ( $request->ajax() ) {
             $bill = Bill::find($billID);
             $bill->delete();
         }
