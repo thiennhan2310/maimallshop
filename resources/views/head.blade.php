@@ -45,7 +45,7 @@ Bán hàng chính hãng - uy tín - chất lượng đảm bảo - giao hàng to
     <!-- message alert -->
     <script type="text/javascript" src="{{asset("public/js/notify.min.js")}}"></script>
     <!--- Fav icon-->
-    <link rel="icon" href="http://localhost/Shopping/favicon2.ico"/>
+    <link rel="icon" href="{{asset("public/images")}}/favicon.ico"/>
     <meta property="fb:app_id" content="591679227637990">
 
     <script>

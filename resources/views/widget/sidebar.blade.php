@@ -7,10 +7,10 @@
     </div>
 
     <div id="facebook_maimall"><a href="https://www.facebook.com/shopmaimall?fref=ts" title="maimallshop" target="_blank">
-            <img  src="http://localhost/Shopping/images/FB1.png" alt="mai mall facebook"/><br>Facebook</a>
+            <img src="{{asset("/public/images")}}/FB1.png" alt="mai mall facebook"/><br>Facebook</a>
     </div>
 
-    <script type="text/javascript" src="http://localhost/Shopping/Public/js/skype.js"></script>
+    <script type="text/javascript" src="{{asset("/public/js")}}/skype.js"></script>
     <div id="SkypeButton_Call_maithianhtuyet85_1" title="skype_maimall">
         <script type="text/javascript">
             Skype.ui({
@@ -57,9 +57,7 @@
             });
         });
     </script>
-    <style>
 
-    </style>
     <a  href="#top" class="scrollup" title="Về đầu trang">
         <i class="fa fa-caret-up" style="font-size: 22px;"></i>TOP
     </a>

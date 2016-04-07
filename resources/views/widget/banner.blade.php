@@ -16,32 +16,32 @@
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
             <div class="item active">
-                <img src="http://localhost/Shopping/images/banner1.jpg" alt="banner0">
+                <img src="{{asset("/public/images")}}/banner1.jpg" alt="banner0">
                 <div class="carousel-caption">
                 </div>
             </div>
             <div class="item ">
-                <img src="http://localhost/Shopping/images/banner2.jpg" alt="banner0">
+                <img src="{{asset("/public/images")}}/banner2.jpg" alt="banner0">
                 <div class="carousel-caption">
                 </div>
             </div>
             <div class="item ">
-                <img src="http://localhost/Shopping/images/banner3.jpg" alt="banner0">
+                <img src="{{asset("/public/images")}}/banner3.jpg" alt="banner0">
                 <div class="carousel-caption">
                 </div>
             </div>
             <div class="item ">
-                <img src="http://localhost/Shopping/images/banner4.jpg" alt="banner0">
+                <img src="{{asset("/public/images")}}/banner4.jpg" alt="banner0">
                 <div class="carousel-caption">
                 </div>
             </div>
             <div class="item ">
-                <img src="http://localhost/Shopping/images/banner5.jpg" alt="banner0">
+                <img src="{{asset("/public/images")}}/banner5.jpg" alt="banner0">
                 <div class="carousel-caption">
                 </div>
             </div>
             <div class="item ">
-                <img src="http://localhost/Shopping/images/banner6.jpg" alt="banner0">
+                <img src="{{asset("/public/images")}}/banner6.jpg" alt="banner0">
                 <div class="carousel-caption">
                 </div>
             </div>

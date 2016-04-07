@@ -11,7 +11,7 @@
 
     <div class="col-md-6 amet-sed">
         <h4>MAI MALL - SHOP MỸ PHẨM HÀN VÀ THỜI TRANG</h4>
-        <a href="http://localhost/Shopping/trang-chu.html"><img src="http://localhost/Shopping/images/logo_footer.png" alt=""></a>
+        <a href="{{route("home")}}"><img src="{{asset("public/images")}}/logo_footer.png" alt=""></a>
         <div class="clearfix"></div>
         <p>Mỹ Phẩm Hàn Quốc Xách Tay - Thời Trang Thiết Kế </p>
         <p> Đảm Bảo 100% Hàng Chính Hãng - Uy Tín - Chất Lượng </p>

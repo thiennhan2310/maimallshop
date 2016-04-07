@@ -73,14 +73,13 @@ class AuthController extends Controller {
 		$gender = $request->get("gender");
 		$birthday = $request->get("birthday");
 		$default_list_id = 0;
-		customer::create(["email" => $email , "password" => $pass , "first_name" => $firstname , "last_name" => $lastname , "default_list_id" => $default_list_id , "gender" => $gender , "birthday" => $birthday]);
-
+		$customer = customer::create(["email" => $email , "password" => $pass , "first_name" => $firstname , "last_name" => $lastname , "default_list_id" => $default_list_id , "gender" => $gender , "birthday" => $birthday]);
 		/*tao danh sach mac dinh*/
-		LoveList::create(["customer_id" => $customer_id->id , "name" => "danh sách mặc định"]);
-		$default_list_id = LoveList::select(["id"])->where("customer_id" , $customer_id->id)->first();
+		LoveList::create(["customer_id" => $customer->id , "name" => "danh sách mặc định"]);
+		$default_list_id = LoveList::select(["id"])->where("customer_id" , $customer->id)->first();
 
 		/*cap nhat id danh sach mac dinh cho customer*/
-		customer::where("id" , $customer_id->id)->update(["default_list_id" => $default_list_id->id]);
+		customer::where("id" , $customer->id)->update(["default_list_id" => $default_list_id->id]);
 
 		return redirect()->route("login")->with("result" , "Đăng kí thành công");
 
