@@ -26,9 +26,13 @@
     <!-- Bootstrap 3.3.5 -->
     <script src="{{asset("/public/js/bootstrap.min.js")}}"></script>
 
-
     <script src="{{asset("/public/js/app.min.js")}}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+
+    <!--Data table-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/t/dt/dt-1.10.11/datatables.css"/>
+
+    <script type="text/javascript" src="https://cdn.datatables.net/t/dt/dt-1.10.11/datatables.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -92,17 +96,11 @@
                     <ul class="treeview-menu">
                         <li><a href="{{URL::route("admin.discount.list")}}"><i class="fa fa-circle-o"></i> Danh Sách</a>
                         </li>
+                        <li><a href="{{URL::route("admin.discount.getAdd")}}"><i class="fa fa-circle-o"></i>Thêm </a>
+                        </li>
                     </ul>
                 </li>
-                {{--<li class="treeview">--}}
-                {{--<a href="#">--}}
-                {{--<i class="fa fa-dashboard"></i> <span>Trang Chủ</span> <i class="fa fa-angle-left pull-right"></i>--}}
-                {{--</a>--}}
-                {{--<ul class="treeview-menu">--}}
-                {{--<li ><a href="index.html"><i class="fa fa-circle-o"></i> Danh Sách</a></li>--}}
-                {{--<li><a href="index2.html"><i class="fa fa-circle-o"></i> Thêm</a></li>--}}
-                {{--</ul>--}}
-                {{--</li>--}}
+
 
                      </ul>
         </section>
@@ -131,7 +129,7 @@
     </div>
     <footer class="main-footer">
         <div class="pull-right hidden-xs">
-            <b>Version</b> 2.3.0
+            <b>Version</b> 1.0.0
         </div>
         <strong>Copyright &copy; 2016 <a href="http://thiennhan.xyz">Trần Thiện Nhân</a>.</strong> All rights reserved.
     </footer>

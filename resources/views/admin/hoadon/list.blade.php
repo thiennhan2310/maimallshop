@@ -11,17 +11,9 @@
                 </ul>
             </div>
             @endif
-                    <!--TODO lam tim kiem -->
-            <form action="#" method="get" class="sidebar-form">
-                <div class="input-group">
-                    <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-                </div>
-            </form>
-            <table class="table table-striped table-bordered">
+
+            <table class="table table-striped " id="bill-list">
+                <thead>
                 <tr>
                     <th>Mã Hoá Đơn</th>
                     <th>Khách hàng</th>
@@ -31,6 +23,7 @@
                     <th>Xác Nhận</th>
                     <th>Huỷ/Xoá</th>
                 </tr>
+                </thead>
                 @foreach($bill as $item)
                     <tr>
                         <td><a href="#" data-toggle="modal" data-target="#detailBill"
@@ -110,5 +103,10 @@
             });
 
         }
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#bill-list").DataTable();
+        });
     </script>
 @endsection

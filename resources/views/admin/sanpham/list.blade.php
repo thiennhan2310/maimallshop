@@ -11,8 +11,8 @@
             </ul>
         </div>
     @endif
-    <a href="{{URL::route("admin.product.getAdd")}}"><button class="btn btn-primary">Thêm sản phẩm</button></a>
-    <table class="table table-striped table-bordered" >
+        <table class="table table-striped " id="product-list">
+            <thead>
         <tr>
             <th>Mã sản phẩm</th>
             <th>Tên sản phẩm</th>
@@ -20,6 +20,8 @@
             <th></th>
             <th></th>
         </tr>
+            </thead>
+            <tbody>
        @foreach($products as $item)
            <tr>
                <td>{{$item->id}}</td>
@@ -29,9 +31,17 @@
                <td><img src="{{url("/public/images/c3.jpg")}}" alt=""><a href="{{URL::route("admin.product.getDelete",$item->id)}}"> Delete</a></td>
            </tr>
            @endforeach
+            </tbody>
     </table>
     <div style="text-align: center">
     {!! $products->render() !!}
     </div>
 </div>
-    @endsection
+<script>
+    $(document).ready(function () {
+        $("#product-list").DataTable();
+    });
+</script>
+
+
+@endsection

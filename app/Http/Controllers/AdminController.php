@@ -38,7 +38,7 @@ class AdminController extends Controller
     public function ProductList()
     {
         $newBillCount = count(Bill::NewBill());
-        $products = Products::select(["id", "name", "price"])->paginate(10);
+        $products = Products::select(["id" , "name" , "price"])->paginate(100);
         $products->setPath("list");
         return view("admin.sanpham.list" , compact("products" , "newBillCount"));
     }

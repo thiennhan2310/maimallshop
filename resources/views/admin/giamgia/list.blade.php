@@ -11,19 +11,19 @@
             </ul>
         </div>
     @endif
-        <a href="{{URL::route("admin.discount.getAdd")}}">
-            <button class="btn btn-primary">Thêm đợt giảm giá</button>
-        </a>
-    <table class="table table-striped table-bordered" >
-        <tr>
-            <th>STT</th>
-            <th>Tên</th>
-            <th>Phần Trăm</th>
-            <th>Ngày bắt đầu</th>
-            <th>Ngày kết thúc</th>
-            <th></th>
-            <th></th>
-        </tr>
+
+        <table class="table table-striped" id="discount-list">
+            <thead>
+            <tr>
+                <th>STT</th>
+                <th>Tên</th>
+                <th>Phần Trăm</th>
+                <th>Ngày bắt đầu</th>
+                <th>Ngày kết thúc</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
         <?php $i = 0; ?>
         @foreach($discount as $item)
            <tr>
@@ -48,5 +48,10 @@
         {!! $discount->render() !!}
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        $("#discount-list").DataTable();
+    });
+</script>
 
 @endsection
