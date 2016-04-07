@@ -131,7 +131,7 @@
         <div class="pull-right hidden-xs">
             <b>Version</b> 1.0.0
         </div>
-        <strong>Copyright &copy; 2016 <a href="http://thiennhan.xyz">Trần Thiện Nhân</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; 2016 <a href="#">Trần Thiện Nhân</a>.</strong>
     </footer>
 
     <!-- Control Sidebar -->

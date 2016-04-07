@@ -25,8 +25,7 @@ class AdminController extends Controller
     {
         if (Auth::check()) {
             if ( Auth::user()->email == "admin@maimallshop.com" ) {
-                $newBillCount = count(Bill::NewBill());
-                return view("admin.layout" , compact("newBillCount"));
+                return redirect()->route("admin.product.list");
             }
             else
                 return redirect()->route("home");
