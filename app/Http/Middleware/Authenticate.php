@@ -32,7 +32,7 @@ class Authenticate {
 	 */
 	public function handle($request, Closure $next)
 	{
-		if ($this->auth->guest())
+		if ( $this->auth->guest() || $this->auth->user()->email != "admin@maimallshop.com" )
 		{
 			if ($request->ajax())
 			{
