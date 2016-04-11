@@ -23,7 +23,7 @@ Route::group(['prefix' => 'gio-hang'], function () {
 	Route::get("/xoa-het",["as"=>"gio-hang.xoahet","uses"=>"CartController@delCart"]);
 
 });
-Route::group(["prefix" => "admin"],function(){
+Route::group(["prefix" => "admin" , "middleware" => "auth"] , function () {
 	Route::get("/",["as"=>"admin.home","uses"=>"AdminController@Home"]);
 	Route::group(["prefix"=>"product"],function(){
 		Route::get("list",["as"=>"admin.product.list","uses"=>"AdminController@ProductList"]);
