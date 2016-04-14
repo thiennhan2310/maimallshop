@@ -113,13 +113,14 @@ class CartController extends Controller
         }
     }
 
-    public function totalPrice($cart)
+    public function totalPrice($cart) //sub total
     {
         $total = 0;
         foreach ($cart as $item) {
             $total += ($item->price * (100 - $item->percent) / 100) * $item->so_luong;
         }
         return $total;
-
     }
+
+
 }

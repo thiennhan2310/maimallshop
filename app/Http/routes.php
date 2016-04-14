@@ -12,11 +12,13 @@
 */
 
 Route::get("/","PageController@index");
+Route::get("su-dung-ma-giam-gia" , ["as" => "code.useCode" , "uses" => "CodeDiscountController@useCode"]);
+
 Route::get("trang-chu", ["as" => "home", "uses" => "PageController@index"]);
 Route::get("san-pham/{cate}/","PageController@listProducts");
 Route::get("chi-tiet/{alias}","PageController@detailProduct");
 Route::group(['prefix' => 'gio-hang'], function () {
-	Route::get('/', "PageController@shoppingCart" );
+	Route::get("/" , ["as" => "gio-hang" , "uses" => "PageController@shoppingCart"]);
 	Route::get("/them/{id}/{num}",["as"=>"gio-hang.them","uses"=>"CartController@addProduct"]);
 	Route::post("/cap-nhat",["as"=>"gio-hang.them","uses"=>"CartController@updateCart"]);
 	Route::get("/xoa/{id}",["as"=>"gio-hang.xoa","uses"=>"CartController@delProduct"]);
@@ -71,7 +73,7 @@ Route::group(["prefix" => "thong-tin-tai-khoan"], function () {
 });
 Route::group(["prefix" => "/yeu-thich"], function () {
 	Route::get("them/{product_id}/{list_id?}" , ["as" => "yeuthich.sanpham.them" , "uses" => "LoveListController@AddLovedProduct"]);
-	Route::get("xoa/{product_id}/{list_id}" , ["as" => "yeuthich.sanpham.xoa" , "uses" => "LoveListController@DelLovedProduct"]);
+	Route::get("xoa/{product_id?}" , ["as" => "yeuthich.sanpham.xoa" , "uses" => "LoveListController@DelLovedProduct"]);
 	Route::get("chuyen/{product_id}/{list_id_from}/{list_id_to}", ["as" => "yeuthich.sanpham.chuyen", "uses" => "LoveListController@MoveLovedProduct"]);
 	Route::get("tao-danh-sach/{list_name}" , ["as" => "yeuthich.danhsach.tao" , "uses" => "LoveListController@CreateLoveList"]);
 	Route::get("xoa-danh-sach/{list_id}" , ["as" => "yeuthich.danhsach.xoa" , "uses" => "LoveListController@DelLoveList"]);

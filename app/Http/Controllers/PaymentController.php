@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 
 use App\Bill;
 use App\billDetail;
+use App\CodeDiscount;
 use App\customer;
 use App\CustomerInfo;
 use App\District;
@@ -23,6 +24,12 @@ use Illuminate\Support\Facades\Session;
 
 class PaymentController extends Controller
 {
+    public $code = "";
+
+    public function useCode()
+    {
+
+    }
     public function Login()
     {
         return view("pages.paymentInfo.login");
@@ -59,8 +66,14 @@ class PaymentController extends Controller
     {
         $cart = new CartController();
         $products = $cart->getProduct();
-        $total = $cart->totalPrice($products);
-        return view("pages.paymentInfo.cart" , compact("products" , "total"));
+        $subTotal = $cart->totalPrice($products);
+        $code = "---";
+        if ( Session::has("codeDiscount") ) {
+            $code = Session::get("codeDiscount");
+            $percent = CodeDiscount::changeCodeToPercent($code);
+            $total = $subTotal * $percent / 100;
+        }
+        return view("pages.paymentInfo.cart" , compact("products" , "subTotal" , "code" , "total"));
     }
 
     public function postAddress(Request $request)
@@ -81,9 +94,17 @@ class PaymentController extends Controller
     {
         if ( Auth::check() && Session::has("cart") ) {
             $payment_method = (int) $request->get("method");
+
             $cart = new CartController();
             $products = $cart->getProduct();
-            $total = $cart->totalPrice($products);
+            $subTotal = $cart->totalPrice($products);
+            if ( Session::has("codeDiscount") ) {
+                $code = Session::get("codeDiscount");
+                $percent = CodeDiscount::changeCodeToPercent($code);
+                $total = $subTotal * $percent / 100;
+            } else {
+                $total = $subTotal;
+            }
             $customerID = Auth::user()->id;
             $customerInfoID = Auth::user()->default_info_id;
             /*
@@ -100,11 +121,14 @@ class PaymentController extends Controller
                 $count->count += $item->so_luong;
                 Products::where("id" , $item->id)->update(["count" => $count->count]);
             }
+            Session::forget("codeDiscount");
             Session::forget("cart");
             /*Send mail*/
             $this->sendMail($billID);
             /**********/
             return redirect()->route("thanhtoan.thongtin.hoadon" , $billID);
+        } else {
+            return redirect()->route("home");
         }
     }
 

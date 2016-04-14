@@ -47,10 +47,12 @@ Bán hàng chính hãng - uy tín - chất lượng đảm bảo - giao hàng to
     <!--- Fav icon-->
     <link rel="icon" href="{{asset("public/images")}}/favicon.ico"/>
     <meta property="fb:app_id" content="591679227637990">
-
+    <!-- SWEET ALERT -->
+    <script src="{{asset("public/js/sweetalert.min.js")}}"></script>
+    <link rel="stylesheet" type="text/css" href="{{asset("public/css/sweetalert.css")}}">
     <script>
         function themYeuThich(e, product_id) {
-            $.get("{{URL::route("yeuthich.sanpham.them")}}" + "/" + product_id).done(function (data) {
+            $.get("{{route("yeuthich.sanpham.them")}}" + "/" + product_id).done(function (data) {
                 data = jQuery.parseJSON(data);
                 $(e).css("display", "none");
                 $(e).next().css("display", "inline-block");
@@ -62,7 +64,7 @@ Bán hàng chính hãng - uy tín - chất lượng đảm bảo - giao hàng to
             });
         }
         function boYeuThich(e, product_id) {
-            $.get("{{URL::route("yeuthich.sanpham.xoa")}}" + "/" + product_id).done(function () {
+            $.get("{{route("yeuthich.sanpham.xoa")}}" + "/" + product_id).done(function () {
                 $(e).css("display", "none");
                 $(e).prev().css("display", "inline-block");
                 $.notify("Đã bỏ yêu thích", {globalPosition: "top left", className: "warn"}

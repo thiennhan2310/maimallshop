@@ -29,7 +29,7 @@
                         <div>
                                                             <span class="product-size"
                                                                   style="padding-right: 14px;padding-left: 14px">{{$item->size}}
-                                                                /span>
+                                                               </span>
                         </div>
                         @endif
                     </div>
@@ -58,7 +58,7 @@
         <div class="price-details">
             <div>
                 <div>TỔNG CỘNG</div>
-                <div id="thanh_tien" class="total1">{{number_format($total)}} VNĐ</div>
+                <div id="thanh_tien" class="total1">{{number_format($subTotal)}} VNĐ</div>
             </div>
             <div>
                 <div>PHÍ VẬN CHUYỂN</div>
@@ -66,7 +66,7 @@
             </div>
             <div>
                 <div>MÃ GIẢM GIÁ</div>
-                <div>---</div>
+                <div>{{$code}}</div>
             </div>
             <div class="last-price-title">
                 <div>THÀNH TIỀN</div>
@@ -76,7 +76,7 @@
         </div>
         <div class="clearfix"></div>
         <a class="order" href="#" onclick="window.thanhtoan.submit();">TIẾN HÀNH THANH TOÁN</a>
-        <a class="continue" href="{{route("giohang")}}" style="cursor:pointer">QUAY LẠI GIỎHÀNG</a>
+        <a class="continue" href="{{route("gio-hang")}}" style="cursor:pointer">QUAY LẠI GIỎHÀNG</a>
 
 
     </div>

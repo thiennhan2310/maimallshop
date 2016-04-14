@@ -9,9 +9,9 @@
         }
         function kiemtragiohang()
         {
-            if($('input#tong_cong').attr('value')==0 )
+            if ($('#last_price').text() == 0)
             {
-                alert('Giỏ hàng không có sản phẩm');
+                swal("Lỗi", "Giỏ hàng không có sản phẩm!", "error");
                 event.preventDefault();
                 return false;
             }
@@ -21,6 +21,7 @@
 
     </script>
     <div class="check">
+
         <form action="#" method="post" id="capnhat">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <hr class="border-top">
@@ -93,41 +94,83 @@
                     </script>
                 </div>
                 @endfor
-
+            </div>
         </form>
-    </div>
+
     <div class="col-md-3 cart-total">
         <div class="discount-code">
             <div class="title">Nhập Mã Giảm Giá </div>
             <div style="display: inline-flex;height: 35px;">
-                <input type="text" name="ma_giam_gia" placeholder="Nhập Mã Giảm Giá " >
-                <a class="use-code" href="#" onclick="">SỬ DỤNG</a>
+                <input type="text" id="input-code-discount" name="ma_giam_gia" placeholder="Nhập Mã Giảm Giá ">
+                <a class="use-code" href="#" onclick="useDiscountCode()">SỬ DỤNG</a>
 
             </div>
         </div>
-        <div class="price-details">
+        <div class="price-details" id="price-details">
+
             <div>
-                <div>TỔNG CỘNG</div>
-                <div id="thanh_tien" class="total1">{{number_format($total)}}</div>
+                <div>TẠM TÍNH</div>
+                <div id="thanh_tien" class="total1">{{number_format($subTotal)}}</div>
+            </div>
+            <div>
+                <div>MÃ GIẢM GIÁ</div>
+                <div id="code-discount">
+                    {{$code}}
+                </div>
             </div>
             <div>
                 <div>PHÍ VẬN CHUYỂN</div>
                 <div>Miễn Phí</div>
             </div>
             <div class="last-price-title">
-                <div >THÀNH TIỀN</div>
+                <div>TỔNG CỘNG</div>
                 <div id="last_price">{{number_format($total)}}</div>
+                <!--Kiem  tra gia tri tong cong >0 thì cho phép submit-->
                 <input  type="hidden" name="tong_cong" id="tong_cong" value="{{$total}}"/>
+
             </div>
             <div class="clearfix"></div>
         </div>
         <div class="clearfix"></div>
         <a class="order" onclick="return kiemtragiohang();" href="{{route("thanhtoan.thongtin")}}">THANH TOÁN</a>
-        <a class="continue" onclick="goBack()" style="cursor:pointer">CHỌN THÊM SẢN PHẨM</a>
+        <a class="continue" href="{{ URL::previous() }}" style="cursor:pointer">CHỌN THÊM SẢN PHẨM</a>
     </div>
 
     <div class="clearfix"> </div>
 </div>
+
+<script>
+    function useDiscountCode() {
+        var code = $("#input-code-discount").val();
+        if (code == "") {
+            swal("Lỗi!", "Xin nhập mã giảm giá", "error")
+        } else {
+            var uri = "{{route("code.useCode")}}";
+            swal({
+                        title: "Bạn muốn sử dụng mã " + code,
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#105727",
+                        confirmButtonText: "Sử Dụng",
+                        closeOnConfirm: false,
+                        showLoaderOnConfirm: true
+                    },
+                    function () {
+                        //get percent from code input
+                        $.get(uri, {code: code}).done(function (data) {
+                            //data : tong tien mới
+                            $("#code-discount").text(code);
+                            $("#last_price").text(data);
+                            swal({
+                                title: "Thành Công",
+                                text: "Bạn đã sử dụng mã giảm giá " + code + " thành công",
+                                type: "success"
+                            })
+                        });
+                    });
+        }
+    }
+</script>
 @endsection
 
 

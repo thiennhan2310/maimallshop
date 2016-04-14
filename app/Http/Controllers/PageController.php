@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 use App\Cate;
+use App\CodeDiscount;
 use App\customer;
 use App\CustomerInfo;
 use App\District;
@@ -91,8 +92,16 @@ class PageController extends Controller
     {
         $cart = new CartController();
         $products = $cart->getProduct();
-        $total = $cart->totalPrice($products);
-        return view("pages.shopping_cart", compact("products", "total"));
+        $subTotal = $cart->totalPrice($products);
+        $code = "---";
+        if ( Session::has("codeDiscount") ) {
+            $code = Session::get("codeDiscount");
+            $percent = CodeDiscount::changeCodeToPercent($code);
+            $total = $subTotal * $percent / 100;
+        } else {
+            $total = $subTotal;
+        }
+        return view("pages.shopping_cart" , compact("products" , "subTotal" , "code" , "total"));
     }
 
     public function searchPage(FormRequest $request , $name = "")//trang tim kiem

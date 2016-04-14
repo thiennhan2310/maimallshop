@@ -22,10 +22,11 @@ class LoveListController extends Controller
         if ( Request::ajax() ) {
             if ( Auth::check() ) {
                 $customer_id = Auth::user()->id;
-                /*lay id cua danh sach mac dinh*/
+                //them vao danh sach mac dinh
                 if ( $list_id == 0 ) {
-                    $default_list_id = LoveList::select(["id"])->where("name" , "danh sách mặc định")->where("customer_id" , $customer_id)->first();
-                    $list_id = $default_list_id->id;
+                    /*lay id cua danh sach mac dinh*/
+                    $default_list_id = customer::select(["default_list_id"])->where("id" , $customer_id)->first();
+                    $list_id = $default_list_id->default_list_id;;
                 }
                 /*them san pham vao danh sach*/
                 /*Kiem tra san pham da co trong yeu thich*/
@@ -47,12 +48,16 @@ class LoveListController extends Controller
     }
 
     /* xoa san pham yeu thich*/
-    public function DelLovedProduct($product_id , $list_id)
+    public function DelLovedProduct($product_id)
     {
         if ( Request::ajax() ) {
             if ( Auth::check() ) {
-                /*del san pham */
-                LoveListDetail::where("list_id" , $list_id)->where("product_id" , $product_id)->delete();
+
+                $customer_id = Auth::user()->id;
+                /*lay danh sach yeu thich cua customer*/
+                $list_id = LoveList::select(["id"])->where("customer_id" , $customer_id)->get()->toArray();
+                /*bỏ yeu thich san pham */
+                LoveListDetail::whereIn("list_id" , $list_id)->where("product_id" , $product_id)->delete();
                 return json_encode(["result" => "success"]);
             } else {
                 return redirect()->route("login");
