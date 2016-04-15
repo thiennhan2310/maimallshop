@@ -10,9 +10,9 @@ namespace App\Http\Controllers;
 
 use App\Bill;
 use App\billDetail;
-use App\CodeDiscount;
 use App\customer;
 use App\CustomerInfo;
+use App\DiscountCode;
 use App\District;
 use App\Products;
 use App\Province;
@@ -66,12 +66,13 @@ class PaymentController extends Controller
     {
         $cart = new CartController();
         $products = $cart->getProduct();
-        $subTotal = $cart->totalPrice($products);
-        $code = "---";
+        $subTotal = $cart->subTotalPrice($products);
         if ( Session::has("codeDiscount") ) {
             $code = Session::get("codeDiscount");
-            $percent = CodeDiscount::changeCodeToPercent($code);
-            $total = $subTotal * $percent / 100;
+            $total = $cart->totalPrice($subTotal , null , $code);
+        } else {
+            $code = "---";
+            $total = $cart->totalPrice($subTotal , null , null);
         }
         return view("pages.paymentInfo.cart" , compact("products" , "subTotal" , "code" , "total"));
     }
@@ -97,10 +98,10 @@ class PaymentController extends Controller
 
             $cart = new CartController();
             $products = $cart->getProduct();
-            $subTotal = $cart->totalPrice($products);
+            $subTotal = $cart->subTotalPrice($products);
             if ( Session::has("codeDiscount") ) {
                 $code = Session::get("codeDiscount");
-                $percent = CodeDiscount::changeCodeToPercent($code);
+                $percent = DiscountCode::changeCodeToPercent($code);
                 $total = $subTotal * $percent / 100;
             } else {
                 $total = $subTotal;

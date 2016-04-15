@@ -12,6 +12,9 @@
 */
 
 Route::get("/","PageController@index");
+Route::get("/code" , function () {
+	\App\DiscountCode::createCode(10 , date("Y-m-d"));
+});
 Route::get("su-dung-ma-giam-gia" , ["as" => "code.useCode" , "uses" => "CodeDiscountController@useCode"]);
 
 Route::get("trang-chu", ["as" => "home", "uses" => "PageController@index"]);

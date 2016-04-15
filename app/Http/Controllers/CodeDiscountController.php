@@ -8,7 +8,7 @@
 
 namespace App\Http\Controllers;
 
-use App\CodeDiscount;
+use App\DiscountCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -18,10 +18,10 @@ class CodeDiscountController extends Controller
     {
         if ( $request->ajax() ) {
             $code = $request->get("code");
-            $percent = CodeDiscount::changeCodeToPercent($code);
+            $percent = DiscountCode::changeCodeToPercent($code);
             $cart = new CartController();
             $products = $cart->getProduct();
-            $total = $cart->totalPrice($products);
+            $total = $cart->subTotalPrice($products);
             $total = $total * ($percent / 100);
             $total = number_format($total);
             Session::put("codeDiscount" , $code);

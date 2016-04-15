@@ -9,7 +9,6 @@
 namespace App\Http\Controllers;
 
 use App\Cate;
-use App\CodeDiscount;
 use App\customer;
 use App\CustomerInfo;
 use App\District;
@@ -92,14 +91,13 @@ class PageController extends Controller
     {
         $cart = new CartController();
         $products = $cart->getProduct();
-        $subTotal = $cart->totalPrice($products);
-        $code = "---";
+        $subTotal = $cart->subTotalPrice($products);
         if ( Session::has("codeDiscount") ) {
             $code = Session::get("codeDiscount");
-            $percent = CodeDiscount::changeCodeToPercent($code);
-            $total = $subTotal * $percent / 100;
+            $total = $cart->totalPrice($subTotal , null , $code);
         } else {
-            $total = $subTotal;
+            $code = "---";
+            $total = $cart->totalPrice($subTotal , null , null);
         }
         return view("pages.shopping_cart" , compact("products" , "subTotal" , "code" , "total"));
     }
@@ -166,7 +164,7 @@ class PageController extends Controller
         if (Request::ajax()) {
             $cart = new CartController();
             $products = $cart->getProduct();
-            $total = $cart->totalPrice($products);
+            $total = $cart->subTotalPrice($products);
             return view("pages.customerInfo.cart" , compact("products" , "total"));
         } else {
             return redirect()->route("home");

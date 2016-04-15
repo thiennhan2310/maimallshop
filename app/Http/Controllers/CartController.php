@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DiscountCode;
 use App\Products;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Session;
@@ -113,14 +114,31 @@ class CartController extends Controller
         }
     }
 
-    public function totalPrice($cart) //sub total
+    public function subTotalPrice($cart) //sub total
     {
-        $total = 0;
+        $subTotal = 0;
         foreach ($cart as $item) {
-            $total += ($item->price * (100 - $item->percent) / 100) * $item->so_luong;
+            $subTotal += ($item->price * (100 - $item->percent) / 100) * $item->so_luong;
+        }
+        return $subTotal;
+    }
+
+    public function totalPrice($subTotal , $payment_method , $discount_code)
+    {
+        /* Payment method
+            * 1: done
+            * 2:chua thanh toan
+            * 3: moi
+            */
+        $total = $subTotal;
+        if ( !is_null($discount_code) ) {
+            $percent = DiscountCode::changeCodeToPercent($discount_code);
+            $total *= (1 - $percent / 100);
+        }
+        if ( !is_null($payment_method) ) {
+
         }
         return $total;
     }
-
 
 }

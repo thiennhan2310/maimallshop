@@ -52,7 +52,6 @@ class LoveListController extends Controller
     {
         if ( Request::ajax() ) {
             if ( Auth::check() ) {
-
                 $customer_id = Auth::user()->id;
                 /*lay danh sach yeu thich cua customer*/
                 $list_id = LoveList::select(["id"])->where("customer_id" , $customer_id)->get()->toArray();
