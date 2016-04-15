@@ -24,6 +24,11 @@ class DiscountCode extends Model
         }
     }
 
+    public static function deleteCode($code)
+    {
+        $code = DiscountCode::where("code" , $code)->delete();
+    }
+
     public static function changeCodeToPercent($code)
     {
         $detail = DiscountCode::select(["percent"])->where("code" , $code)->first();

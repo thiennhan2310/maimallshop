@@ -13,7 +13,7 @@
 
 Route::get("/","PageController@index");
 Route::get("/code" , function () {
-	\App\DiscountCode::createCode(10 , date("Y-m-d"));
+	\App\DiscountCode::deleteCode("SNMoNJBria");
 });
 Route::get("su-dung-ma-giam-gia" , ["as" => "code.useCode" , "uses" => "CodeDiscountController@useCode"]);
 
