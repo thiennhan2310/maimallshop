@@ -10,7 +10,7 @@
             khẩu
         </div>
 
-        <form align="center" action="{{route("reset.password.post")}}" method="post" name="form1" id="captcha">
+        <form align="center" action="{{ url('/password/email') }}" method="post" name="form1" id="captcha">
             <input type="hidden" name="_token" value="{{csrf_token()}}">
 
             <div>

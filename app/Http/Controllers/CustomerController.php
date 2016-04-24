@@ -54,11 +54,7 @@ class CustomerController extends Controller
         $email = Request::get("email");
         $customer = customer::select(["email" , "last_name"])->where("email" , $email)->first();
         if ( $customer != null ) {
-            $new_pass = str_random(10);
-            $password = Hash::make($new_pass);
-            customer::where("email" , $email)->update(["password" => $password]);
             /*Send mail*/
-
             $name = $customer->last_name;
             $data = ["new_pass" => $new_pass ,
                 "name" => $name];

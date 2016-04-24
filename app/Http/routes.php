@@ -115,3 +115,8 @@ Route::get("/{string}" , "PageController@searchPage");
 //Route::get("hash",function(){
 //	echo Hash::make("admin!@#$%");
 //});
+
+
+Route::controllers([
+	'password' => 'Auth\PasswordController' ,
+]);

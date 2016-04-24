@@ -1,15 +1,17 @@
 <?php namespace App;
 
 use Illuminate\Auth\Authenticatable;
+use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
-class customer extends Model implements AuthenticatableContract
+class customer extends Model implements AuthenticatableContract , CanResetPasswordContract
 {
 
     //
-    use Authenticatable;
+    use Authenticatable , CanResetPassword;
     public $timestamps = true;
     protected $table = "customers";
     protected $fillable = ['id' , 'email' , 'gender' , 'birthday' , 'default_info_id' , "password" , "remember_token" , 'default_list_id'];
