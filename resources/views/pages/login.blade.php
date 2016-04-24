@@ -32,7 +32,6 @@
                         <span>Mật Khẩu</span>
                         <input type="password" name="password" required="">
                     </div>
-                    <span id="alert">@if(Session::has("result")) {{Session::get("result")}} @endif</span>
                     <input type="submit" value="ĐĂNG NHẬP" name="dangnhap"><br/>
                     <input type="checkbox" name="remember_me" id="remember_me" value="1"> &nbsp;
                     <label for="remember_me" class="save_pw">Lưu Mật Khẩu</label>
@@ -43,7 +42,7 @@
             <div class="clearfix"></div>
             <div class="account-bot">
                 <a href="{{route("signup")}}" id="dang_ki">Đăng Kí &nbsp;&nbsp;|&nbsp;&nbsp;</a>
-                <a id="getpw" href="{$root}/quen-mat-khau.html">Quên Mật Khẩu?</a>
+                <a id="getpw" href="{{route("reset.password.get")}}">Quên Mật Khẩu?</a>
                 <span></span>
             </div>
         </div>

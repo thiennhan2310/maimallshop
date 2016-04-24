@@ -61,13 +61,13 @@ Route::group(["prefix" => "admin" , "middleware" => "admin"] , function () {
 });
 Route::post("tim-kiem","PageController@searchPage");
 Route::group(["prefix" => "khach-hang"] , function () {
-	Route::get("dang-nhap" , ["as" => "login" , "uses" => "PageController@Login"]);
+	Route::get("dang-nhap" , ["middleware" => "guest" , "as" => "login" , "uses" => "PageController@Login"]);
 	Route::post("dang-nhap" , ["as" => "login.post" , "uses" => "Auth\AuthController@Login"]);
 	Route::get("dang-xuat" , ["as" => "logout" , "uses" => "PageController@Logout"]);
-	Route::get("dang-ki" , ["as" => "signup" , "uses" => "PageController@SignUp"]);
+	Route::get("dang-ki" , ["middleware" => "guest" , "as" => "signup" , "uses" => "PageController@SignUp"]);
 
 	Route::post("dang-ki" , ["as" => "signup.post" , "uses" => "Auth\AuthController@Signup"]);
-	Route::get("lay-lai-mat-khau" , ["as" => "reset.password.get" , "uses" => "PageController@ResetPassword"]);
+	Route::get("lay-lai-mat-khau" , ["middleware" => "guest" , "as" => "reset.password.get" , "uses" => "PageController@ResetPassword"]);
 
 });
 

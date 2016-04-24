@@ -23,7 +23,7 @@
             </div>
         </form>
         <div class="dang-ki">
-            Bạn chưa là thành viên của Mai Mall? <a href="{$root}/dang-ki.html">Đăng ký</a>
+            Bạn chưa là thành viên của Mai Mall? <a href="{{route("signup")}}">Đăng ký</a>
         </div>
     </div>
 @endsection
