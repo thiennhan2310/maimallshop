@@ -7,13 +7,13 @@ class Bill extends Model {
 	//
     public $timestamps = true;
     protected $table = "bills";
-    protected $fillable = ['id' , 'total' , 'customer_id' , 'customer_info_id' , "status" , 'payment_method'];
+    protected $fillable = ['id' , 'total' , 'customer_id' , 'discounted' , 'customer_info_id' , "status" , 'payment_method'];
 
     public static function NewBill()
     {
         $newBill = Bill::join("customers" , "customers.id" , "=" , "bills.customer_id")
             ->select(["bills.*" , "customers.id as customerId" , "customers.last_name"])
-            ->where("bills.status" , 3)->paginate(10);
+            ->where("bills.status" , 3)->paginate(100);
         return $newBill;
     }
 
@@ -21,7 +21,7 @@ class Bill extends Model {
     {
         $newBill = Bill::join("customers" , "customers.id" , "=" , "bills.customer_id")
             ->select(["bills.*" , "customers.id as customerId" , "customers.last_name"])
-            ->where("bills.status" , 2)->paginate(10);
+            ->where("bills.status" , 2)->paginate(100);
         return $newBill;
     }
 
@@ -29,7 +29,7 @@ class Bill extends Model {
     {
         $newBill = Bill::join("customers" , "customers.id" , "=" , "bills.customer_id")
             ->select(["bills.*" , "customers.id as customerId" , "customers.last_name"])
-            ->where("bills.status" , 1)->paginate(10);
+            ->where("bills.status" , 1)->paginate(100);
         return $newBill;
     }
 

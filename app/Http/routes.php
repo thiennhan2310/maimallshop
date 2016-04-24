@@ -13,7 +13,8 @@
 
 Route::get("/","PageController@index");
 //Route::get("/code" , function () {
-//	\App\DiscountCode::deleteCode("SNMoNJBria");
+//	$billInfo = \App\Bill::find(12);
+//	var_dump($billInfo);
 //});
 Route::get("su-dung-ma-giam-gia" , ["as" => "code.useCode" , "uses" => "CodeDiscountController@useCode"]);
 
@@ -64,7 +65,10 @@ Route::group(["prefix" => "khach-hang"] , function () {
 	Route::post("dang-nhap" , ["as" => "login.post" , "uses" => "Auth\AuthController@Login"]);
 	Route::get("dang-xuat" , ["as" => "logout" , "uses" => "PageController@Logout"]);
 	Route::get("dang-ki" , ["as" => "signup" , "uses" => "PageController@SignUp"]);
+
 	Route::post("dang-ki" , ["as" => "signup.post" , "uses" => "Auth\AuthController@Signup"]);
+	Route::get("lay-lai-mat-khau" , ["as" => "reset.password.get" , "uses" => "PageController@ResetPassword"]);
+	Route::post("lay-lai-mat-khau" , ["as" => "reset.password.post" , "uses" => "CustomerController@ResetPassword"]);
 });
 
 

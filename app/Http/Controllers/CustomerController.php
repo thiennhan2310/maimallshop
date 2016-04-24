@@ -44,7 +44,34 @@ class CustomerController extends Controller
                 return redirect()->route("thongtin.template")->with("result" , "Mật khẩu không chính xác");
             }
 
+        } else {
+            return redirect()->route("login");
         }
+    }
+
+    public function ResetPassword()
+    {
+        $email = Request::get("email");
+        $customer = customer::select(["email" , "last_name"])->where("email" , $email)->first();
+        if ( $customer != null ) {
+            $new_pass = str_random(10);
+            $password = Hash::make($new_pass);
+            customer::where("email" , $email)->update(["password" => $password]);
+            /*Send mail*/
+
+            $name = $customer->last_name;
+            $data = ["new_pass" => $new_pass ,
+                "name" => $name];
+            \Mail::send('emails.password' , $data , function ($message) use ($email , $name) {
+                $message->from('admin@maimallshop.com' , 'Mai Mall. Thông tin mật khẩu');
+                $message->to($email , $name)->subject('Mật khẩu mới');
+            });
+            /**/
+            return redirect()->route("reset.password.get")->with("result" , "Mật khẩu mới đã được gửi đến email của bạn");
+        } else {
+            return redirect()->route("reset.password.get")->with("error" , "Tài Khoản không tồn tại");
+        }
+
     }
 
     public function AddAddress(CustomerAddrRequest $request)

@@ -227,4 +227,9 @@ class PageController extends Controller
 
 
     }
+
+    public function ResetPassword()
+    {
+        return view("pages.reset_password");
+    }
 }

@@ -125,11 +125,7 @@ class CartController extends Controller
 
     public function totalPrice($subTotal , $payment_method , $discount_code)
     {
-        /* Payment method
-            * 1: done
-            * 2:chua thanh toan
-            * 3: moi
-            */
+
         $total = $subTotal;
         if ( !is_null($discount_code) ) {
             $percent = DiscountCode::changeCodeToPercent($discount_code);

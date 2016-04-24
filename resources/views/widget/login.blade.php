@@ -30,7 +30,7 @@
                             <div>
                                 <span class="save_pw">Lưu Mật Khẩu</span>
                                 <input type="checkbox" name="remember_me" id="remember_me" value="1"> <BR>
-                                <a id="getpw" href="http://localhost/Shopping/quen-mat-khau.html" class="forget_pw">Quên
+                                <a id="getpw" href="{{route("reset.password.get")}}" class="forget_pw">Quên
                                     Mật Khẩu ?</a>
                             </div>
                             <div style="padding-top: 0;">

@@ -17,6 +17,7 @@ Author: Mr Bill
 </div>
 <div class="content">
     <div class="container">
+        @include("errors.result")
    @yield("content")
         </div>
 </div>

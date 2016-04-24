@@ -99,30 +99,44 @@ class PaymentController extends Controller
             $cart = new CartController();
             $products = $cart->getProduct();
             $subTotal = $cart->subTotalPrice($products);
+            $discounted = 0; //phan tram dc giam
             if ( Session::has("codeDiscount") ) {
                 $code = Session::get("codeDiscount");
-                $percent = DiscountCode::changeCodeToPercent($code);
-                $total = $subTotal * $percent / 100;
+                $discounted = DiscountCode::changeCodeToPercent($code);
+                $total = $cart->totalPrice($subTotal , null , $code);
             } else {
-                $total = $subTotal;
+                $total = $cart->totalPrice($subTotal , null , null);
             }
+
             $customerID = Auth::user()->id;
             $customerInfoID = Auth::user()->default_info_id;
-            /*
+            /* Status :
              * 1: done
              * 2:chua thanh toan
              * 3: moi
              */
-            $bill = Bill::create(["total" => $total , "customer_id" => $customerID , "customer_info_id" => $customerInfoID , "status" => 3 , "payment_method" => $payment_method]);
+            $bill = Bill::create(["total" => $total ,
+                "customer_id" => $customerID ,
+                "customer_info_id" => $customerInfoID ,
+                "status" => 3 ,
+                "payment_method" => $payment_method ,
+                "discounted" => $discounted]);
             $billID = $bill->id;
             foreach ( $products as $item ) {
-                $price = $item->price * (100 - $item->percent) / 100;
+                $price = $item->price * (100 - $item->percent) / 100; //don gia
                 billDetail::create(["bill_id" => $billID , "products_id" => $item->id , "price" => $price , "amount" => $item->so_luong]);
-                $count = Products::select(["count"])->where("id" , $item->id)->first();
+                $count = Products::select(["count"])->where("id" , $item->id)->first();// so luong da~ bán
                 $count->count += $item->so_luong;
-                Products::where("id" , $item->id)->update(["count" => $count->count]);
+                Products::where("id" , $item->id)->update(["count" => $count->count]); //update so luong
             }
-            Session::forget("codeDiscount");
+            /*Xoa discound code*/
+            if ( Session::has("codeDiscount") ) {
+                $code = Session::get("codeDiscount");
+                DiscountCode::deleteCode($code);
+                Session::forget("codeDiscount");
+
+            }
+            /* Xoá cart */
             Session::forget("cart");
             /*Send mail*/
             $this->sendMail($billID);

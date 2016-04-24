@@ -2245,7 +2245,9 @@ hr.border-top{
     padding-bottom: 70px;
     margin: auto;
 }
-.quen_mat_khau input[type="text"]{
+
+.quen_mat_khau input[type="text"],
+.quen_mat_khau input[type="email"] {
     padding: 5px;
     width: 350px;
     background:none;

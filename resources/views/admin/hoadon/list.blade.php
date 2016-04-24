@@ -19,6 +19,7 @@
                     <th>Khách hàng</th>
                     <th>Tổng tiền</th>
                     <th>Hình thức</th>
+                    <th>Giảm giá (%)</th>
                     <th>Thời gian</th>
                     <th>Xác Nhận</th>
                     <th>Huỷ/Xoá</th>
@@ -35,6 +36,7 @@
                                 COD
                             @endif
                         </td>
+                        <td>{{$item->discounted}}</td>
                         <td>
                             {{date("d/m/Y",strtotime($item->created_at))}}
                         </td>

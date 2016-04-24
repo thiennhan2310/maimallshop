@@ -32,6 +32,8 @@
 
 </table>
 <h2>Thông tin đơn hàng</h2>
+
+<div>Tổng tiền : {{$billInfo->total}}</div>
 <table cellpadding="10px" cellspacing="0px">
     <tr>
         <th>Mã Sản Phẩm</th>
