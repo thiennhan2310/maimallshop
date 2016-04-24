@@ -68,7 +68,7 @@ Route::group(["prefix" => "khach-hang"] , function () {
 
 	Route::post("dang-ki" , ["as" => "signup.post" , "uses" => "Auth\AuthController@Signup"]);
 	Route::get("lay-lai-mat-khau" , ["as" => "reset.password.get" , "uses" => "PageController@ResetPassword"]);
-	Route::post("lay-lai-mat-khau" , ["as" => "reset.password.post" , "uses" => "CustomerController@ResetPassword"]);
+
 });
 
 

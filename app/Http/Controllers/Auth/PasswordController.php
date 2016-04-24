@@ -27,7 +27,8 @@ class PasswordController extends Controller {
 	 * @param  \Illuminate\Contracts\Auth\PasswordBroker  $passwords
 	 * @return void
 	 */
-	protected $redirectRoute = "home";
+	protected $redirectTo = '/';
+	protected $subject = "Khôi phục mật khẩu";
 	public function __construct(Guard $auth, PasswordBroker $passwords)
 	{
 		$this->auth = $auth;
