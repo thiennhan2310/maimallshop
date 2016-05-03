@@ -74,6 +74,13 @@ class PaymentController extends Controller
             $code = "---";
             $total = $cart->totalPrice($subTotal , null , null);
         }
+        /* Kich thuoc sản pham thoi trang thành array */
+        foreach ( $products as $product ) {
+            if ( str_contains($product->size , ",") ) {
+                $array = explode("," , $product->size);
+                $product->size = $array;
+            }
+        }
         return view("pages.paymentInfo.cart" , compact("products" , "subTotal" , "code" , "total"));
     }
 

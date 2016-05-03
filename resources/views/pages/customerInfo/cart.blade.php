@@ -15,8 +15,16 @@
                     <div>{{$products[$i]->id}}</div>
                 </div>
                 <div>
-                    <div>Trọng Lượng</div>
-                    <div>{{$products[$i]->size}}</div>
+                    <div>Kích thước</div>
+                    <div>
+                        @if(is_array($products[$i]->size))
+                            @foreach($products[$i]->size as $size)
+                                <span class="product-size">{{$size}}</span>
+                            @endforeach
+                        @else
+                            {{$products[$i]->size}}
+                        @endif
+                    </div>
                 </div>
                 <div id="so_luong">
                     <div>Số lượng</div>

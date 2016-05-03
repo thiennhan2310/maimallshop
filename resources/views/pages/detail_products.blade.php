@@ -4,16 +4,6 @@
 @endsection
 @section("content")
     <script src="{{asset("public/js/main.js")}}"></script>
-    <div id="fb-root"></div>
-    <script>(function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s);
-            js.id = id;
-            js.src = "//connect.facebook.net/lo_LA/sdk.js#xfbml=1&version=v2.4&appId=591679227637990";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));</script>
-
     <div class="product-price1">
         <p class="path">
             @foreach($arrayParentName as $name)
@@ -112,6 +102,18 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td>Kích thước</td>
+                                <td>
+                                    @if(is_array($product->size))
+                                        @foreach($product->size as $size)
+                                            <span class="product-size">{{$size}}</span>
+                                        @endforeach
+                                    @else
+                                        {{$product->size}}
+                                    @endif
+                                </td>
+                            </tr>
+                                <tr>
                                 <td>Mã sản phẩm</td>
                                 <td>{{$product->id}}</td>
                             </tr>
@@ -228,6 +230,15 @@
     <div class="title_corner" style="padding-top: 10px">
         <h3 align="center">BÌNH LUẬN</h3>
     </div>
+    <div id="fb-root"></div>
+    <script>(function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/lo_LA/sdk.js#xfbml=1&version=v2.4&appId=591679227637990";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
     <div class="fb-comments" data-width="600" data-href="http://www.maimallshop.com/{{$product->id}}.html"
          data-width="500" data-numposts="10"></div>
     <div class="clearfix"></div>

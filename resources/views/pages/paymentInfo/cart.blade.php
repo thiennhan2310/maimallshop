@@ -21,17 +21,18 @@
                         <div>{{$item->id}}</div>
                     </div>
                     <div>
-                        @if( $item->cate != "Áo" && $item->cate!="Váy" && $item->cate!="Đầm"  && $item->cate!="Quần")
-                        <div>Trọng Lượng</div>
-                            <div>{{$item->size}}</div>
-                        @else
-                        <div>Kích Cỡ</div>
+                        <div>Kích thước</div>
                         <div>
-                                                            <span class="product-size"
-                                                                  style="padding-right: 14px;padding-left: 14px">{{$item->size}}
-                                                               </span>
+                            @if(is_array($item->size))
+                                @foreach($item->size as $size)
+                                    <span class="product-size">{{$size}}</span>
+                                @endforeach
+                            @else
+                                {{$item}}
+                            @endif
+
                         </div>
-                        @endif
+
                     </div>
                     <div id="so_luong">
                         <div>Số lượng</div>

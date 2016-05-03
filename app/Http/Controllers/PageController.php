@@ -84,6 +84,11 @@ class PageController extends Controller
         if (Auth::check()) {
             $lovedProductsId = customer::LovedProduct("id");
         }
+        /* Kich thuoc quan áo thành array */
+        if ( str_contains($product->size , ",") ) {
+            $array = explode("," , $product->size);
+            $product->size = $array;
+        }
         return view("pages.detail_products", compact("product", "arrayParentName", "arrayCurrentCateName", "productSameCate", "lovedProductsId"));
     }
 
@@ -99,6 +104,14 @@ class PageController extends Controller
             $code = "---";
             $total = $cart->totalPrice($subTotal , null , null);
         }
+        /* Kich thuoc sản pham thoi trang thành array */
+        foreach ( $products as $product ) {
+            if ( str_contains($product->size , ",") ) {
+                $array = explode("," , $product->size);
+                $product->size = $array;
+            }
+        }
+
         return view("pages.shopping_cart" , compact("products" , "subTotal" , "code" , "total"));
     }
 
@@ -165,6 +178,13 @@ class PageController extends Controller
             $cart = new CartController();
             $products = $cart->getProduct();
             $total = $cart->subTotalPrice($products);
+            /* Kich thuoc sản pham thoi trang thành array */
+            foreach ( $products as $product ) {
+                if ( str_contains($product->size , ",") ) {
+                    $array = explode("," , $product->size);
+                    $product->size = $array;
+                }
+            }
             return view("pages.customerInfo.cart" , compact("products" , "total"));
         } else {
             return redirect()->route("home");

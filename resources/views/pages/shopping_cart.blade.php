@@ -55,7 +55,8 @@
                             <div class="cart-header-info">
                                 <div style="text-transform: uppercase;">Hãng SP</div>
                                 <div>{{$products[$i]->cate}}</div>
-                                <div>{{$products[$i]->name}}</div>
+                                <div><a href="{{url("chi-tiet")."/".$products[$i]->alias}}">{{$products[$i]->name}}</a>
+                                </div>
                             </div>
                             <img src="{{url("public/products/")."/".$products[$i]->img1}}" class="img-responsive" alt="{{$products[$i]->name}}"/>
                         </div>
@@ -66,8 +67,16 @@
                                        value="{{$products[$i]->so_luong}}" min="0" max="99" name="so_luong/{{$products[$i]->id}}"/>
                             </div>
                             <div>
-                                <div>Trọng Lượng</div>
-                                <div>{{$products[$i]->size}}</div>
+                                <div>Kích thước</div>
+                                <div>
+                                    @if(is_array($products[$i]->size))
+                                        @foreach($products[$i]->size as $size)
+                                            <span class="product-size">{{$size}}</span>
+                                        @endforeach
+                                    @else
+                                        {{$products[$i]->size}}
+                                    @endif
+                                </div>
                             </div>
                             <div>
                                 <div>Mã Sản Phẩm</div>
